@@ -1,7 +1,7 @@
 import HomePageCard from "@/components/homepagecard";
 
 export default async function Home() {
-  const API_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://reddit-beauty.vercel.app";
+  const API_URL = process.env.BASE_URL || "https://reddit-beauty.vercel.app";
 
   try {
     const res = await fetch(`${API_URL}/api/getData`, {

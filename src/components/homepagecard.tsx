@@ -1,5 +1,5 @@
-import Image
- from "next/image";
+import Image from "next/image";
+
 interface HomePageCardProps {
   image: string;
   slug: string;
