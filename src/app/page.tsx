@@ -1,9 +1,23 @@
 import HomePageCard from "@/components/homepagecard";
 
-export default function Home() {
+export default async function Home() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getData`);
+  const { success, data } = await res.json();
+
+  if (!success) return <p>Error fetching categories</p>;
+  
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <HomePageCard />
+    <div className="max-w-3xl mx-auto p-4">
+      <div className="grid grid-cols-1 gap-6">
+      {data
+        .sort((a: { readyForDisplay?: boolean }, b: { readyForDisplay?: boolean }) => 
+          Number(b.readyForDisplay || false) - Number(a.readyForDisplay || false)
+        )
+        .map((category: { id: string, title: string, image: string, slug: string, readyForDisplay?: boolean, subtitle: string }) => (
+          <HomePageCard key={category.id} title={category.title} image={category.image} slug={category.slug} readyForDisplay={category.readyForDisplay} subtitle={category.subtitle}/>
+        ))}
+      </div>
     </div>
   );
 }
+
