@@ -1,3 +1,5 @@
+import Image
+ from "next/image";
 interface HomePageCardProps {
   image: string;
   slug: string;
@@ -12,7 +14,7 @@ export default function HomePageCard({ image, slug, title, readyForDisplay, subt
     return (
       <a href={`/category/${slug}`} className="card lg:card-side bg-base-100 shadow-sm w-full outline outline-2 outline-gray-500">
         <figure>
-        <img src={image} alt={title} style={{ maxHeight: '150px', objectFit: 'cover' }}/>
+        <Image src={image} alt={title} style={{ maxHeight: '150px', objectFit: 'cover' }}/>
         </figure>
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
