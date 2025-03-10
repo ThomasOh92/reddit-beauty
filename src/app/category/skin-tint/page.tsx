@@ -3,7 +3,7 @@ import ProductCard from "@/components/productcard"
 export default function SkinTint() {
 
       return (
-        <div className="flex flex-col md:flex-row min-h-screen bg-gray-100 items-center md:items-start">
+        <div className="flex flex-col md:flex-row min-h-screen items-center md:items-start">
               {/* Left section */}
               <div className="text-2xl mb-8 mt-8 ml-4 bg-clip-text font-semibold">
                 <p>Discussions Analyzed</p>
