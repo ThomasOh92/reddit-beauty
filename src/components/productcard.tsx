@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
-      <Link href={`/skin-tint/${product.id}`} className="card w-60 shadow-sm m-4 max-h-80 border-2 border-gray-300">
+      <Link href={`/category/skin-tint/${product.id}`} className="card w-60 shadow-sm m-4 max-h-80 border-2 border-gray-300">
         <figure className="h-40 overflow-hidden">
           <img
             src="https://cdn1.feelunique.com/img/products/183109/sub-products/sephora_collection_reveal_the_real_soft_radiant_skin_tint_30ml-88346-variant-1721287055.jpg"
