@@ -8,32 +8,46 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const resolvedParams = await params;
 
   return (
-    <div className="p-8 mx-auto space-y-8">
+    <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md p-4 space-y-4">
+      {/* Image */}
+       <div className="flex flex-col space-y-4 items-center">
+          <img
+            src="https://cdn1.feelunique.com/img/products/183109/sub-products/sephora_collection_reveal_the_real_soft_radiant_skin_tint_30ml-88346-variant-1721287055.jpg"
+            alt="Product Image"
+            className="w-80 h-80 "
+          />
+        </div>
+
+      {/* Text Descriptions */}
+      <div className='pl-4 pr mb-10'>
+          <p className="text-l font-bold">SEPHORA COLLECTION Reveal The Real Soft Radiant Skin Tint 30ml</p>
+          <p className="text-xs">Discover the Sephora Collection skin tint: Reveal the Real. This ultra-sensorial serum texture offers the perfect combination of a radiant blurred finish with instant correction.</p>
+          <a href="#" className="btn btn-outline btn-warning">Amazon</a>
+      </div>
+
+
+
       {/* Reddit Reviews Section */}
-      <div className="bg-base-200 p-4 rounded-lg w-full">
-        <h2 className="text-xl font-semibold">Reddit Threads</h2>
-        <ul className="mt-2 space-y-2 text-sm">
-          <li className="p-2 rounded-lg bg-white">r/MakeUpAddiction: How to stop makeup slipping on oily skin? - Latest comment 24 Jan 2025</li>
-          <li className="p-2 rounded-lg bg-white">r/SkincareAddiction: Best products for dry skin? - Latest comment 18 Feb 2025</li>
-          <li className="p-2 rounded-lg bg-white">r/BeautyGuru: Is this product worth the price? - Latest comment 10 Mar 2025</li>
-          <li className="p-2 rounded-lg bg-white">r/MakeupLovers: Dewy finish recommendations? - Latest comment 05 Apr 2025</li>
-          <li className="p-2 rounded-lg bg-white">r/BeautyAddicts: How to blend foundation seamlessly? - Latest comment 22 May 2025</li>
-          <li className="p-2 rounded-lg bg-white">r/MakeupAddicts: Best lightweight foundations? - Latest comment 15 Jun 2025</li>
-          <li className="p-2 rounded-lg bg-white">r/SkincareJunkie: Limited shade range issues? - Latest comment 30 Jul 2025</li>
-        </ul>
+      <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border rounded-none">
+          <input type="checkbox" defaultChecked />
+          <div className="collapse-title font-semibold">Reddit Threads about this product</div>
+          <ul className="collapse-content text-xs mt-2">
+            <li className="pb-1">r/MakeUpAddiction: How to stop makeup slipping on oily skin? - Latest comment 24 Jan 2025</li>
+            <li className="pb-1">r/SkincareAddiction: Best products for dry skin? - Latest comment 18 Feb 2025</li>
+            <li className="pb-1">r/BeautyGuru: Is this product worth the price? - Latest comment 10 Mar 2025</li>
+            <li className="pb-1">r/MakeupLovers: Dewy finish recommendations? - Latest comment 05 Apr 2025</li>
+            <li className="pb-1">r/BeautyAddicts: How to blend foundation seamlessly? - Latest comment 22 May 2025</li>
+            <li className="pb-1">r/MakeupAddicts: Best lightweight foundations? - Latest comment 15 Jun 2025</li>
+            <li className="pb-1">r/SkincareJunkie: Limited shade range issues? - Latest comment 30 Jul 2025</li>
+          </ul>
       </div>
 
       {/* Product Info and Insights Section */}
-      <h1 className="text-4xl font-bold">Product Name</h1>
       <div className="flex flex-col items-center space-y-4">
-        <img
-          src="https://cdn1.feelunique.com/img/products/183109/sub-products/sephora_collection_reveal_the_real_soft_radiant_skin_tint_30ml-88346-variant-1721287055.jpg"
-          alt="Product Image"
-          className="w-80 h-80 rounded-lg shadow-lg"
-        />
+
         <div className="space-y-4 text-center">
           <p className="text-lg">This is a high-quality skin tint that provides a natural glow and lightweight coverage.</p>
-          <a href="#" className="btn btn-primary">Buy Now</a>
+          
         </div>
       </div>
 
