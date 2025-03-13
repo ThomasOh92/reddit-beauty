@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 interface ProductPageProps {
   params: Promise<{ 'product-id': string }>
 }
