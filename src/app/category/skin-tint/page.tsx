@@ -3,12 +3,12 @@ import ProductCard from "@/components/productcard"
 export default function SkinTint() {
 
       const products = [
-        { id: "123124"},
-        { id: "232432"},
-        { id: "442332"},
-        { id: "222124"},
-        { id: "111112"},
-        { id: "766632"},
+        { id: "123124", rank: 1},
+        { id: "232432", rank: 2},
+        { id: "442332", rank: 3},
+        { id: "222124", rank: 4},
+        { id: "111112", rank: 5},
+        { id: "766632", rank: 6},
       ];
       
       return (
@@ -33,14 +33,12 @@ export default function SkinTint() {
             </ul>
 
           </div>
-             
-
-
-              <div className="flex flex-wrap">
-                {products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+          
+          {/* Individual Products */}
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+          
         </div>
     )
 }
