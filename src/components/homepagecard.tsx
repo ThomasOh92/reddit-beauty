@@ -12,7 +12,7 @@ export default function HomePageCard({ image, slug, title, readyForDisplay, subt
   //For Cards that are ready to go
   if (readyForDisplay) {
     return (
-      <a href={`/category/${slug}`} className="card lg:card-side bg-base-100 shadow-sm w-full outline outline-2 outline-gray-500">
+      <a href={`/category/${slug}`} className="card card-side bg-base-100 shadow-lg w-full rounded-none">
         <figure>
         <Image src={image} alt={title} width={150} height={150} style={{ maxHeight: '150px'}}/>
         </figure>
@@ -27,7 +27,7 @@ export default function HomePageCard({ image, slug, title, readyForDisplay, subt
   //For Cards that are not ready yet
   else {
     return (
-      <div className="card card-border bg-base-100 w-full outline outline-1 outline-gray-500 opacity-50">
+      <div className="card card-side bg-base-100 shadow-sm w-full opacity-50">
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
           <p>Reddit Reviews coming soon for this category</p>
