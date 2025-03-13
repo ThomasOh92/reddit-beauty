@@ -4,6 +4,8 @@
   themes: light --default;
 }
 
+@plugin "@tailwindcss/typography";
+
 :root {
   --background: #faf0e6;
   --foreground: #171717;
