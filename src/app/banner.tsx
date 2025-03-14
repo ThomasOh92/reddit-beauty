@@ -1,15 +1,16 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Banner = () => {
   return (
     
     <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto border-b border-gray-300 pb-4">
       {/* Left Side */}
-      <a href="/" className="btn btn-ghost text-xl pl-0">
+      <Link href="/" className="btn btn-ghost text-xl pl-0">
         <Image src="/redditbeautyicon.png" alt="Icon" width={60} height={60}/>
         <p className="text-xl">Reddit Beauty </p>
-      </a>
+      </Link>
 
       {/* Right Side */}
       <div className="flex-none relative z-50">
@@ -18,7 +19,7 @@ const Banner = () => {
           <details>
           <summary className="text-xs">Categories</summary>
           <ul className="bg-base-200 z-50 mt-0">
-            <li><a href="/category/skin-tint" className="text-xs">Skin Tint</a></li>
+            <li><Link href="/category/skin-tint" className="text-xs">Skin Tint</Link></li>
           </ul>
           </details>
           </li>
