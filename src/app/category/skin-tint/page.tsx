@@ -19,7 +19,7 @@ export default function SkinTint() {
             </h1>
 
           {/* Discussions Analyzed */}
-          <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border">
+          <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4">
             <input type="checkbox" defaultChecked />
             <div className="collapse-title font-semibold">Discussions Analyzed</div>
             <div className="collapse-content">

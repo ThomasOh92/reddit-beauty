@@ -12,7 +12,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
-      <Link href={`/category/skin-tint/${product.id}`} className="card card-side w-full bg-base-100 shadow-lg w-full rounded-none">
+      <Link href={`/category/skin-tint/${product.id}`} className="card card-side w-full bg-base-100 shadow w-full rounded-none mb-1">
         <div className="badge badge-soft badge-secondary badge-sm mt-2 ml-2">{product.rank}</div>
         <figure className="h-30 overflow-hidden flex">
           <img

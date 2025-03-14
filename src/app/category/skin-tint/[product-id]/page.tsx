@@ -22,7 +22,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <p className="text-l font-bold line-clamp-2">SEPHORA COLLECTION Reveal The Real Soft Radiant Skin Tint 30ml</p>
           <p className="text-xs line-clamp-3">Discover the Sephora Collection skin tint: Reveal the Real. This ultra-sensorial serum texture offers the perfect combination of a radiant blurred finish with instant correction.</p>
         </div>
-        <a href="#" className="btn btn-outline btn-warning ml-4 mr-2">Amazon</a>
+        <a href="#" className="btn btn-warning ml-4 mr-2 text-white font-bold">Amazon</a>
       </div>
 
 
@@ -53,34 +53,34 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </ul>
 
         {/* Likes and Dislikes Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-6">
           <div className="bg-green-100 p-6 rounded-lg shadow">
-        <h2 className="text-l font-semibold text-green-700">Likes</h2>
-        <ul className="mt-4 text-xs list-inside space-y-2">
-          <li className="flex items-center">
-            <span className="text-green-500 mr-2">✔</span> Lightweight and breathable
-          </li>
-          <li className="flex items-center">
-            <span className="text-green-500 mr-2">✔</span> Gives a dewy, natural finish
-          </li>
-          <li className="flex items-center">
-            <span className="text-green-500 mr-2">✔</span> Blends effortlessly
-          </li>
-          <li className="flex items-center">
-            <span className="text-green-500 mr-2">✔</span> Gives a dewy, natural finish
-          </li>
-          <li className="flex items-center">
-            <span className="text-green-500 mr-2">✔</span> Blends effortlessly
-          </li>
-        </ul>
+            <h2 className="text-l font-semibold text-green-700">Likes</h2>
+            <ul className="mt-4 text-xs list-inside space-y-2">
+              <li className="flex items-center">
+                <span className="text-green-500 mr-2">✔</span> Lightweight and breathable
+              </li>
+              <li className="flex items-center">
+                <span className="text-green-500 mr-2">✔</span> Gives a dewy, natural finish
+              </li>
+              <li className="flex items-center">
+                <span className="text-green-500 mr-2">✔</span> Blends effortlessly
+              </li>
+              <li className="flex items-center">
+                <span className="text-green-500 mr-2">✔</span> Gives a dewy, natural finish
+              </li>
+              <li className="flex items-center">
+                <span className="text-green-500 mr-2">✔</span> Blends effortlessly
+              </li>
+            </ul>
           </div>
           <div className="bg-red-100 p-6 rounded-lg shadow">
-        <h2 className="text-l font-semibold text-red-700">Dislikes</h2>
-        <ul className="mt-4 text-xs list-disc list-inside space-y-2">
-          <li>Not ideal for oily skin</li>
-          <li>Can be expensive</li>
-          <li>Limited shade range</li>
-        </ul>
+          <h2 className="text-l font-semibold text-red-700">Dislikes</h2>
+            <ul className="mt-4 text-xs list-disc list-inside space-y-2">
+              <li>Not ideal for oily skin</li>
+              <li>Can be expensive</li>
+              <li>Limited shade range</li>
+            </ul>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Banner from "./banner";
+import Banner from "@/components/banner";
 import { open_sans } from './fonts'
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Reddit Beauty",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <Banner />
         {children}
+        <Footer/>
       </body>
     </html>
   );
