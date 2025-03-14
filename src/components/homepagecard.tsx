@@ -17,8 +17,8 @@ export default function HomePageCard({ image, slug, title, readyForDisplay, subt
         <Image src={image} alt={title} width={150} height={150} style={{ maxHeight: '150px'}}/>
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{title}</h2>
-          <p>{subtitle}</p>
+          <h2 className="card-title text-sm">{title}</h2>
+          <p className="text-xs">{subtitle}</p>
         </div>
       </a>
     )
