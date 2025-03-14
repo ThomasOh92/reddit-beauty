@@ -12,9 +12,9 @@ export default function HomePageCard({ image, slug, title, readyForDisplay, subt
   //For Cards that are ready to go
   if (readyForDisplay) {
     return (
-      <a href={`/category/${slug}`} className="card card-side bg-base-100 shadow-lg w-full rounded-none">
-        <figure>
-        <Image src={image} alt={title} width={150} height={150} style={{ maxHeight: '150px'}}/>
+      <a href={`/category/${slug}`} className="card card-side shadow-lg w-full rounded-none">
+        <figure className="w-60">
+          <Image src={image} alt={title} objectFit="cover" width={150} height={150}/>
         </figure>
         <div className="card-body">
           <h2 className="card-title text-sm">{title}</h2>

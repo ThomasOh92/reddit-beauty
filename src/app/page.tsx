@@ -14,7 +14,7 @@ export default async function Home() {
     if (!success) throw new Error("API request unsuccessful");
 
     return (
-      <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-4">
+      <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
         <div className="grid grid-cols-1 gap-6">
             {data
             .sort((a: { readyForDisplay?: boolean }, b: { readyForDisplay?: boolean }) => 
