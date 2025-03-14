@@ -19,10 +19,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
       {/* Text Descriptions */}
       <div className='pl-4 pr mb-8 flex justify-between items-center'>
         <div className='max-w-[400px]'>
-          <p className="text-l font-bold truncate">SEPHORA COLLECTION Reveal The Real Soft Radiant Skin Tint 30ml</p>
-          <p className="text-xs">Discover the Sephora Collection skin tint: Reveal the Real. This ultra-sensorial serum texture offers the perfect combination of a radiant blurred finish with instant correction.</p>
+          <p className="text-l font-bold line-clamp-2">SEPHORA COLLECTION Reveal The Real Soft Radiant Skin Tint 30ml</p>
+          <p className="text-xs line-clamp-3">Discover the Sephora Collection skin tint: Reveal the Real. This ultra-sensorial serum texture offers the perfect combination of a radiant blurred finish with instant correction.</p>
         </div>
-        <a href="#" className="btn btn-outline btn-warning mr-8">Amazon</a>
+        <a href="#" className="btn btn-outline btn-warning ml-4 mr-2">Amazon</a>
       </div>
 
 
@@ -32,13 +32,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <input type="checkbox" defaultChecked />
           <div className="collapse-title font-semibold">Reddit Threads about this product</div>
           <ul className="collapse-content text-xs ">
-            <li className="pb-1 truncate">r/MakeUpAddiction: How to stop makeup slipping on oily skin? - Latest comment 24 Jan 2025</li>
-            <li className="pb-1 truncate">r/SkincareAddiction: Best products for dry skin? - Latest comment 18 Feb 2025</li>
-            <li className="pb-1 truncate">r/BeautyGuru: Is this product worth the price? - Latest comment 10 Mar 2025</li>
-            <li className="pb-1 truncate">r/MakeupLovers: Dewy finish recommendations? - Latest comment 05 Apr 2025</li>
-            <li className="pb-1 truncate">r/BeautyAddicts: How to blend foundation seamlessly? - Latest comment 22 May 2025</li>
-            <li className="pb-1 truncate">r/MakeupAddicts: Best lightweight foundations? - Latest comment 15 Jun 2025</li>
-            <li className="pb-1 truncate">r/SkincareJunkie: Limited shade range issues? - Latest comment 30 Jul 2025</li>
+            <li className="pb-1 line-clamp-1">r/MakeUpAddiction: How to stop makeup slipping on oily skin? - Latest comment 24 Jan 2025</li>
+            <li className="pb-1 line-clamp-1">r/SkincareAddiction: Best products for dry skin? - Latest comment 18 Feb 2025</li>
+            <li className="pb-1 line-clamp-1">r/BeautyGuru: Is this product worth the price? - Latest comment 10 Mar 2025</li>
+            <li className="pb-1 line-clamp-1">r/MakeupLovers: Dewy finish recommendations? - Latest comment 05 Apr 2025</li>
+            <li className="pb-1 line-clamp-1">r/BeautyAddicts: How to blend foundation seamlessly? - Latest comment 22 May 2025</li>
+            <li className="pb-1 line-clamp-1">r/MakeupAddicts: Best lightweight foundations? - Latest comment 15 Jun 2025</li>
+            <li className="pb-1 line-clamp-1">r/SkincareJunkie: Limited shade range issues? - Latest comment 30 Jul 2025</li>
           </ul>
       </div>
 

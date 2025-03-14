@@ -15,13 +15,14 @@ export default async function Home() {
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
+        <h2 className="font-bold m-2 text-neutral">Most Discussed on Reddit</h2>
         <div className="grid grid-cols-1 gap-6">
             {data
             .sort((a: { readyForDisplay?: boolean }, b: { readyForDisplay?: boolean }) => 
               Number(b.readyForDisplay || false) - Number(a.readyForDisplay || false)
             )
-            .map((category: { id: string, title: string, image: string, slug: string, readyForDisplay?: boolean, subtitle: string }) => (
-              <HomePageCard key={category.id} title={category.title} image={category.image} slug={category.slug} readyForDisplay={category.readyForDisplay} subtitle={category.subtitle}/>
+            .map((category: { id: string, title: string, slug: string, readyForDisplay?: boolean, subtitle: string, lastUpdated: string }) => (
+              <HomePageCard key={category.id} title={category.title} slug={category.slug} readyForDisplay={category.readyForDisplay} subtitle={category.subtitle} lastUpdated={category.lastUpdated}/>
             ))}
         </div>
       </div>
