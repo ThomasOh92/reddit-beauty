@@ -24,13 +24,13 @@ export default function SkinTint() {
             <div className="collapse-title font-semibold">Discussions Analyzed</div>
             <div className="collapse-content">
               <ul className="text-xs mt-2">
-                <li className="pb-1 line-clamp-1">r/MakeUpAddiction: How to stop making? - Latest comment 24 Jan 2025</li>
-                <li className="pb-1 line-clamp-1">r/SkincareAddiction: Best products for dry skin? - Latest comment 18 Feb 2025</li>
-                <li className="pb-1 line-clamp-1">r/BeautyGuru: Is this product worth the price? - Latest comment 10 Mar 2025</li>
-                <li className="pb-1 line-clamp-1">r/MakeupLovers: Dewy finish recommendations? - Latest comment 05 Apr 2025</li>
-                <li className="pb-1 line-clamp-1">r/BeautyAddicts: How to blend foundation seamlessly? - Latest comment 22 May 2025</li>
-                <li className="pb-1 line-clamp-1">r/MakeupAddicts: Best lightweight foundations? - Latest comment 15 Jun 2025</li>
-                <li className="pb-1 line-clamp-1">r/SkincareJunkie: Limited shade range issues? - Latest comment 30 Jul 2025</li>
+                <li className="mb-1 line-clamp-1">r/MakeUpAddiction: How to stop making? - Latest comment 24 Jan 2025</li>
+                <li className="mb-1 line-clamp-1">r/SkincareAddiction: Best products for dry skin? - Latest comment 18 Feb 2025</li>
+                <li className="mb-1 line-clamp-1">r/BeautyGuru: Is this product worth the price? - Latest comment 10 Mar 2025</li>
+                <li className="mb-1 line-clamp-1">r/MakeupLovers: Dewy finish recommendations? - Latest comment 05 Apr 2025</li>
+                <li className="mb-1 line-clamp-1">r/BeautyAddicts: How to blend foundation seamlessly? - Latest comment 22 May 2025</li>
+                <li className="mb-1 line-clamp-1">r/MakeupAddicts: Best lightweight foundations? - Latest comment 15 Jun 2025</li>
+                <li className="mb-1 line-clamp-1">r/SkincareJunkie: Limited shade range issues? - Latest comment 30 Jul 2025</li>
               </ul>
             </div>
           </div>
