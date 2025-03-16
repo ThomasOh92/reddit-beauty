@@ -29,9 +29,9 @@ export default function AboutPage() {
 
             {/* Team Section */}
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
-                <h2 className="text-l font-semibold">Meet Our Team</h2>
+                <h2 className="text-l font-semibold">The Team</h2>
                 <p className="mt-4 text-sm">
-                    Our team consists of data analysts, beauty enthusiasts, and tech professionals who are passionate about uncovering the best beauty insights from Reddit&apos;s communities.
+                    We are two developers who are passionate about building this platform to help beauty enthusiasts discover the best insights from Reddit&apos;s communities.
                 </p>
             </div>
 
@@ -39,7 +39,7 @@ export default function AboutPage() {
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
                 <h2 className="text-l font-semibold">Get in Touch</h2>
                 <p className="mt-4 text-sm">
-                    Have questions or feedback? Feel free to reach out to us at <a href="mailto:contact@beautyplatform.com" className="text-blue-500 underline">contact@beautyplatform.com</a>. We&apos;d love to hear your thoughts!
+                    Have questions or feedback? Feel free to reach out to us at <a href="mailto:ohcsthomas@gmail.com" className="text-blue-500 underline">ohcsthomas@gmail.com</a>. We&apos;d love to hear your thoughts!
                 </p>
             </div>
         </div>
