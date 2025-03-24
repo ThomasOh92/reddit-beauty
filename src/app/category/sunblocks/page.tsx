@@ -20,7 +20,7 @@ export default async function Sunblock() {
     if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
 
     const { success, data } = await res.json();
-    const discussion_data = data[0].subcollections.discussions;
+    const discussion_data = data.categoryDiscussionData;
     if (!success) throw new Error("API request unsuccessful");
 
     return (

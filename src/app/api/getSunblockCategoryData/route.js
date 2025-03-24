@@ -3,36 +3,15 @@ import { db } from "../../../../lib/firebaseAdmin.js";
 
 export async function GET() {
   try {
-    const snapshot = await db.collection("sunblocks").get();
-    const data = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-      subcollections: {
-        discussions: doc.ref.collection("discussions").get().then((subSnapshot) =>
-          subSnapshot.docs.map((subDoc) => ({
-            id: subDoc.id,
-            ...subDoc.data(),
-          }))
-        ),
-        products: doc.ref.collection("products").get().then((subSnapshot) =>
-          subSnapshot.docs.map((subDoc) => ({
-            id: subDoc.id,
-            ...subDoc.data(),
-          }))
-        ),
-      },
-    }));
-    // const resolvedData = await Promise.all(
-    //   rawData.map(async (item) => ({
-    //     ...item,
-    //     subcollections: {
-    //       discussions: await item.subcollections.discussions,
-    //       products: await item.subcollections.products,
-    //     },
-    //   }))
-    // );
-    // const data = resolvedData;
-
+    const categoryMetaData = await db.collection("sunblocks").get();
+    const categoryDiscussionData = await db.collection("sunblocks").doc("sunblocks-category").collection("discussions").get();
+    const categoryProductData = await db.collection("sunblocks").doc("sunblocks-category").collection("products").get();
+   
+    const data = {
+      ...categoryMetaData.docs.map((doc) => ({ id: doc.id, ...doc.data() }))[0],
+      categoryDiscussionData: categoryDiscussionData.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
+      categoryProductData: categoryProductData.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
+    };
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
