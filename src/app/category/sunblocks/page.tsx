@@ -50,7 +50,7 @@ export default async function Sunblock() {
           </div>
           
           {/* Individual Products */}
-          {products.map((product: any) => (
+          {products.map((product: { id: string; rank: number }) => (
             <ProductCard key={product.id} product={product} />
           ))}
           
