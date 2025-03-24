@@ -20,7 +20,6 @@ export default async function Sunblock() {
     if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
 
     const { success, data } = await res.json();
-    console.log(data[0].subcollections.discussions)
     const discussion_data = data[0].subcollections.discussions;
     if (!success) throw new Error("API request unsuccessful");
 
@@ -37,7 +36,7 @@ export default async function Sunblock() {
             <div className="collapse-title font-semibold">Discussions Analyzed</div>
             <div className="collapse-content">
                 <ul className="text-xs mt-2">
-                {discussion_data.map((discussion: any, index: number) => (
+                {discussion_data.map((discussion: {id: string, Subreddit: string, thread_url: string, date: string, thread_title: string}, index: number) => (
                     <li key={index} className="mb-1 line-clamp-1">
                       <a href={discussion.thread_url} target="_blank" rel="noopener noreferrer" className="link link-hover">
                         R/{discussion.Subreddit}: {discussion.thread_title}  
