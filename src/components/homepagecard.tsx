@@ -13,7 +13,7 @@ export default function HomePageCard({ slug, title, readyForDisplay, subtitle, l
       <a href={`/category/${slug}`} className="card shadow-lg w-full rounded-none bg-secondary-content">
         <div className="card-body p-4">
           <h2 className="text-xs font-bold card-title">
-            Category: <span className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-500">Skin Tint</span>
+            <span className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-500">{title}</span>
           </h2>
           <p className="text-xs">{subtitle}</p>
           <p className="text-xs">Last Updated On: {lastUpdated}</p>
