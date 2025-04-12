@@ -5,33 +5,23 @@ export default function AboutPage() {
             <div className="flex flex-col space-y-4 items-center">
                 <h1 className="text-2xl font-bold">About Us</h1>
                 <p className="text-sm text-gray-600 text-center">
-                    Welcome! We specialize in aggregating and analyzing beauty reviews and recommendations from Reddit to help you make informed decisions.
+                    Welcome! We work on aggregating and analyzing the sea of beauty / skincare content from Reddit
                 </p>
             </div>
 
             {/* Mission Section */}
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
-                <h2 className="text-l font-semibold">Our Mission</h2>
+                <h2 className="text-l font-semibold">Our Approach</h2>
                 <p className="mt-4 text-sm">
-                    Our mission is to empower beauty enthusiasts by providing insights from Reddit&apos;s vibrant communities, offering reliable and data-driven recommendations.
+                    We take an iterative approach to building our platform. We are constantly refining our analysis approach by using different LLM models, human verification checks, etc. The idea is to provide people who visit our site with insights from Reddit that are actually useful.
                 </p>
-            </div>
-
-            {/* Values Section */}
-            <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
-                <h2 className="text-l font-semibold">Our Values</h2>
-                <ul className="mt-4 text-sm list-disc list-inside">
-                    <li>Transparency in data aggregation</li>
-                    <li>Community-driven insights from Reddit</li>
-                    <li>Passion for beauty and self-expression</li>
-                </ul>
             </div>
 
             {/* Team Section */}
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
                 <h2 className="text-l font-semibold">The Team</h2>
                 <p className="mt-4 text-sm">
-                    We are two developers who are passionate about building this platform to help beauty enthusiasts discover the best insights from Reddit&apos;s communities.
+                    We are two developers who enjoy building this platform to help people discover the best insights from Reddit&apos;s communities.
                 </p>
             </div>
 
