@@ -19,7 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
       <div className="card card-side w-full bg-base-100 shadow w-full rounded-none mb-1">
         <div className='flex items-center'>
-          <figure className="h-30 w-30 overflow-hidden flex ml-4 ">
+          <figure className="h-15 w-15 overflow-hidden flex ml-2 ">
             <img
               src={product.image_url}
               alt={product.product_name}
@@ -34,7 +34,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className="text-xs text-error"><strong>-</strong> {product.negative_keywords.join(', ')}</p>
         </div>
         <div className="flex items-center">
-          <a href={product.amazon_url} className="btn btn-warning mr-2 text-white font-bold">Amazon</a>
+          <a href={product.amazon_url} className="btn btn-warning mr-2 text-white font-bold h-10 w-15 text-xs">Amazon</a>
         </div>
       </div>
   );
