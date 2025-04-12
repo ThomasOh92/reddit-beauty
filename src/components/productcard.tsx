@@ -3,7 +3,13 @@ import Link from "next/link";
 
 interface Product {
   id: string;
-  rank: number;
+  product_name: string; 
+  negative_keywords: Array<string>; 
+  positive_keywords: Array<string>; 
+  positive_mentions: number; 
+  negative_mentions: number; 
+  amazon_url: string;
+  image_url: string; 
 }
 
 interface ProductCardProps {
@@ -12,21 +18,26 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
-      <Link href={`/category/skin-tint/${product.id}`} className="card card-side w-full bg-base-100 shadow w-full rounded-none mb-1">
-        <div className="badge badge-soft badge-secondary badge-sm mt-2 ml-2">{product.rank}</div>
-        <figure className="h-30 overflow-hidden flex">
-          <img
-            src="https://cdn1.feelunique.com/img/products/183109/sub-products/sephora_collection_reveal_the_real_soft_radiant_skin_tint_30ml-88346-variant-1721287055.jpg"
-            alt="Skin Tint"
-            className="object-contain w-full h-full"
-          />
-        </figure>
-        <div className="card-body p-4">
-          <p className="text-s font-bold"> SEPHORA COLLECTION Reveal The Real Soft Radiant Skin Tint 30ml </p>
-            <p className="text-xs line-clamp-1">47 Reddit comments mentioned this product, 35 were positive</p>
-          <p className="text-xs text-accent">Lightweight, Easy Application, Natural Finish</p>
+      <div className="card card-side w-full bg-base-100 shadow w-full rounded-none mb-1">
+        <div className='flex items-center'>
+          <figure className="h-30 w-30 overflow-hidden flex ml-4 ">
+            <img
+              src={product.image_url}
+              alt={product.product_name}
+              className="object-contain w-full h-full"
+            />
+          </figure>
         </div>
-      </Link>
+        <div className="card-body p-4">
+          <p className="text-s font-bold line-clamp-1">{product.product_name}</p>
+          <p className="text-xs line-clamp-1">{product.positive_mentions} positive mentions on Reddit, {product.negative_mentions} negative mentions</p>
+          <p className="text-xs text-success"><strong>+</strong> {product.positive_keywords.join(', ')}</p>
+          <p className="text-xs text-error"><strong>-</strong> {product.negative_keywords.join(', ')}</p>
+        </div>
+        <div className="flex items-center">
+          <a href={product.amazon_url} className="btn btn-warning mr-2 text-white font-bold">Amazon</a>
+        </div>
+      </div>
   );
 };
 

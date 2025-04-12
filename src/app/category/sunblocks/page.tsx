@@ -3,14 +3,6 @@ import ProductCard from "@/components/productcard"
 export default async function Sunblock() {
 
   const API_URL = process.env.BASE_URL || "https://reddit-beauty.vercel.app";
-  const products = [
-    { id: "123124", rank: 1},
-    { id: "232432", rank: 2},
-    { id: "442332", rank: 3},
-    { id: "222124", rank: 4},
-    { id: "111112", rank: 5},
-    { id: "766632", rank: 6},
-  ];
 
   try {
     const res = await fetch(`${API_URL}/api/getSunblockCategoryData`, {
@@ -21,6 +13,7 @@ export default async function Sunblock() {
 
     const { success, data } = await res.json();
     const discussion_data = data.categoryDiscussionData;
+    const products = data.categoryProductData;
     if (!success) throw new Error("API request unsuccessful");
 
     return (
@@ -49,7 +42,7 @@ export default async function Sunblock() {
           </div>
           
           {/* Individual Products */}
-          {products.map((product: { id: string; rank: number }) => (
+          {products.map((product: { id: string; product_name: string; negative_keywords: Array<string>; positive_keywords: Array<string>; positive_mentions: number; negative_mentions: number; amazon_url: string; image_url: string}) => (
             <ProductCard key={product.id} product={product} />
           ))}
           
