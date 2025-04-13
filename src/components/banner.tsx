@@ -24,6 +24,7 @@ const Banner = () => {
             <summary className="text-xs">Categories</summary>
             <ul className="bg-base-200 z-50 mt-0">
               <li><Link href="/category/sunblocks" className="text-xs">Sunblocks</Link></li>
+              <li><Link href="/category/skintints" className="text-xs">Skin Tints</Link></li>
             </ul>
             </details>
           </li>

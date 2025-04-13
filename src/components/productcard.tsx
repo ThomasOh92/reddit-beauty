@@ -8,7 +8,8 @@ interface Product {
   positive_mentions: number; 
   negative_mentions: number; 
   amazon_url: string;
-  image_url: string; 
+  image_url: string;
+  sephora_url?: string; // Optional property 
 }
 
 interface ProductCardProps {
@@ -29,12 +30,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         <div className="card-body p-4">
           <p className="text-s font-bold line-clamp-1">{product.product_name}</p>
-          <p className="text-xs line-clamp-1">{product.positive_mentions} positive mentions on Reddit, {product.negative_mentions} negative mentions</p>
-          <p className="text-xs text-success"><strong>+</strong> {product.positive_keywords.join(', ')}</p>
-          <p className="text-xs text-error"><strong>-</strong> {product.negative_keywords.join(', ')}</p>
-        </div>
-        <div className="flex items-center">
-          <a href={product.amazon_url} className="btn btn-warning mr-2 text-white font-bold h-10 w-15 text-xs">Amazon</a>
+            <div className="flex justify-between items-center">
+              <div className='pr-2'>
+                <p className="text-xs line-clamp-1">{product.positive_mentions} positive mentions on Reddit, {product.negative_mentions} negative mentions</p>
+                <p className="text-xs text-success"><strong>+</strong> {product.positive_keywords.join(', ')}</p>
+                <p className="text-xs text-error"><strong>-</strong> {product.negative_keywords.join(', ')}</p>
+              </div>
+              <div className="flex items-center">
+                {product.amazon_url ? (
+                <a href={product.amazon_url} className="btn btn-warning text-white font-bold h-10 w-15 text-xs">Amazon</a>
+                ) : product.sephora_url ? (
+                <a href={product.sephora_url} className="btn btn-neutral text-white font-bold h-10 w-15 text-xs">Sephora</a>
+                ) : (
+                <button className="btn btn-disabled font-bold h-10 w-15 text-xs" disabled>No Link Available</button>
+                )}
+              </div>
+            </div>
         </div>
       </div>
   );
