@@ -3,6 +3,7 @@ import "./globals.css";
 import Banner from "@/components/banner";
 import { open_sans } from './fonts'
 import Footer from "@/components/footer";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "Reddit Beauty",
@@ -20,6 +21,7 @@ export default function RootLayout({
         <Banner />
         {children}
         <Footer/>
+        <Analytics />
       </body>
     </html>
   );
