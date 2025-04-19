@@ -18,10 +18,11 @@ const Banner = () => {
       {/* Right Side */}
       <div className="flex-none relative z-50">
         <ul className="menu menu-horizontal bg-base-200">
-          <li><Link href="/about" className="text-xs">About</Link></li>
-          <li>
+            <li><Link href="/about" className="text-xs px-1">About</Link></li>
+            <li><Link href="https://forms.gle/ND4jt144jW5Z6bkC9" className="text-xs px-1">Feedback</Link></li>
+            <li>
             <details>
-            <summary className="text-xs">Categories</summary>
+            <summary className="text-xs px-1">Categories</summary>
             <ul className="bg-base-200 z-50 mt-0">
               <li><Link href="/category/sunblocks" className="text-xs">Sunblocks</Link></li>
               <li><Link href="/category/skintints" className="text-xs">Skin Tints</Link></li>
