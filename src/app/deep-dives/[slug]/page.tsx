@@ -1,14 +1,14 @@
 import { client } from '../../../sanity/lib/client'
 import { groq } from 'next-sanity'
-import { PortableText } from '@portabletext/react'
+import { PortableText, PortableTextBlock } from '@portabletext/react'
 
 type Post = {
   title: string
-  body: any
+  body: PortableTextBlock[]
 }
 
 export default async function DeepDivePage({ params }: { params: { slug: string } }) {
-  const { slug } = params
+  const { slug } = await params
 
   const post: Post = await client.fetch(
     groq`*[_type == "post" && slug.current == $slug][0]{
