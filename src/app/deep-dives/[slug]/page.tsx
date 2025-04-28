@@ -7,7 +7,13 @@ type Post = {
   body: PortableTextBlock[]
 }
 
-export default async function DeepDivePage({ params }: { params: { slug: string } }) {
+type Params = {
+  params: {
+    slug: string
+  }
+}
+
+export default async function DeepDivePage({ params }: Params) {
   const { slug } = await params
 
   const post: Post = await client.fetch(
