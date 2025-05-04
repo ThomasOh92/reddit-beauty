@@ -1,4 +1,5 @@
 import ProductCard from "@/components/productcard"
+import Link from "next/link"
 
 export default async function Sunblock() {
 
@@ -41,6 +42,15 @@ export default async function Sunblock() {
             </div>
           </div>
           
+          {/* Posts */}
+            <div className="text-center my-4">
+              Detailed Analysis: {" "}
+              <Link href="/posts/sunscreen-reddit-ranking" className="text-blue-500 underline font-semibold hover:text-blue-700">
+                Sunscreen Upvote Ranking
+              </Link>
+              
+            </div>
+
           {/* Individual Products */}
           {products.map((product: { id: string; product_name: string; negative_keywords: Array<string>; positive_keywords: Array<string>; positive_mentions: number; negative_mentions: number; amazon_url: string; image_url: string}) => (
             <ProductCard key={product.id} product={product} />
