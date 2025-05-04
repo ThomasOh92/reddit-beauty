@@ -27,11 +27,11 @@ export default async function DeepDivePage({ params }: { params: Promise<Params>
   }
 
   return (
-    <main className="p-8 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">{post.title}</h1>
-      <div className="prose prose-lg">
+    <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
+      <h2 className="font-bold m-2 text-neutral">{post.title}</h2>
+      <div className="card-body p-4 prose prose-lg"> 
         <PortableText value={post.body} />
       </div>
-    </main>
+    </div>
   )
 }
