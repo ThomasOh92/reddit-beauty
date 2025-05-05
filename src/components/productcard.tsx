@@ -7,16 +7,18 @@ interface Product {
   positive_keywords: Array<string>;
   positive_mentions: number;
   negative_mentions: number;
-  amazon_url: string;
+  amazon_url_us?: string;
+  amazon_url_uk?: string;
   image_url: string;
   sephora_url?: string; // Optional property
 }
 
 interface ProductCardProps {
   product: Product;
+  userCountry: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
   return (
     <div className="card card-side w-full bg-base-100 shadow w-full rounded-none mb-1">
       <div className="flex items-center">
@@ -44,19 +46,33 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </p>
           </div>
           <div className="mt-4 flex items-center justify-center">
-            {product.amazon_url ? (
+            {userCountry === "US" && product.amazon_url_us ? (
               <a
-                href={product.amazon_url}
-                className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+              href={product.amazon_url_us}
+              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
               >
-                Amazon
+              Amazon
+              </a>
+            ) : userCountry === "GB" && product.amazon_url_uk ? (
+              <a
+              href={product.amazon_url_uk}
+              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+              >
+              Amazon UK
+              </a>
+            ) : product.amazon_url_us ? (
+              <a
+              href={product.amazon_url_us}
+              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+              >
+              Amazon
               </a>
             ) : product.sephora_url ? (
               <a
-                href={product.sephora_url}
-                className="btn btn-neutral text-white font-bold h-8 w-11/12 text-xs"
+              href={product.sephora_url}
+              className="btn btn-neutral text-white font-bold h-8 w-11/12 text-xs"
               >
-                Sephora
+              Sephora
               </a>
             ) : (
               <button
