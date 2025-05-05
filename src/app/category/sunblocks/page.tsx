@@ -1,4 +1,4 @@
-import ProductCard from "@/components/productcard"
+import CategoryPageWrapper from "@/components/categorypagewrapper";
 import Link from "next/link"
 
 export default async function Sunblock() {
@@ -16,11 +16,6 @@ export default async function Sunblock() {
     const discussion_data = data.categoryDiscussionData;
     const products = data.categoryProductData;
     if (!success) throw new Error("API request unsuccessful");
-
-    // Fetch user location via IP geolocation API
-    const locationRes = await fetch("https://ipapi.co/json/");
-    const locationData = await locationRes.json();
-    const userCountry = locationData?.country || "US";
 
     return (
         <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
@@ -57,9 +52,7 @@ export default async function Sunblock() {
             </div>
 
           {/* Individual Products */}
-          {products.map((product: { id: string; product_name: string; negative_keywords: Array<string>; positive_keywords: Array<string>; positive_mentions: number; negative_mentions: number; amazon_url_us: string; amazon_url_uk: string; image_url: string}) => (
-            <ProductCard key={product.id} product={product} userCountry={userCountry}/>
-          ))}
+          <CategoryPageWrapper products={products} /> 
           
         </div>
     );
