@@ -43,7 +43,7 @@ export default async function Sunblock() {
           </div>
 
           {/* Individual Products */}
-          <p className="text-center font-semibold">Top 5 Reddit Ranking (by upvotes)</p>
+          <p className="text-center font-semibold">Reddit Ranking (by upvotes)</p>
           <p className="text-center mb-4 text-sm">See Research Approach: 
               <Link href="/posts/sunscreen-reddit-ranking" className="text-blue-500 underline font-semibold hover:text-blue-700">
                 Here

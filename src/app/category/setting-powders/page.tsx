@@ -42,7 +42,7 @@ export default async function SettingPowders() {
           </div>
           
           {/* Individual Products */}
-          <p className="text-center my-4 font-semibold">Top 5 Reddit Ranking (by upvotes)</p>
+          <p className="text-center my-4 font-semibold">Reddit Ranking (by upvotes)</p>
           <CategoryPageWrapper products={products} />  
         </div>
     );
