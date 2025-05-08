@@ -6,14 +6,14 @@ import ProductCard from "@/components/productcard";
 interface Product {
   id: string;
   product_name: string;
-  negative_keywords: Array<string>;
-  positive_keywords: Array<string>;
   positive_mentions: number;
   negative_mentions: number;
   amazon_url_us?: string;
   amazon_url_uk?: string;
   image_url: string;
   sephora_url?: string;
+  upvote_count?: number;
+  rank?: number;
 }
 
 export default function CategoryPageWrapper({ products }: { products: Product[] }) {
@@ -32,7 +32,9 @@ export default function CategoryPageWrapper({ products }: { products: Product[] 
 
   return (
     <>
-      {products.map((product) => (
+      {products
+      .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity))
+      .map((product) => (
         <ProductCard key={product.id} product={product} userCountry={userCountry} />
       ))}
     </>

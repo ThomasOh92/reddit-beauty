@@ -3,14 +3,14 @@ import React from "react";
 interface Product {
   id: string;
   product_name: string;
-  negative_keywords: Array<string>;
-  positive_keywords: Array<string>;
   positive_mentions: number;
   negative_mentions: number;
   amazon_url_us?: string;
   amazon_url_uk?: string;
   image_url: string;
-  sephora_url?: string; // Optional property
+  sephora_url?: string; 
+  upvote_count?: number;
+  rank?: number;
 }
 
 interface ProductCardProps {
@@ -21,6 +21,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
   return (
     <div className="card card-side w-full bg-base-100 shadow w-full rounded-none mb-1">
+      <div className="badge badge-sm badge-soft badge-secondary absolute top-2 left-2">{product.rank}</div>
       <div className="flex items-center">
         <figure className="h-15 w-15 overflow-hidden flex ml-2 ">
           <img
@@ -31,18 +32,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
         </figure>
       </div>
       <div className="card-body p-4">
-        <p className="text-s font-bold line-clamp-1">{product.product_name}</p>
+        <p className="text-s font-bold line-clamp-1 pl-3">{product.product_name}</p>
         <div>
-          <div className="pr-2">
+          <div className="pl-3">
             <p className="flex flex-wrap text-xs line-clamp-1">
-              {product.positive_mentions} positive mentions on Reddit,{" "}
+              <strong className="text-secondary">{product.upvote_count} upvotes&nbsp;</strong> across analyzed Reddit threads
+            </p>
+            <p className="flex flex-wrap text-xs line-clamp-1">
+              {product.positive_mentions} positive mentions,{" "}
               {product.negative_mentions} negative mentions
-            </p>
-            <p className="text-xs text-success">
-              <strong>+</strong> {product.positive_keywords.join(", ")}
-            </p>
-            <p className="text-xs text-error">
-              <strong>-</strong> {product.negative_keywords.join(", ")}
             </p>
           </div>
           <div className="mt-4 flex items-center justify-center">
@@ -66,6 +64,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
               className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
               >
               Amazon
+              </a>
+            ) : product.amazon_url_uk ? (
+              <a
+              href={product.amazon_url_uk}
+              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+              >
+              Amazon UK
               </a>
             ) : product.sephora_url ? (
               <a

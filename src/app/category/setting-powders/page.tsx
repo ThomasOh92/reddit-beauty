@@ -1,12 +1,11 @@
 import CategoryPageWrapper from "@/components/categorypagewrapper";
-import Link from "next/link"
 
-export default async function Sunblock() {
+export default async function SettingPowders() {
 
   const API_URL = process.env.BASE_URL || "https://reddit-beauty.vercel.app";
 
   try {
-    const res = await fetch(`${API_URL}/api/getSunblockCategoryData`, {
+    const res = await fetch(`${API_URL}/api/getSettingPowdersCategoryData`, {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
 
@@ -21,11 +20,11 @@ export default async function Sunblock() {
         <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
           {/* Title */}
             <h1 className="text-l font-bold mb-4 mt-4 w-full bg-clip-text text-center">
-            Category: <span className="text-4xl bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text">Sun Block</span>
+            Category: <span className="text-4xl bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text">Setting Powders</span>
             </h1>
 
           {/* Discussions Analyzed */}
-          <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-8">
+          <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4">
             <input type="checkbox" defaultChecked />
             <div className="collapse-title font-semibold">Discussions Analyzed</div>
             <div className="collapse-content">
@@ -41,16 +40,10 @@ export default async function Sunblock() {
                 </ul>
             </div>
           </div>
-
-          {/* Individual Products */}
-          <p className="text-center font-semibold">Top 5 Reddit Ranking (by upvotes)</p>
-          <p className="text-center mb-4 text-sm">See Research Approach: 
-              <Link href="/posts/sunscreen-reddit-ranking" className="text-blue-500 underline font-semibold hover:text-blue-700">
-                Here
-              </Link>
-          </p>
-          <CategoryPageWrapper products={products} /> 
           
+          {/* Individual Products */}
+          <p className="text-center my-4 font-semibold">Top 5 Reddit Ranking (by upvotes)</p>
+          <CategoryPageWrapper products={products} />  
         </div>
     );
   } catch (error) {
@@ -59,6 +52,4 @@ export default async function Sunblock() {
   }
 }
      
-
-  
   

@@ -47,6 +47,8 @@ export default async function Skintint() {
           </div>
           
           {/* Individual Products */}
+          <p className="text-center text-xs text-gray-500 mb-4 ml-8 mr-8">Sorry we are facing some errors with the upvote calculation and rankings for this category. We will fix this asap</p>
+
           <CategoryPageWrapper products={products} /> 
           
         </div>
