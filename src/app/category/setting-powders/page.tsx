@@ -30,12 +30,12 @@ export default async function SettingPowders() {
             <div className="collapse-content">
                 <ul className="text-xs mt-2">
                 {discussion_data.map((discussion: {id: string, Subreddit: string, thread_url: string, date: string, thread_title: string}, index: number) => (
-                    <li key={index} className="mb-1 line-clamp-1">
-                      <a href={discussion.thread_url} target="_blank" rel="noopener noreferrer" className="link link-hover">
-                        R/{discussion.Subreddit}: {discussion.thread_title}  
-                        <span className="text-gray-400"> {new Date(parseFloat(discussion.date) * 1000).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })} </span>
-                      </a>
-                    </li>
+                  <li key={index} className="mb-1 line-clamp-1">
+                    <a href={discussion.thread_url} target="_blank" rel="noopener noreferrer" className="link link-hover">
+                    R/{discussion.Subreddit}: {discussion.thread_title}  
+                    <span className="text-gray-400"> {new Date(discussion.date).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })} </span>
+                    </a>
+                  </li>
                 ))}
                 </ul>
             </div>
