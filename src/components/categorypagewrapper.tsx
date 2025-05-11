@@ -46,7 +46,6 @@ export default function CategoryPageWrapper({ products, specialMentions }: { pro
         <ProductCard key={product.id} product={product} userCountry={userCountry} />
       ))}
 
-      {console.log("Special Mentions", specialMentions)}
       {specialMentions && specialMentions.length > 0 && (
         <div>
           <p className="text-center my-4 font-semibold">Special Mentions</p>
