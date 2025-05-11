@@ -16,7 +16,15 @@ interface Product {
   rank?: number;
 }
 
-export default function CategoryPageWrapper({ products }: { products: Product[] }) {
+interface SpecialMention {
+  id?: string;
+  product_name?: string;
+  amazon_url_us?: string;
+  amazon_url_uk?: string;
+  upvote_count?: number;
+}
+
+export default function CategoryPageWrapper({ products, specialMentions }: { products: Product[], specialMentions?: SpecialMention[] }) {
   const [userCountry, setUserCountry] = useState("US"); // Default fallback
 
   useEffect(() => {
@@ -37,6 +45,50 @@ export default function CategoryPageWrapper({ products }: { products: Product[] 
       .map((product) => (
         <ProductCard key={product.id} product={product} userCountry={userCountry} />
       ))}
+
+      {specialMentions && specialMentions.length > 0 && (
+        <div>
+          <p className="text-center my-4 font-semibold">Special Mentions</p>
+            <table className="table-xs mx-auto">
+            <thead>
+              <tr>
+                <th className="text-left">Product</th>
+                <th>Upvotes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {specialMentions
+                .sort((a, b) => (b.upvote_count ?? 0) - (a.upvote_count ?? 0))
+                .map((mention) => {
+                const mentionUrl =
+                  userCountry === "US"
+                  ? mention.amazon_url_us
+                  : userCountry === "UK"
+                  ? mention.amazon_url_uk
+                  : mention.amazon_url_us;
+
+                return (
+                  <tr key={mention.id}>
+                    <td>
+                      {mentionUrl ? (
+                      <a href={mentionUrl} target="_blank" rel="noopener noreferrer">
+                        {mention.product_name}
+                      </a>
+                      ) : (
+                      mention.product_name
+                      )}
+                    </td>
+                    <td className="text-center">{mention.upvote_count ?? "N/A"}</td>
+                  </tr>
+                );
+                })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+
+
     </>
   );
 }
