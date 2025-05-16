@@ -14,6 +14,7 @@ export default async function Skintint() {
     const { success, data } = await res.json();
     const discussion_data = data.categoryDiscussionData;
     const products = data.categoryProductData;
+    const specialMentions = data.categorySpecialMentionsData;
     if (!success) throw new Error("API request unsuccessful");
 
     return (
@@ -47,9 +48,8 @@ export default async function Skintint() {
           </div>
           
           {/* Individual Products */}
-          <p className="text-center text-xs text-gray-500 mb-4 ml-8 mr-8">Sorry we are facing some errors with the upvote calculation and rankings for this category. We will fix this asap</p>
-
-          <CategoryPageWrapper products={products} /> 
+          <p className="text-center my-4 font-semibold">Reddit Ranking (by upvotes)</p>
+          <CategoryPageWrapper products={products} specialMentions={specialMentions}/> 
           
         </div>
     );

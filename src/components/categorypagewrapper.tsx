@@ -58,30 +58,36 @@ export default function CategoryPageWrapper({ products, specialMentions }: { pro
             </thead>
             <tbody>
               {specialMentions
-                .sort((a, b) => (b.upvote_count ?? 0) - (a.upvote_count ?? 0))
-                .map((mention) => {
-                const mentionUrl =
-                  userCountry === "US"
-                  ? mention.amazon_url_us
-                  : userCountry === "UK"
-                  ? mention.amazon_url_uk
-                  : mention.amazon_url_us;
+              .sort((a, b) => (b.upvote_count ?? 0) - (a.upvote_count ?? 0))
+              .map((mention) => {
+                let mentionUrl: string | undefined;
+
+                if (userCountry === "UK") {
+                mentionUrl = mention.amazon_url_uk || mention.amazon_url_us;
+                } else {
+                mentionUrl = mention.amazon_url_us || mention.amazon_url_uk;
+                }
 
                 return (
-                  <tr key={mention.id}>
-                    <td>
-                      {mentionUrl ? (
-                      <a href={mentionUrl} target="_blank" rel="noopener noreferrer">
-                        {mention.product_name}
-                      </a>
-                      ) : (
-                      mention.product_name
-                      )}
-                    </td>
-                    <td className="text-center">{mention.upvote_count ?? "N/A"}</td>
-                  </tr>
+                <tr key={mention.id}>
+                  <td>
+                  {mentionUrl ? (
+                    <a
+                    href={mentionUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                    >
+                    {mention.product_name}
+                    </a>
+                  ) : (
+                    mention.product_name
+                  )}
+                  </td>
+                  <td className="text-center">{mention.upvote_count ?? "N/A"}</td>
+                </tr>
                 );
-                })}
+              })}
             </tbody>
           </table>
         </div>
