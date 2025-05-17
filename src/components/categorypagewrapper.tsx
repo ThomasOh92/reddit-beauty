@@ -48,7 +48,6 @@ export default function CategoryPageWrapper({ products, specialMentions }: { pro
 
       {specialMentions && specialMentions.length > 0 && (
         <div>
-          <p className="text-center my-4 font-semibold">Special Mentions</p>
             <table className="table-xs mx-auto">
             <thead>
               <tr>
