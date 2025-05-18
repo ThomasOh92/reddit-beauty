@@ -1,4 +1,5 @@
 import CategoryPageWrapper from "@/components/categorypagewrapper";
+import Link from "next/link";
 
 export default async function Blushes() {
 
@@ -44,6 +45,11 @@ export default async function Blushes() {
           
           {/* Individual Products */}
           <p className="text-center my-4 font-semibold">Reddit Ranking (by upvotes)</p>
+          <p className="text-center mb-4 text-sm">See Research Approach: 
+            <Link href="/posts/blushes-reddit-ranking" className="text-blue-500 underline font-semibold hover:text-blue-700">
+              Here
+            </Link>
+          </p>
           <CategoryPageWrapper products={products} specialMentions={specialMentions}/> 
 
           {/* Special Mentions */}
