@@ -29,6 +29,7 @@ const Banner = () => {
               <li><Link href="/category/blushes" className="text-xs">Blushes</Link></li>
               <li><Link href="/category/setting-powders" className="text-xs">Setting Powders</Link></li>
               <li><Link href="/category/face-serums" className="text-xs">Face Serums</Link></li>
+              <li><Link href="/category/face-moisturizers" className="text-xs">Face Moisturizers</Link></li>
             </ul>
             </details>
           </li>
