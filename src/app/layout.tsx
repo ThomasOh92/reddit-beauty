@@ -6,9 +6,25 @@ import Footer from "@/components/footer";
 import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
-  title: "Reddit Beauty",
-  description: "Beauty and Skincare Recommendations from Reddit",
+  title: {
+    default: "Reddit Beauty – Beauty + Skincare Reviews from Real Redditors",
+    template: "%s | Reddit Beauty",
+  },
+  description: "Discover the most talked-about skincare and beauty products on Reddit.",
+  keywords: [
+    "Reddit beauty",
+    "Reddit skincare",
+    "Reddit product reviews",
+    "best skincare Reddit",
+    "beauty products ranked by Reddit",
+    "Reddit beauty tips"
+  ],
+  metadataBase: new URL("https://redditbeauty.com"),
+  alternates: {
+    canonical: "https://redditbeauty.com",
+  },
 };
+
 
 export default function RootLayout({
   children,
