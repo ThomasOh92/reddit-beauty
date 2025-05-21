@@ -1,5 +1,3 @@
-// src/app/category/[category]/page.tsx
-
 import CategoryPageWrapper from "@/components/categorypagewrapper";
 import Link from "next/link";
 import * as CONSTANTS from "../../../constants";
@@ -63,24 +61,35 @@ export default async function CategoryPage({
             <ul className="text-xs mt-2">
               {discussion_data.map((discussion: Discussion, index: number) => (
                 <li key={index} className="mb-1 line-clamp-1">
-                  <a
+                    <a
                     href={discussion.thread_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="link link-hover"
-                  >
+                    >
                     R/{discussion.Subreddit}: {discussion.thread_title}
                     <span className="text-gray-400">
                       {" "}
-                      {new Date(
-                        parseFloat(discussion.date) * 1000
-                      ).toLocaleDateString("en-GB", {
+                      {(() => {
+                      const dateValue = discussion.date;
+                      let dateObj;
+                      if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
+                        // Format: YYYY-MM-DD
+                        dateObj = new Date(dateValue);
+                      } else if (!isNaN(Number(dateValue))) {
+                        // Numeric timestamp (assume seconds)
+                        dateObj = new Date(parseFloat(dateValue) * 1000);
+                      } else {
+                        return "Invalid date";
+                      }
+                      return dateObj.toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
                         year: "numeric",
-                      })}
+                      });
+                      })()}
                     </span>
-                  </a>
+                    </a>
                 </li>
               ))}
             </ul>
@@ -94,7 +103,7 @@ export default async function CategoryPage({
         <p className="text-center mb-4 text-sm">
           See Research Approach:{" "}
           <Link
-            href="/posts/blushes-reddit-ranking"
+            href={`/posts/${category}-reddit-ranking`}
             className="text-blue-500 underline font-semibold hover:text-blue-700"
           >
             Here

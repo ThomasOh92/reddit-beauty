@@ -55,46 +55,18 @@ const Banner = () => {
             <details>
               <summary className="text-xs px-1">Categories</summary>
               <ul className="bg-base-200 z-50 mt-0">
-                {data?.map((category: CategoryDetails) => (
-                  <li key={category.slug}>
-                    <Link
-                      href={`/category/${category.slug}`}
-                      className="text-xs"
-                    >
-                      {category.title}
-                    </Link>
-                  </li>
-                ))}
-                {/* <li>
-                  <Link href="/category/sunblocks" className="text-xs">
-                    Sunblocks
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/category/skintints" className="text-xs">
-                    Skin Tints
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/category/blushes" className="text-xs">
-                    Blushes
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/category/setting-powders" className="text-xs">
-                    Setting Powders
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/category/face-serums" className="text-xs">
-                    Face Serums
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/category/face-moisturizers" className="text-xs">
-                    Face Moisturizers
-                  </Link>
-                </li> */}
+                {data?.map((category: CategoryDetails, idx: number) => {
+                  return (
+                    <li key={category.slug || idx}>
+                      <Link
+                        href={`/category/${category.slug}`}
+                        className="text-xs"
+                      >
+                        {category.title}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </details>
           </li>
