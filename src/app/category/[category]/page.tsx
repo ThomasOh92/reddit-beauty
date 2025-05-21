@@ -5,14 +5,16 @@ import Link from "next/link";
 import * as CONSTANTS from "../../../constants";
 import { Discussion } from "../../../types";
 
-type CategoryPageProps = {
-  params: {
-    category: string;
-  };
-};
+type CategoryPageProps = Promise<{
+  category: string;
+}>;
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const category = params.category;
+export default async function CategoryPage({
+  params,
+}: {
+  params: CategoryPageProps;
+}) {
+  const { category } = await params;
   const API_URL = CONSTANTS.APP_URL;
 
   const categoryCapitalized =

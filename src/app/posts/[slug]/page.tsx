@@ -24,7 +24,11 @@ type Params = {
   slug: string;
 };
 
-export default async function DeepDivePage({ params }: { params: Params }) {
+export default async function DeepDivePage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
   const { slug } = await params;
 
   const post: Post = await client.fetch(
