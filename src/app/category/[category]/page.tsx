@@ -3,6 +3,7 @@
 import CategoryPageWrapper from "@/components/categorypagewrapper";
 import Link from "next/link";
 import * as CONSTANTS from "../../../constants";
+import { Discussion } from "../../../types";
 
 export default async function CategoryPage({
   params,
@@ -56,7 +57,7 @@ export default async function CategoryPage({
           </div>
           <div className="collapse-content">
             <ul className="text-xs mt-2">
-              {discussion_data.map((discussion: any, index: any) => (
+              {discussion_data.map((discussion: Discussion, index: number) => (
                 <li key={index} className="mb-1 line-clamp-1">
                   <a
                     href={discussion.thread_url}

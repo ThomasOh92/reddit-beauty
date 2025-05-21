@@ -4,19 +4,15 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CategoryPageWrapper from "@/components/categorypagewrapper";
 import Link from "next/link";
+import { Product, SpecialMention, Discussion } from "../../types";
 
 export default function CategoryClient() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") || "";
   interface CategoryData {
-    categoryProductData: any[];
-    categorySpecialMentionsData: any[];
-    categoryDiscussionData: {
-      thread_url: string;
-      Subreddit: string;
-      thread_title: string;
-      date: string;
-    }[];
+    categoryProductData: Product[];
+    categorySpecialMentionsData: SpecialMention[];
+    categoryDiscussionData: Discussion[];
   }
 
   const [data, setData] = useState<CategoryData | null>(null);
@@ -34,7 +30,7 @@ export default function CategoryClient() {
         const json = await res.json();
         if (!json.success) throw new Error("API request unsuccessful");
         setData(json.data);
-      } catch (err: any) {
+      } catch (err) {
         console.error(err);
         setError("Error fetching category data");
       }

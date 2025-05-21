@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CategoryDetails } from "../types";
 
 const Banner = () => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<CategoryDetails[]>([]);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -54,8 +55,8 @@ const Banner = () => {
             <details>
               <summary className="text-xs px-1">Categories</summary>
               <ul className="bg-base-200 z-50 mt-0">
-                {data?.map((category: any) => (
-                  <li key={category.id}>
+                {data?.map((category: CategoryDetails) => (
+                  <li key={category.slug}>
                     <Link
                       href={`/category/${category.slug}`}
                       className="text-xs"
