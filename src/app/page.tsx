@@ -1,7 +1,8 @@
 import HomePageCard from "@/components/homepagecard";
+import * as CONSTANTS from "../constants";
 
 export default async function Home() {
-  const API_URL = process.env.BASE_URL || "https://reddit-beauty.vercel.app";
+  const API_URL = CONSTANTS.APP_URL;
 
   try {
     const res = await fetch(`${API_URL}/api/getData`, {
@@ -17,13 +18,34 @@ export default async function Home() {
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
         <h2 className="font-bold m-2 text-neutral">Most Discussed on Reddit</h2>
         <div className="grid grid-cols-1 gap-6">
-            {data
-            .sort((a: { readyForDisplay?: boolean }, b: { readyForDisplay?: boolean }) => 
-              Number(b.readyForDisplay || false) - Number(a.readyForDisplay || false)
+          {data
+            .sort(
+              (
+                a: { readyForDisplay?: boolean },
+                b: { readyForDisplay?: boolean }
+              ) =>
+                Number(b.readyForDisplay || false) -
+                Number(a.readyForDisplay || false)
             )
-            .map((category: { id: string, title: string, slug: string, readyForDisplay?: boolean, subtitle: string, lastUpdated: string }) => (
-              <HomePageCard key={category.id} title={category.title} slug={category.slug} readyForDisplay={category.readyForDisplay} subtitle={category.subtitle} lastUpdated={category.lastUpdated}/>
-            ))}
+            .map(
+              (category: {
+                id: string;
+                title: string;
+                slug: string;
+                readyForDisplay?: boolean;
+                subtitle: string;
+                lastUpdated: string;
+              }) => (
+                <HomePageCard
+                  key={category.id}
+                  title={category.title}
+                  slug={category.slug}
+                  readyForDisplay={category.readyForDisplay}
+                  subtitle={category.subtitle}
+                  lastUpdated={category.lastUpdated}
+                />
+              )
+            )}
         </div>
       </div>
     );
@@ -33,18 +55,17 @@ export default async function Home() {
   }
 }
 
-
 // export default async function Home() {
 //   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getData`);
 //   const { success, data } = await res.json();
 
 //   if (!success) return <p>Error fetching categories</p>;
-  
+
 //   return (
 //     <div className="max-w-3xl mx-auto p-4">
 //       <div className="grid grid-cols-1 gap-6">
 //       {data
-//         .sort((a: { readyForDisplay?: boolean }, b: { readyForDisplay?: boolean }) => 
+//         .sort((a: { readyForDisplay?: boolean }, b: { readyForDisplay?: boolean }) =>
 //           Number(b.readyForDisplay || false) - Number(a.readyForDisplay || false)
 //         )
 //         .map((category: { id: string, title: string, image: string, slug: string, readyForDisplay?: boolean, subtitle: string }) => (
@@ -54,4 +75,3 @@ export default async function Home() {
 //     </div>
 //   );
 // }
-
