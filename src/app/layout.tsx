@@ -4,6 +4,7 @@ import Banner from "@/components/banner";
 import { open_sans } from './fonts'
 import Footer from "@/components/footer";
 import { Analytics } from '@vercel/analytics/next';
+import Testimonials from "@/components/testimonials";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body>
         <Banner />
         {children}
+        <Testimonials />
         <Footer/>
         <Analytics />
       </body>
