@@ -1,5 +1,6 @@
 import HomePageCard from "@/components/homepagecard";
 import * as CONSTANTS from "../constants";
+import Testimonials from "@/components/testimonials";
 
 export default async function Home() {
   const API_URL = CONSTANTS.APP_URL;
@@ -50,6 +51,7 @@ export default async function Home() {
               )
             )}
         </div>
+        <Testimonials />
       </div>
     );
   } catch (error) {

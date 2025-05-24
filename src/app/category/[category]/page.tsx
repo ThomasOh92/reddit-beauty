@@ -15,8 +15,10 @@ export default async function CategoryPage({
   const { category } = await params;
   const API_URL = CONSTANTS.APP_URL;
 
-  const categoryCapitalized =
-    category.charAt(0).toUpperCase() + category.slice(1);
+  const categoryCapitalized = category
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 
   try {
     const res = await fetch(
