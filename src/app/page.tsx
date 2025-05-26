@@ -17,10 +17,8 @@ export default async function Home() {
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
-        <h1 className="text-lg font-bold m-2 text-neutral text-center">Beauty + Skincare Reviews from Reddit</h1>
-        <h2 className="text-sm text-gray-600 text-center mb-4">
-          Reddit is a treasure trove of beauty and skincare advice. We are here to surface the best of it for you.
-        </h2>
+        <h1 className="text-lg font-bold m-2 text-neutral text-center">Beauty & Skincare Reviews from Reddit</h1>
+        <h2 className="text-sm m-2 text-gray-600 text-center mb-4"> No influencers. No ads. Insights straight from the top skincare and beauty threads. </h2>
         <div className="grid grid-cols-1 gap-6">
           {data
             .sort(
