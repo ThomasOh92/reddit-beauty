@@ -1,6 +1,7 @@
 import HomePageCard from "@/components/homepagecard";
 import * as CONSTANTS from "../constants";
 import Testimonials from "@/components/testimonials";
+import Link from "next/link";
 
 export default async function Home() {
   const API_URL = CONSTANTS.APP_URL;
@@ -37,9 +38,9 @@ export default async function Home() {
               <div className="max-w-md">
                 <div className="flex flex-row items-center justify-center gap-4">
                   <h2 className="text-xl font-bold mb-0 mr-8">Discover More</h2>
-                    <a href="/posts">
+                    <Link href="/posts">
                     <button className="btn btn-primary rounded-lg">Blog</button>
-                    </a>
+                    </Link>
                 </div>
               </div>
             </div>

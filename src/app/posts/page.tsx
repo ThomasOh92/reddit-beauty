@@ -3,6 +3,7 @@ import { client } from "../../sanity/lib/client";
 import { groq } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
+import { PortableText, PortableTextBlock } from "@portabletext/react";
 
 const builder = imageUrlBuilder(client);
 
@@ -13,17 +14,23 @@ function urlFor(source: string) {
 type Post = {
   _id: string;
   title: string;
-  body?: any[];
+  body?: PortableTextBlock[];
   mainImage?: { asset?: { _ref?: string } };
   slug: { current: string };
   categories?: { title?: string }[] | null;
 };
 
-function getExcerpt(body?: any[]): string {
+function getExcerpt(body?: PortableTextBlock[]): string {
   if (!body || !Array.isArray(body)) return "";
-  const firstBlock = body.find((block) => block._type === "block" && Array.isArray(block.children));
-  if (!firstBlock) return "";
-  return firstBlock.children.map((child: any) => child.text).join("").slice(0, 120) + "...";
+  const firstBlock = body.find(
+    (block) => block._type === "block" && Array.isArray(block.children)
+  );
+  if (!firstBlock || !("children" in firstBlock)) return "";
+  // children is PortableTextSpan[]
+  const text = (firstBlock.children as { text?: string }[])
+    .map((child) => child.text || "")
+    .join("");
+  return text.slice(0, 120) + (text.length > 120 ? "..." : "");
 }
 
 // Helper to normalize categories to an array of strings
@@ -63,7 +70,7 @@ export default async function PostsPage() {
       <h1 className="text-2xl font-bold text-center mb-6">Blog Posts</h1>
       {categoryNames.map((cat) => (
         <section key={cat} className="mb-10">
-          <h2 className="text-sm mb-4 text-center ">{cat}</h2>
+          <h2 className="text-sm mb-4 font-semibold text-info-content text-center">{cat}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {categoryMap[cat].map((post) => (
               <Link
