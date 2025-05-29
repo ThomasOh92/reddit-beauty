@@ -3,7 +3,7 @@ import { client } from "../../sanity/lib/client";
 import { groq } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
-import { PortableText, PortableTextBlock } from "@portabletext/react";
+import { PortableTextBlock } from "@portabletext/react";
 
 const builder = imageUrlBuilder(client);
 
