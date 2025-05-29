@@ -41,8 +41,6 @@ const testimonials = [
   return (
     <section className="mt-4 max-w-[600px] mx-auto flex justify-center">
       <div className="bg-white shadow pt-4 pb-4">
-        <h2 className="text-lg font-bold text-center">Real Testimonials from Redditors! </h2>
-        <h3 className="text-sm font-bold text-center mb-4"> Click to See </h3>
         <div className="grid gap-1">
           {testimonials.map((t, i) => (
             <a

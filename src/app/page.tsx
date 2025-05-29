@@ -17,9 +17,38 @@ export default async function Home() {
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
-        <h1 className="text-lg font-bold m-2 text-neutral text-center">Beauty & Skincare Reviews from Reddit</h1>
+        <h1 className="text-lg font-bold m-2 mt-4 text-neutral text-center">Beauty & Skincare Reviews from Reddit</h1>
         <h2 className="text-sm m-2 text-gray-600 text-center mb-4"> No influencers. No ads. Insights straight from the top skincare and beauty threads. </h2>
-        <div className="grid grid-cols-1 gap-6">
+        
+        {/* Link to Blog */}
+        <div className="flex justify-center">
+          <div
+            className="hero mb-4 rounded-xl max-w-[500px] w-full"
+            style={{
+              backgroundImage:
+          "url(https://cdn.sanity.io/images/898a6tzr/production/ba0c204adfa35ea6b6212c3a64b6ca74c56c4c65-1066x300.jpg)",
+              backgroundSize: "50%",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <div className="hero-overlay rounded-xl"></div>
+            <div className="hero-content text-neutral-content text-center">
+              <div className="max-w-md">
+                <div className="flex flex-row items-center justify-center gap-4">
+                  <h2 className="text-xl font-bold mb-0 mr-8">Discover More</h2>
+                    <a href="/posts">
+                    <button className="btn btn-primary rounded-lg">Blog</button>
+                    </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="divider font-bold">Categories</div>
+
+        <div className="grid grid-cols-1 gap-6">  
           {data
             .sort(
               (
@@ -49,6 +78,7 @@ export default async function Home() {
               )
             )}
         </div>
+        <div className="divider font-bold mt-10">Redditor Testimonials</div>
         <Testimonials />
       </div>
     );
