@@ -37,9 +37,9 @@ export default async function CategoryPage({
     const { success, data } = await res.json();
     if (!success) throw new Error("API request unsuccessful");
 
-    const discussion_data = data.categoryDiscussionData;
-    const products = data.categoryProductData;
-    const specialMentions = data.categorySpecialMentionsData;
+    const discussion_data = data.discussions;
+    const products = data.products;
+    const specialMentions = data.specialMentions;
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
