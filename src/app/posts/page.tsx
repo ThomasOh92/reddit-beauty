@@ -5,6 +5,8 @@ import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import { PortableTextBlock } from "@portabletext/react";
 
+export const revalidate = 3600;
+
 const builder = imageUrlBuilder(client);
 
 function urlFor(source: string) {
