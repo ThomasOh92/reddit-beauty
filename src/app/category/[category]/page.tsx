@@ -2,6 +2,7 @@ import CategoryPageWrapper from "@/components/categorypagewrapper";
 import Link from "next/link";
 import * as CONSTANTS from "../../../constants";
 import { Discussion } from "../../../types";
+import DiscussionsBox from "@/components/discussionsbox";
 
 type CategoryPageProps = Promise<{
   category: string;
@@ -40,69 +41,43 @@ export default async function CategoryPage({
     const discussion_data = data.discussions;
     const products = data.products;
     const specialMentions = data.specialMentions;
+    const skinTypeData = data["skin-types"];
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
-        <h1 className="text-l font-bold mb-4 mt-4 w-full bg-clip-text text-center">
+        <h1 className="text-l font-bold mb-2 mt-4 w-full bg-clip-text text-center">
           Category:{" "}
           <span className="text-4xl bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text">
             {categoryCapitalized}
           </span>
         </h1>
+        <h2 className="text-center mb-4 text-sm">Reddit Rankings (by upvotes)</h2>
 
-        {/* Discussions */}
-        <div
-          tabIndex={0}
-          className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4"
-        >
-          <input type="checkbox" defaultChecked />
-          <div className="collapse-title font-semibold">
-            Discussions Analyzed
+        {/* Navigation for skin type if available */}
+        {skinTypeData && Array.isArray(skinTypeData) && skinTypeData.length > 0 && (
+            <div className="text-center mb-4 sticky top-0 z-10">
+            <ul className="menu menu-horizontal bg-base-200 rounded-box text-xs">
+              <li>
+                <a href="#general">General</a>
+              </li>
+            {skinTypeData.map((skinType: any, idx: number) => (
+              <li key={skinType.id || idx}>
+              <a href={`#${skinType.id}`}>{skinType.id}</a>
+              </li>
+            ))}
+          </ul>
           </div>
-          <div className="collapse-content">
-            <ul className="text-xs mt-2">
-              {discussion_data.map((discussion: Discussion, index: number) => (
-                <li key={index} className="mb-1 line-clamp-1">
-                    <a
-                    href={discussion.thread_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="link link-hover"
-                    >
-                    R/{discussion.Subreddit}: {discussion.thread_title}
-                    <span className="text-gray-400">
-                      {" "}
-                      {(() => {
-                      const dateValue = discussion.date;
-                      let dateObj;
-                      if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
-                        // Format: YYYY-MM-DD
-                        dateObj = new Date(dateValue);
-                      } else if (!isNaN(Number(dateValue))) {
-                        // Numeric timestamp (assume seconds)
-                        dateObj = new Date(parseFloat(dateValue) * 1000);
-                      } else {
-                        return "Invalid date";
-                      }
-                      return dateObj.toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      });
-                      })()}
-                    </span>
-                    </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        )}
 
-        {/* Products */}
-        <p className="text-center my-4 font-semibold">
-          Reddit Ranking (by upvotes)
-        </p>
-        <p className="text-center mb-4 text-sm">
+
+
+        {/* General Section */}
+        {skinTypeData && Array.isArray(skinTypeData) && skinTypeData.length > 0 && (
+            <p className="text-secondary font-bold text-sm ml-4 mb-2" id="general">General</p>
+        )}
+        <DiscussionsBox discussion_data={discussion_data} />
+        <CategoryPageWrapper products={products} specialMentions={specialMentions}/>
+        <p className="text-center my-4 text-xs">
           See Research Approach:{" "}
           <Link
             href={`/posts/${category}-reddit-ranking`}
@@ -112,10 +87,19 @@ export default async function CategoryPage({
           </Link>
         </p>
 
-        <CategoryPageWrapper
-          products={products}
-          specialMentions={specialMentions}
-        />
+        {/* Skin Type Data */}
+        {skinTypeData && Array.isArray(skinTypeData) && skinTypeData.length > 0 && (
+          <div className="mt-8">
+            {skinTypeData.map((skinType: any, idx: number) => (
+              <div key={skinType.id || idx} className="mb-6">
+                <p className="text-secondary font-bold text-sm ml-4 mb-2" id={skinType.id}>{skinType.id}</p>
+                <DiscussionsBox discussion_data={skinType.discussions || []} />
+                <CategoryPageWrapper products={skinType.products} />
+              </div>
+            ))}
+          </div>
+        )}
+        
       </div>
     );
   } catch (error) {

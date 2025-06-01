@@ -52,21 +52,21 @@ const Banner = () => {
             </Link>
           </li>
           <li>
-            <details>
-              <summary className="text-xs px-1">Categories</summary>
-              <ul className="bg-base-200 z-50 mt-0">
-                {data?.map((category: CategoryDetails, idx: number) => {
-                  return (
-                    <li key={category.slug || idx}>
-                      <Link
-                        href={`/category/${category.slug}`}
-                        className="text-xs"
-                      >
-                        {category.title}
-                      </Link>
-                    </li>
-                  );
-                })}
+            <details className="relative">
+              <summary className="text-xs px-1 text-right">Categories</summary>
+              <ul className="bg-base-200 z-50 mt-0 absolute right-0">
+              {data
+                ?.filter((category: CategoryDetails) => category.readyForDisplay)
+                .map((category: CategoryDetails, idx: number) => (
+                <li key={category.slug || idx}>
+                  <Link
+                  href={`/category/${category.slug}`}
+                  className="text-xs"
+                  >
+                  {category.title}
+                  </Link>
+                </li>
+                ))}
               </ul>
             </details>
           </li>
