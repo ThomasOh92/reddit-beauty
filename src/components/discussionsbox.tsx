@@ -1,11 +1,5 @@
 import React from "react";
-
-type Discussion = {
-    thread_url: string;
-    Subreddit: string;
-    thread_title: string;
-    date: string;
-    };
+import { Discussion } from "../types";
 
 type DiscussionsBoxProps = {
     discussion_data: Discussion[];

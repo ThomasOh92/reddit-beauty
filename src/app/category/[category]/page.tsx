@@ -1,8 +1,8 @@
 import CategoryPageWrapper from "@/components/categorypagewrapper";
 import Link from "next/link";
 import * as CONSTANTS from "../../../constants";
-import { Discussion } from "../../../types";
 import DiscussionsBox from "@/components/discussionsbox";
+import { Discussion, Product } from "../../../types";
 
 type CategoryPageProps = Promise<{
   category: string;
@@ -60,7 +60,7 @@ export default async function CategoryPage({
               <li>
                 <a href="#general">General</a>
               </li>
-            {skinTypeData.map((skinType: any, idx: number) => (
+            {skinTypeData.map((skinType: { id: string; discussions: Discussion[]; products: Product[] }, idx: number) => (
               <li key={skinType.id || idx}>
               <a href={`#${skinType.id}`}>{skinType.id}</a>
               </li>
@@ -90,7 +90,7 @@ export default async function CategoryPage({
         {/* Skin Type Data */}
         {skinTypeData && Array.isArray(skinTypeData) && skinTypeData.length > 0 && (
           <div className="mt-8">
-            {skinTypeData.map((skinType: any, idx: number) => (
+            {skinTypeData.map((skinType: { id: string; discussions: Discussion[]; products: Product[] }, idx: number) => (
               <div key={skinType.id || idx} className="mb-6">
                 <p className="text-secondary font-bold text-sm ml-4 mb-2" id={skinType.id}>{skinType.id}</p>
                 <DiscussionsBox discussion_data={skinType.discussions || []} />
