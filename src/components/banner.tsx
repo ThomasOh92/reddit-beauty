@@ -27,11 +27,11 @@ const Banner = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto border-b border-gray-300 pb-4">
       {/* Left Side */}
-      <Link href="/" className="btn text-xl pl-0">
-        <Image src="/redditbeautyicon.png" alt="Icon" width={60} height={60} />
+      <Link href="/" className="btn text-xl pl-0 overflow-hidden min-h-[50px] min-w-[150px]">
+        <Image src="/redditbeautyicon.png" alt="Icon" width={40} height={40}/>
         <div className="flex flex-col items-start">
-          <p className="text-xl mb-[-10px]">Reddit</p>
-          <p className="text-xl">Beauty</p>
+          <p className="text-xl font-bold mb-[-10px]">Reddit</p>
+          <p className="text-xl font-bold">Beauty</p>
         </div>
       </Link>
 
@@ -45,10 +45,10 @@ const Banner = () => {
           </li>
           <li>
             <Link
-              href="https://forms.gle/ND4jt144jW5Z6bkC9"
+              href="/posts"
               className="text-xs px-1"
             >
-              Feedback
+              Blog
             </Link>
           </li>
           <li>

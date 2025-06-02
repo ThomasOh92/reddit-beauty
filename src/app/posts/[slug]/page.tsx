@@ -54,7 +54,7 @@ export default async function DeepDivePage({
           className="w-full h-auto rounded-md"
         />
       )}
-      <div className="card-body max-w-[600px] p-2 pl-0 prose prose-sm [&_p]:m-2 [&_p]:mt-0 [&_ul]:m-0 [&_li]:m-0 [&_h1]:m-2 [&_h2]:m-2 [&_h3]:m-2 [&_h4]:m-2 [&_h5]:m-2 [&_h6]:m-2">
+      <div className="card-body max-w-[600px] p-2 pl-0 prose prose-sm [&_p]:m-2 [&_p]:mt-0 [&_ul]:m-0 [&_blockquote]:m-0 [&_li]:m-0 [&_h1]:m-2 [&_h2]:m-2 [&_h3]:m-2 [&_h4]:m-2 [&_h5]:m-2 [&_h6]:m-2">
         <PortableText value={post.body} />
       </div>
     </div>
