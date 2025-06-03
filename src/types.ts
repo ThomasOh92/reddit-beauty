@@ -7,6 +7,7 @@ export interface Product {
   amazon_url_uk?: string;
   image_url: string;
   sephora_url?: string;
+  fallback_url?: string;
   upvote_count?: number;
   rank?: number;
 }

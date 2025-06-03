@@ -1,17 +1,6 @@
 import React from "react";
+import { Product } from "../types"
 
-interface Product {
-  id: string;
-  product_name: string;
-  positive_mentions: number;
-  negative_mentions: number;
-  amazon_url_us?: string;
-  amazon_url_uk?: string;
-  image_url: string;
-  sephora_url?: string; 
-  upvote_count?: number;
-  rank?: number;
-}
 
 interface ProductCardProps {
   product: Product;
@@ -79,12 +68,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
               >
               Sephora
               </a>
+            ) : product.fallback_url ? (
+              <a
+              href={product.fallback_url}
+              className="btn text-black font-bold h-8 w-11/12 text-xs border border-gray-300"
+              >
+              Product Site
+              </a>
             ) : (
               <button
-                className="btn btn-disabled font-bold h-8 w-11/12 text-xs"
-                disabled
+              className="btn btn-disabled font-bold h-8 w-11/12 text-xs"
+              disabled
               >
-                No Link Available
+              No Link Available
               </button>
             )}
           </div>
