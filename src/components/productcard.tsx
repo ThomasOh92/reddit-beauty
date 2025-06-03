@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
         </figure>
       </div>
       <div className="card-body p-4">
-        <p className="text-s font-bold line-clamp-1 pl-3">{product.product_name}</p>
+        <p className="text-s font-bold line-clamp-2 pl-3">{product.product_name}</p>
         <div>
           <div className="pl-3">
             <p className="flex flex-wrap text-xs line-clamp-1">
