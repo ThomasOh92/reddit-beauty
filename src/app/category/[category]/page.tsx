@@ -93,10 +93,15 @@ export default async function CategoryPage({
             {skinTypeData.map((skinType: { id: string; discussions: Discussion[]; products: Product[] }, idx: number) => (
                 <div key={skinType.id || idx} className="mb-6">
                 <p className="text-secondary font-bold text-sm ml-4 mb-2" id={skinType.id}>{skinType.id}</p>
-                <DiscussionsBox discussion_data={skinType.discussions || []} />
+                
+                {skinType.discussions && skinType.discussions.length > 0 && (
+                  <DiscussionsBox discussion_data={skinType.discussions || []} />
+                )}
+
                 {skinType.products && skinType.products.length > 0 && (
                   <CategoryPageWrapper products={skinType.products} />
                 )}
+                
                 </div>
             ))}
           </div>
