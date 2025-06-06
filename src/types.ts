@@ -10,6 +10,7 @@ export interface Product {
   fallback_url?: string;
   upvote_count?: number;
   rank?: number;
+  slug: string;
 }
 
 export interface SpecialMention {
@@ -18,6 +19,7 @@ export interface SpecialMention {
   amazon_url_us?: string;
   amazon_url_uk?: string;
   upvote_count?: number;
+  slug: string;
 }
 
 export interface Discussion {

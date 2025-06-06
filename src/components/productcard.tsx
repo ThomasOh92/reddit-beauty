@@ -1,13 +1,14 @@
 import React from "react";
 import { Product } from "../types"
-
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
   userCountry: string;
+  category: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry, category }) => {
   return (
     <div className="card card-side w-full bg-base-100 shadow w-full rounded-none mb-1">
       <div className="badge badge-sm badge-soft badge-secondary absolute top-2 left-2">{product.rank}</div>
@@ -21,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
         </figure>
       </div>
       <div className="card-body p-4">
-        <p className="text-s font-bold line-clamp-2 pl-3">{product.product_name}</p>
+        <Link href={`${category}/${product.slug}`} className="link link-hover text-s font-bold line-clamp-2 pl-3">{product.product_name}</Link>
         <div>
           <div className="pl-3">
             <p className="flex flex-wrap text-xs line-clamp-1">
@@ -32,57 +33,62 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry }) => {
               {product.negative_mentions} negative mentions
             </p>
           </div>
-          <div className="mt-4 flex items-center justify-center">
-            {userCountry === "US" && product.amazon_url_us ? (
+          
+          {/* Links */}
+            <div className="mt-4 flex items-center justify-center overflow-x-auto w-full">
+            <div className="flex gap-5 w-full">
+              <a href={`${category}/${product.slug}`} className="btn btn-soft font-bold h-8 flex-1 text-xs">Deep Dive</a>
+              {userCountry === "US" && product.amazon_url_us ? (
               <a
-              href={product.amazon_url_us}
-              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+                href={product.amazon_url_us}
+                className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
               >
-              Amazon
+                Amazon
               </a>
-            ) : userCountry === "GB" && product.amazon_url_uk ? (
+              ) : userCountry === "GB" && product.amazon_url_uk ? (
               <a
-              href={product.amazon_url_uk}
-              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+                href={product.amazon_url_uk}
+                className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
               >
-              Amazon UK
+                Amazon UK
               </a>
-            ) : product.amazon_url_us ? (
+              ) : product.amazon_url_us ? (
               <a
-              href={product.amazon_url_us}
-              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+                href={product.amazon_url_us}
+                className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
               >
-              Amazon
+                Amazon
               </a>
-            ) : product.amazon_url_uk ? (
+              ) : product.amazon_url_uk ? (
               <a
-              href={product.amazon_url_uk}
-              className="btn btn-warning text-white font-bold h-8 w-11/12 text-xs"
+                href={product.amazon_url_uk}
+                className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
               >
-              Amazon UK
+                Amazon UK
               </a>
-            ) : product.sephora_url ? (
+              ) : product.sephora_url ? (
               <a
-              href={product.sephora_url}
-              className="btn btn-neutral text-white font-bold h-8 w-11/12 text-xs"
+                href={product.sephora_url}
+                className="btn btn-neutral text-white font-bold h-8 flex-1 text-xs"
               >
-              Sephora
+                Sephora
               </a>
-            ) : product.fallback_url ? (
+              ) : product.fallback_url ? (
               <a
-              href={product.fallback_url}
-              className="btn text-black font-bold h-8 w-11/12 text-xs border border-gray-300"
+                href={product.fallback_url}
+                className="btn text-black font-bold h-8 flex-1 text-xs border border-gray-300"
               >
-              Product Site
+                Product Site
               </a>
-            ) : (
+              ) : (
               <button
-              className="btn btn-disabled font-bold h-8 w-11/12 text-xs"
-              disabled
+                className="btn btn-disabled font-bold h-8 flex-1 text-xs"
+                disabled
               >
-              No Link Available
+                No Link Available
               </button>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

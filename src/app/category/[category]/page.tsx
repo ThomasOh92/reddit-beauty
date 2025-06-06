@@ -40,7 +40,7 @@ export default async function CategoryPage({
 
     const discussion_data = data.discussions;
     const products = data.products;
-    const specialMentions = data.specialMentions;
+    const specialMentions = data["special-mentions"];
     const skinTypeData = data["skin-types"];
 
     return (
@@ -76,7 +76,7 @@ export default async function CategoryPage({
             <p className="text-secondary font-bold text-sm ml-4 mb-2" id="general">General</p>
         )}
         <DiscussionsBox discussion_data={discussion_data} />
-        <CategoryPageWrapper products={products} specialMentions={specialMentions}/>
+        <CategoryPageWrapper products={products} specialMentions={specialMentions} category={category}/>
         <p className="text-center my-4 text-xs">
           See Research Approach:{" "}
           <Link
@@ -99,7 +99,7 @@ export default async function CategoryPage({
                 )}
 
                 {skinType.products && skinType.products.length > 0 && (
-                  <CategoryPageWrapper products={skinType.products} />
+                  <CategoryPageWrapper products={skinType.products} category={category}/>
                 )}
                 
                 </div>

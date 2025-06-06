@@ -7,9 +7,11 @@ import { Product, SpecialMention } from "../types";
 export default function CategoryPageWrapper({
   products,
   specialMentions,
+  category
 }: {
   products: Product[];
   specialMentions?: SpecialMention[];
+  category: string;
 }) {
   const [userCountry, setUserCountry] = useState("US"); // Default fallback
 
@@ -33,6 +35,7 @@ export default function CategoryPageWrapper({
             key={product.id}
             product={product}
             userCountry={userCountry}
+            category={category}
           />
         ))}
 
