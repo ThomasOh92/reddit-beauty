@@ -1,9 +1,14 @@
 import * as CONSTANTS from "../../../../constants";
 
+type ProductPageProps = Promise<{
+  category: string;
+  product: string;
+}>;
+
 export default async function ProductPage({
   params,
 }: {
-  params: { category: string; product: string };
+  params: ProductPageProps;
 }) {
   const { category, product } = await params;
   const API_URL = CONSTANTS.APP_URL;
