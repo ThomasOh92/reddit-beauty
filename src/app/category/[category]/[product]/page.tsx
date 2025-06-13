@@ -1,3 +1,4 @@
+import { QuotesDisplay } from "@/components/quotes-display";
 import * as CONSTANTS from "../../../../constants";
 
 type ProductPageProps = Promise<{
@@ -27,6 +28,7 @@ export default async function ProductPage({
 
     const { success, productData } = await res.json();
     if (!success) throw new Error("API request unsuccessful");
+    
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
@@ -40,6 +42,7 @@ export default async function ProductPage({
                 />
               </div>
             )}
+          {/* Title and Picture */}
           <h1 className="text-l font-bold mx-4">{productData.product_name}</h1>
           <div className="flex gap-4 mx-4">
             {productData.amazon_url_us && (
@@ -84,6 +87,7 @@ export default async function ProductPage({
             )}
           </div>
 
+          {/* Ranking by Upvotes */}
           <h2 className="ml-4 text-m font-bold mt-4">Rankings by Upvotes</h2>
           <div className="stats border mx-4">
             <div className="stat">
@@ -96,11 +100,12 @@ export default async function ProductPage({
             </div>
           </div>
           
+          {/* Positive and Negative Mentions */}
           <div>
             <h2 className="ml-4 text-m font-bold mt-4">Positive and Negative Mentions</h2>
             <p className="text-xs mx-4 mt-1">Calculated by the the number of posts or comments that have an opinion on this product</p>
           </div>
-          <div className="stats border mx-4 mb-8">
+          <div className="stats border mx-4 mb-4">
             <div className="stat">
               <div className="stat-title">Positive Mentions</div>
               <div className="stat-value">{productData.positive_mentions}</div>
@@ -110,6 +115,12 @@ export default async function ProductPage({
               <div className="stat-value">{productData.negative_mentions}</div>
             </div>
           </div>
+
+          {/* Quotes */}
+          {Array.isArray(productData.quotes) && productData.quotes.length > 0 && (
+            <QuotesDisplay productData={{ quotes: productData.quotes }} />
+          )}
+          
         </div>
       </div>
     );
