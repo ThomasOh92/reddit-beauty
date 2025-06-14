@@ -18,13 +18,13 @@ export default async function Home() {
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
-        <h1 className="text-lg font-bold m-2 mt-4 text-neutral text-center">Beauty & Skincare Reviews from Reddit</h1>
-        <h2 className="text-sm m-2 text-gray-600 text-center mb-4"> No influencers. No ads. Insights from the top skincare and beauty threads. </h2>
+        <h1 className="text-lg font-bold m-2 mt-4 text-neutral text-center">Reddit Beauty & Skincare Reviews</h1>
+        <h2 className="text-sm m-2 text-gray-600 text-center mb-4"> No influencers. No ads. Insights straight from the top skincare and beauty threads. </h2>
         
         {/* Link to Blog */}
         <div className="flex justify-center mb-3">
           <div
-            className="hero mb-4 rounded-xl max-w-[500px] mx-6"
+            className="hero mb-4 rounded-xl max-w-[500px] mx-2"
             style={{
               backgroundImage:
           "url(https://cdn.sanity.io/images/898a6tzr/production/ba0c204adfa35ea6b6212c3a64b6ca74c56c4c65-1066x300.jpg)",
