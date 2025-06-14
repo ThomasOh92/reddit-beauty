@@ -49,35 +49,76 @@ export default async function Home() {
 
         <div className="divider font-bold">Categories</div>
 
-        <div className="grid grid-cols-1 gap-6">  
-          {data
-            .sort(
-              (
-                a: { readyForDisplay?: boolean },
-                b: { readyForDisplay?: boolean }
-              ) =>
-                Number(b.readyForDisplay || false) -
-                Number(a.readyForDisplay || false)
-            )
-            .map(
-              (category: {
-                id: string;
-                title: string;
-                slug: string;
-                readyForDisplay?: boolean;
-                subtitle: string;
-                lastUpdated: string;
-              }) => (
-                <HomePageCard
-                  key={category.id}
-                  title={category.title}
-                  slug={category.slug}
-                  readyForDisplay={category.readyForDisplay}
-                  subtitle={category.subtitle}
-                  lastUpdated={category.lastUpdated}
-                />
-              )
-            )}
+        <div className="grid grid-cols-1 gap-6">
+          <div className="tabs tabs-border">
+            <input type="radio" name="skincare-or-beauty" className="tab" aria-label="Skincare" defaultChecked />
+            <div className="tab-content">
+              {data
+                .filter((category: { type: string }) => category.type === "skincare")
+                .sort(
+                  (
+                    a: { readyForDisplay?: boolean },
+                    b: { readyForDisplay?: boolean }
+                  ) =>
+                    Number(b.readyForDisplay || false) -
+                    Number(a.readyForDisplay || false)
+                )
+                .map(
+                  (category: {
+                    id: string;
+                    title: string;
+                    slug: string;
+                    readyForDisplay?: boolean;
+                    subtitle: string;
+                    lastUpdated: string;
+                    type: string;
+                  }) => (
+                    <HomePageCard
+                      key={category.id}
+                      title={category.title}
+                      slug={category.slug}
+                      readyForDisplay={category.readyForDisplay}
+                      subtitle={category.subtitle}
+                      lastUpdated={category.lastUpdated}
+                    />
+                  )
+                )}
+            </div>
+
+            <input type="radio" name="skincare-or-beauty" className="tab" aria-label="Beauty" />
+            <div className="tab-content">
+              {data
+                .filter((category: { type: string }) => category.type === "beauty")
+                .sort(
+                  (
+                    a: { readyForDisplay?: boolean },
+                    b: { readyForDisplay?: boolean }
+                  ) =>
+                    Number(b.readyForDisplay || false) -
+                    Number(a.readyForDisplay || false)
+                )
+                .map(
+                  (category: {
+                    id: string;
+                    title: string;
+                    slug: string;
+                    readyForDisplay?: boolean;
+                    subtitle: string;
+                    lastUpdated: string;
+                    type: string;
+                  }) => (
+                    <HomePageCard
+                      key={category.id}
+                      title={category.title}
+                      slug={category.slug}
+                      readyForDisplay={category.readyForDisplay}
+                      subtitle={category.subtitle}
+                      lastUpdated={category.lastUpdated}
+                    />
+                  )
+                )}
+            </div>
+          </div>
         </div>
         <div className="divider font-bold mt-10">Redditor Testimonials</div>
         <Testimonials />

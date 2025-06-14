@@ -48,7 +48,7 @@ const testimonials = [
               href={t.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block bg-base-100 p-2 pl-4 pr-4 hover:bg-blue-100 transition cursor-pointer group"
+              className="block bg-base-100 p-2 pl-4 pr-4 transition cursor-pointer group"
               style={{ textDecoration: "none" }}
               aria-label={`Read testimonial from ${t.user}`}
             >
