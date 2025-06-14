@@ -24,7 +24,7 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({ productData }) => 
 
     return (
         <div className="mx-4">
-          <h2 className="text-m font-bold mb-2"> AI Selected Comments</h2>
+          <h2 className="text-m font-bold mb-2"> Helpful Comments</h2>
           {sortedQuotes.slice(0, 5).map((quote, idx) => (
             
               <div className="card bg-base-100 shadow-sm mb-1" key={idx}>
@@ -44,7 +44,7 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({ productData }) => 
             <div className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mt-8">
               <input type="checkbox" className="collapse-toggle" />
               <div className="collapse-title text-xs font-medium">
-                More Quotes
+                More Reviews
               </div>
               <div className="collapse-content">
                 {sortedQuotes.slice(5).map((quote, idx) => (
