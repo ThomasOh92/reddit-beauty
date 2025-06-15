@@ -8,7 +8,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: {
-    default: "Reddit Beauty and Skincare - Reviews from Real Redditors",
+    default: "Reddit Beauty & Skincare Reviews",
     template: "%s | Reddit Beauty",
   },
   description: "Discover the most talked-about skincare and beauty products on Reddit.",
