@@ -29,7 +29,7 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({ productData }) => 
             
               <div className="card bg-base-100 shadow-sm mb-1" key={idx}>
                 <div className="card-body">
-                  <a href={quote.url} target="_blank" rel="noopener noreferrer" className="block no-underline hover:underline transition">
+                  <a href={`https://reddit.com${quote.url}`} target="_blank" rel="noopener noreferrer" className="block no-underline hover:underline transition">
                     <p className="text-xs mb-1">{quote.comment}</p>
                   </a>
                   <div className="flex flex-wrap gap-2 text-xs text-gray-500">
