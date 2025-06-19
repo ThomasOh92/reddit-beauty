@@ -1,3 +1,9 @@
+import  { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "About"
+}
+
 export default function AboutPage() {
     return (
         <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md p-4 space-y-4">
