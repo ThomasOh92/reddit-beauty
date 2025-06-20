@@ -57,7 +57,7 @@ export async function generateMetadata({
   const plainTextDescription = post.body
     .map(block => {
       if (block._type === 'block' && Array.isArray(block.children)) {
-        return block.children.map((child: any) => child.text).join('');
+        return block.children.map((child) => typeof child.text === "string" ? child.text : "").join('');
       }
       return '';
     })
