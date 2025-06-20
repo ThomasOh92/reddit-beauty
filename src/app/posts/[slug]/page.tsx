@@ -2,6 +2,7 @@ import { client } from "../../../sanity/lib/client";
 import { groq } from "next-sanity";
 import { PortableText, PortableTextBlock } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
+import { cache } from "react";
 
 const builder = imageUrlBuilder(client);
 
@@ -24,14 +25,9 @@ type Params = {
   slug: string;
 };
 
-export default async function DeepDivePage({
-  params,
-}: {
-  params: Promise<Params>;
-}) {
-  const { slug } = await params;
-
-  const post: Post = await client.fetch(
+// 1. Use React's cache()
+const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
+  return client.fetch(
     groq`*[_type == "post" && slug.current == $slug][0]{
       title,
       mainImage,
@@ -39,6 +35,60 @@ export default async function DeepDivePage({
     }`,
     { slug }
   );
+});
+
+// 2. Use in generateMetadata
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
+}): Promise<{ title: string; description: string; openGraph?: { images: { url: string; alt: string }[] } }> {
+  const { slug } = await params;
+
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "Post not found",
+      description: "The requested post could not be found.",
+    };
+  }
+
+  const plainTextDescription = post.body
+    .map(block => {
+      if (block._type === 'block' && Array.isArray(block.children)) {
+        return block.children.map((child: any) => child.text).join('');
+      }
+      return '';
+    })
+    .join(' ')
+    .slice(0, 160);
+
+  return {
+    title: post.title,
+    description: plainTextDescription,
+    openGraph: {
+      images: post.mainImage
+        ? [
+            {
+              url: urlFor(post.mainImage.asset._ref),
+              alt: post.mainImage.alt || post.title,
+            },
+          ]
+        : [],
+    },
+  };
+}
+
+// 3. Use in your page
+export default async function DeepDivePage({
+  params,
+}: {
+  params: Promise<Params>;
+}) {
+  const { slug } = await params;
+
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return <div>Post not found.</div>;
