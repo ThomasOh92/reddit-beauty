@@ -35,13 +35,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const categoriesJSON = await categoriesRes.json();
     const categories = categoriesJSON.data as Array<{
         slug: string;
-        lastUpdated: string;
+        lastUpdated: string; // THIS IS NOT A PROPER LAST MODIFIED DATE > NEED ISO FORMAT
     }>;
 
     // Build sitemap entries for each category
     const categoryEntries = categories.map((cat) => ({
-        url: `${APP_URL}/category/${cat.slug}`,
-        lastModified: cat.lastUpdated,
+        url: `${APP_URL}/category/${cat.slug}`
     }));
 
     //===============================
