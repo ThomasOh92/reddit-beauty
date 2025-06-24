@@ -8,7 +8,7 @@ type CategoryPageProps = Promise<{
   category: string;
 }>;
 
-export async function generateMetadata({ params }: { params: { category: string } }) {
+export async function generateMetadata({ params }: { params: CategoryPageProps }) {
   const { category } = await params;
   const categoryWithSpaces = category.replace(/-/g, " ");
   const categoryCapitalized = categoryWithSpaces
