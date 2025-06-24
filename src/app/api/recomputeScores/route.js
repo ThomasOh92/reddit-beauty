@@ -14,17 +14,22 @@ export async function GET(req) {
 
   try {
     const categoriesSnap = await db.collection("categories").get();
-    const categories = categoriesSnap.docs.map((doc) => doc.id);
+    const categories = categoriesSnap.docs.map((doc) => ({
+      id: doc.id,
+      slug: doc.data().slug,
+    }));
 
     for (const category of categories) {
+      // get all products in the category
       const productsSnapshot = await db
-        .collection(category)
+        .collection(category.slug)
         .doc(`${category}-category`)
         .collection("products")
         .get();
 
       const scoreMap = {};
 
+      // Get the the quotes for each product
       for (const productDoc of productsSnapshot.docs) {
         let total = 0;
 
