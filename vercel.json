@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/recomputeScores",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/recomputeTheadCount",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
