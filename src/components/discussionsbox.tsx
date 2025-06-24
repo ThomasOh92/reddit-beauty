@@ -7,9 +7,10 @@ type DiscussionsBoxProps = {
 
 const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => (
     <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4">
-        <input type="checkbox" defaultChecked />
-        <div className="collapse-title font-semibold">
-            Discussions Analyzed
+        <input type="checkbox" defaultChecked={false} />
+        <div className="collapse-title text-sm">
+            <span className="font-bold">{discussion_data.length}</span> discussions analyzed
+            <div>...</div>
         </div>
         <div className="collapse-content">
             <ul className="text-xs mt-2">
