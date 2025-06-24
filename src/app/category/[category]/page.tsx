@@ -23,10 +23,10 @@ export async function generateMetadata({ params }: { params: CategoryPageProps }
 
   return {
     title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,
-    description: `Discover the top ${category} products as voted and reviewed by Reddit users. See which ${category} products are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
+    description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
     openGraph: {
       title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,
-      description: `Discover the top ${category} products as voted and reviewed by Reddit users. See which ${category} products are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
+      description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
       url: `https://redditbeauty.com/category/${category}`,
       
       // Dynamically create or assign an image in the future
