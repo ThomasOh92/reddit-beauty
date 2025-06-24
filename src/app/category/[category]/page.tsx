@@ -8,6 +8,35 @@ type CategoryPageProps = Promise<{
   category: string;
 }>;
 
+export async function generateMetadata({ params }: { params: { category: string } }) {
+  const { category } = await params;
+  const categoryWithSpaces = category.replace(/-/g, " ");
+  const categoryCapitalized = categoryWithSpaces
+    .split(" ")
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+  const now = new Date();
+  const month = now.toLocaleString("default", { month: "long" });
+  const year = now.getFullYear();
+
+  // Optionally fetch top products here for future enhancements
+
+  return {
+    title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,
+    description: `Discover the top ${category} products as voted and reviewed by Reddit users. See which ${category} products are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
+    openGraph: {
+      title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,
+      description: `Discover the top ${category} products as voted and reviewed by Reddit users. See which ${category} products are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
+      url: `https://redditbeauty.com/category/${category}`,
+      
+      // Dynamically create or assign an image in the future
+    },
+
+    // Optionally add structured data (inject via <Script type="application/ld+json"> in layout)
+  };
+}
+
+
 export default async function CategoryPage({
   params,
 }: {
