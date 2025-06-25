@@ -6,6 +6,40 @@ type ProductPageProps = Promise<{
   product: string;
 }>;
 
+
+export async function generateMetadata({ params }: { params: ProductPageProps }) {
+  const { category, product } = await params;
+  const API_URL = CONSTANTS.APP_URL;
+  const res = await fetch(
+    `${API_URL}/api/getProductData?category=${category}&slug=${product}`
+  );
+  const { productData } = await res.json();
+
+  const productName = productData.product_name;
+  const categoryName = category.replace(/-/g, " ");
+  const now = new Date();
+  const month = now.toLocaleString("default", { month: "long" });
+  const year = now.getFullYear();
+  const image = productData.image_url || '/opengraph-image.png'
+
+  // Optional: Top quote - Future optimization
+  // const topQuote = Array.isArray(productData.quotes) && productData.quotes.length > 0
+  //   ? productData.quotes[0].text
+  //   : undefined;
+
+  return {
+    title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
+    description: `See what Reddit users think about ${productName}. Read real quotes, upvotes, and honest reviews from the Reddit beauty community. Updated ${month} ${year}.`,
+    openGraph: {
+      title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
+      description: `See what Reddit users think about ${productName}. Read real quotes, upvotes, and honest reviews from the Reddit beauty community. Updated ${month} ${year}.`,
+      images: [{ url: image, alt: `${productName}` }],
+      url: `https://redditbeauty.com/category/${category}/${product}`,
+    }
+  };
+}
+
+
 export default async function ProductPage({
   params,
 }: {
