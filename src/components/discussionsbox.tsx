@@ -16,14 +16,25 @@ const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => (
             <ul className="text-xs mt-2">
                 {[...discussion_data]
                     .sort((a, b) => {
-                        const subredditCompare = a.Subreddit.localeCompare(b.Subreddit);
+                        const subredditA = a.Subreddit || "";
+                        const subredditB = b.Subreddit || "";
+                        const subredditCompare = subredditA.localeCompare(subredditB);
                         if (subredditCompare !== 0) return subredditCompare;
 
                         // Parse dates for comparison
                         const parseDate = (dateValue: string) => {
+                            // Match YYYY-MM-DD
                             if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
                                 return new Date(dateValue).getTime();
-                            } else if (!isNaN(Number(dateValue))) {
+                            }
+                            // Match YY-MM-DD (assume 20YY)
+                            if (/^\d{2}-\d{2}-\d{2}$/.test(dateValue)) {
+                                const [yy, mm, dd] = dateValue.split("-");
+                                const fullYear = Number(yy) < 50 ? `20${yy}` : `19${yy}`;
+                                return new Date(`${fullYear}-${mm}-${dd}`).getTime();
+                            }
+                            // Unix timestamp
+                            if (!isNaN(Number(dateValue))) {
                                 return parseFloat(dateValue) * 1000;
                             }
                             return 0;
@@ -46,8 +57,15 @@ const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => (
                                         const dateValue = discussion.date;
                                         let dateObj;
                                         if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
+                                            // YYYY-MM-DD
                                             dateObj = new Date(dateValue);
+                                        } else if (/^\d{2}-\d{2}-\d{2}$/.test(dateValue)) {
+                                            // YY-MM-DD (assume 20YY for <50, 19YY otherwise)
+                                            const [yy, mm, dd] = dateValue.split("-");
+                                            const fullYear = Number(yy) < 50 ? `20${yy}` : `19${yy}`;
+                                            dateObj = new Date(`${fullYear}-${mm}-${dd}`);
                                         } else if (!isNaN(Number(dateValue))) {
+                                            // Unix timestamp
                                             dateObj = new Date(parseFloat(dateValue) * 1000);
                                         } else {
                                             return "Invalid date";
