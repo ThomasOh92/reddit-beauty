@@ -22,15 +22,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, userCountry, categor
         </figure>
       </div>
       <div className="card-body p-4">
-        <Link href={`${category}/${product.slug}`} className="link link-hover text-s font-bold line-clamp-2 pl-3">{product.product_name}</Link>
+        <Link href={`${category}/${product.slug}`} className="link link-hover text-s font-bold line-clamp-2">{product.product_name}</Link>
         <div>
-          <div className="pl-3">
+          <div>
             <p className="flex flex-wrap text-xs line-clamp-1">
-              <strong className="text-secondary">{product.upvote_count} upvotes&nbsp;</strong> across analyzed Reddit threads
+              <strong className="text-secondary">{product.upvote_count}&nbsp;Aggregated Upvotes </strong>
             </p>
             <p className="flex flex-wrap text-xs line-clamp-1">
-              {product.positive_mentions} positive mentions,{" "}
-              {product.negative_mentions} negative mentions
+              {product.positive_mentions} positive reviews,{" "}
+              {product.negative_mentions} negative reviews
             </p>
           </div>
           
