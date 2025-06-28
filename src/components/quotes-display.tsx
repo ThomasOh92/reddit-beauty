@@ -39,7 +39,7 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
               <p className="text-xs mb-1">{quote.comment}</p>
             </a>
             <div className="flex flex-wrap gap-2 text-xs text-gray-500">
-              <span>u/{quote.author}</span>
+              <span>u/{quote.author ? quote.author : "[deleted]"}</span>
               <span>Sentiment: {quote.sentiment} </span>
               <span>Upvotes: {quote.score}</span>
             </div>
