@@ -9,7 +9,7 @@ const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => (
     <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4">
         <input type="checkbox" defaultChecked={false} />
         <div className="collapse-title text-sm">
-            <span className="font-bold">{discussion_data.length}</span> discussions analyzed
+            <span className="font-bold">{Array.isArray(discussion_data) ? discussion_data.length : 0}</span> discussions analyzed
             <div>...</div>
         </div>
         <div className="collapse-content">
