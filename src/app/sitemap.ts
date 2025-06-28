@@ -16,7 +16,7 @@ type CategoryDoc = {
   lastUpdated?: string;
 };
 
-// Product and Special Mention docs from Firestore
+// Product docs from Firestore
 type ProductDoc = {
   id: string;
   slug: string;
@@ -41,7 +41,6 @@ async function fetchCategories(): Promise<CategoryDoc[]> {
 // --- Helper: Fetch all subcollections under category ---
 type SubcollectionsResult = {
   products?: ProductDoc[];
-  "special-mentions"?: ProductDoc[];
   "skin-types"?: unknown[]; // will fetch in detail below
 };
 
@@ -52,7 +51,7 @@ async function fetchAllSubcollections(category: string): Promise<SubcollectionsR
   const result: SubcollectionsResult = {};
   for (const subcollection of collections) {
     const snapshot = await subcollection.get();
-    if (subcollection.id === "products" || subcollection.id === "special-mentions") {
+    if (subcollection.id === "products" ) {
       result[subcollection.id] = snapshot.docs.map((doc) => ({
         id: doc.id,
         slug: doc.data().slug ?? doc.id,
@@ -125,16 +124,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         productEntries.push({
           url: `${APP_URL}/category/${category.slug}/${product.slug}`,
           // lastModified: product.lastUpdated ? new Date(product.lastUpdated).toISOString() : undefined,
-        });
-      }
-    }
-
-    // Special Mentions subcollection
-    if (subcollectionsData["special-mentions"]) {
-      for (const mention of subcollectionsData["special-mentions"]) {
-        productEntries.push({
-          url: `${APP_URL}/category/${category.slug}/${mention.slug}`,
-          // lastModified: mention.lastUpdated ? new Date(mention.lastUpdated).toISOString() : undefined,
         });
       }
     }

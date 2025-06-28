@@ -1,5 +1,4 @@
 import CategoryPageWrapper from "@/components/categorypagewrapper";
-import Link from "next/link";
 import * as CONSTANTS from "../../../constants";
 import DiscussionsBox from "@/components/discussionsbox";
 import { Discussion, Product } from "../../../types";
@@ -69,7 +68,6 @@ export default async function CategoryPage({
 
     const discussion_data = data.discussions;
     const products = data.products;
-    const specialMentions = data["special-mentions"];
     const skinTypeData = data["skin-types"];
 
     return (
@@ -105,7 +103,7 @@ export default async function CategoryPage({
             <p className="text-secondary font-bold text-sm ml-4 mb-2" id="general">General</p>
         )}
         <DiscussionsBox discussion_data={discussion_data} />
-        <CategoryPageWrapper products={products} specialMentions={specialMentions} category={category}/>
+        <CategoryPageWrapper products={products} category={category}/>
 
         {/* Skin Type Data */}
         {skinTypeData && Array.isArray(skinTypeData) && skinTypeData.length > 0 && (

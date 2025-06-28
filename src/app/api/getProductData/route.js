@@ -39,11 +39,6 @@ async function fetchProductBySlug(category, slug) {
   let productDocSnap = await productDocRef.get();
 
   if (!productDocSnap.exists) {
-    productDocRef = basePath.collection("special-mentions").doc(productId);
-    productDocSnap = await productDocRef.get();
-  }
-
-  if (!productDocSnap.exists) {
     const skinTypesSnap = await basePath.collection("skin-types").get();
     let found = false;
 
