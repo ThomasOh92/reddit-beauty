@@ -53,7 +53,7 @@ export default async function CategoryPage({
     const res = await fetch(
       `${API_URL}/api/getCategoryData?category=${category}`,
       {
-        next: { revalidate: 3600 }, // Optional: revalidate every hour
+        next: { revalidate: 1 }, // Optional: revalidate every hour
       }
     );
 
