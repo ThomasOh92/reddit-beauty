@@ -4,6 +4,9 @@ import { client } from "../sanity/lib/client";
 import { groq } from "next-sanity";
 import { APP_URL } from "@/constants";
 
+export const dynamic = "force-dynamic";
+
+
 // For top-level Sitemap entries
 type SitemapEntry = { url: string; lastModified?: string };
 
