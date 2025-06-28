@@ -106,15 +106,6 @@ export default async function CategoryPage({
         )}
         <DiscussionsBox discussion_data={discussion_data} />
         <CategoryPageWrapper products={products} specialMentions={specialMentions} category={category}/>
-        <p className="text-center my-4 text-xs">
-          See Research Approach:{" "}
-          <Link
-            href={`/posts/${category}-reddit-ranking`}
-            className="text-blue-500 underline font-semibold hover:text-blue-700"
-          >
-            Here
-          </Link>
-        </p>
 
         {/* Skin Type Data */}
         {skinTypeData && Array.isArray(skinTypeData) && skinTypeData.length > 0 && (
