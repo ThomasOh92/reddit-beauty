@@ -25,10 +25,10 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
     .sort((a, b) => b.helpfulness_score - a.helpfulness_score);
 
   return (
-    <div className='mx-4'>
-      <h2 className="text-m font-bold mb-2"> Reddit Reviews</h2>
+    <div>
+      <h2 className="text-m font-bold mb-2 mx-4"> Reddit Reviews</h2>
       {sortedQuotes.slice(0, 5).map((quote, idx) => (
-        <div className="card bg-base-100 mb-6" key={idx}>
+        <div className="card bg-base-100 mb-10 mx-4" key={idx}>
             <div className="card-body p-0 !gap-0 !space-y-0">
             <a
               href={`https://reddit.com${quote.url}`}
@@ -47,13 +47,13 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
         </div>
       ))}
       {sortedQuotes.length > 5 && (
-        <div className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mt-8">
+        <div className="collapse collapse-arrow bg-base-100 mt-4">
           <input type="checkbox" className="collapse-toggle p-0" />
-          <div className="collapse-title text-xs font-bold">More</div>
+          <div className="collapse-title text-xs font-bold">More Reddit Reviews...</div>
           <div className="collapse-content">
             {sortedQuotes.slice(5).map((quote, idx) => (
-              <div className="card bg-base-100" key={idx}>
-                <div className="card-body p-0">
+              <div className="card bg-base-100 mb-10" key={idx}>
+                <div className="card-body p-0 !gap-0 !space-y-0">
                     <a
                     href={`https://reddit.com${quote.url}`}
                     target="_blank"
@@ -69,7 +69,6 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
                     <span>Upvotes: {quote.score}</span>
                   </div>
                 </div>
-                <div className="divider mx-10 my-0"></div>
               </div>
             ))}
           </div>
