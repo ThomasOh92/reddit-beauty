@@ -134,18 +134,18 @@ export default async function ProductPage({
             </div>
           </div>
           
-          {/* Positive and Negative Mentions */}
+          {/* Positive and Negative Reviews */}
           <div>
-            <h2 className="ml-4 text-m font-bold mt-4">Positive and Negative Mentions</h2>
+            <h2 className="ml-4 text-m font-bold mt-4">Reddit Reviews</h2>
             <p className="text-xs mx-4 mt-1">Calculated by the the number of posts or comments that have an opinion on this product</p>
           </div>
           <div className="stats border mx-4 mb-4">
             <div className="stat">
-              <div className="stat-title">Positive Mentions</div>
+              <div className="stat-title">Positive Reviews</div>
               <div className="stat-value">{productData.positive_mentions}</div>
             </div>
             <div className="stat">
-              <div className="stat-title">Negative Mentions</div>
+              <div className="stat-title">Negative Reviews</div>
               <div className="stat-value">{productData.negative_mentions}</div>
             </div>
           </div>

@@ -22,11 +22,10 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
 }) => {
   const sortedQuotes = productData.quotes
     .slice()
-    .sort((a, b) => b.helpfulness_score - a.helpfulness_score);
+    .sort((a, b) => b.score - a.score);
 
   return (
     <div>
-      <h2 className="text-m font-bold mb-2 mx-4"> Reddit Reviews</h2>
       {sortedQuotes.slice(0, 5).map((quote, idx) => (
         <div className="card bg-base-100 mb-10 mx-4" key={idx}>
             <div className="card-body p-0 !gap-0 !space-y-0">
