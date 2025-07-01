@@ -70,8 +70,32 @@ export default async function CategoryPage({
     const products = data.products;
     const skinTypeData = data["skin-types"];
 
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": `${categoryCapitalized} – Reddit Rankings`,
+      "description": `Discover the top ${categoryCapitalized} as voted and reviewed by Reddit users. See which ${categoryCapitalized} are popular, read real experiences, and compare upvotes, quotes, and discussions.`,
+      "url": `https://redditbeauty.com/category/${category}`,
+      "mainEntity": products
+        ? products.map((product: Product) => ({
+            "@type": "Product",
+            "name": product.product_name,
+            "url": `https://redditbeauty.com/category/${category}/${product.slug}`,
+            "image": product.image_url
+          }))
+        : [],
+    };
+
+
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
+
         <h1 className="text-l font-bold mb-2 mt-4 w-full bg-clip-text text-center">
           Category:{" "}
           <span className="text-4xl bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text">

@@ -63,9 +63,42 @@ export default async function ProductPage({
     const { success, productData } = await res.json();
     if (!success) throw new Error("API request unsuccessful");
     
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": productData.product_name,
+      "image": productData.image_url,
+      "description": productData.subtitle || `See what Reddit users think about ${productData.product_name}.`,
+      "url": `https://redditbeauty.com/category/${category}/${product}`,
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Total Upvotes",
+          "value": productData.upvote_count
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Positive Reviews",
+          "value": productData.positive_mentions
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Negative Reviews",
+          "value": productData.negative_mentions
+        }
+      ]
+    };
+
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
+
         <div className="flex flex-col gap-4">
             {productData.image_url && (
               <div className="flex justify-center">

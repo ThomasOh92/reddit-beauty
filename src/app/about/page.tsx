@@ -4,9 +4,31 @@ export const metadata: Metadata = {
     title: "About"
 }
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About Reddit Beauty",
+  "url": "https://redditbeauty.com/about",
+  "description": "Reddit Beauty aggregates and analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.",
+  "mainEntity": {
+    "@type": "WebSite",
+    "name": "Reddit Beauty & Skincare Reviews",
+    "url": "https://redditbeauty.com"
+  }
+};
+
+
 export default function AboutPage() {
     return (
         <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md p-4 space-y-4">
+            {/* Structured Data for Google */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+                }}
+            />
+
             {/* Header Section */}
             <div className="flex flex-col space-y-4 items-center">
                 <h1 className="text-2xl font-bold">About Us</h1>

@@ -37,6 +37,20 @@ const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
   );
 });
 
+
+function extractPlainTextDescription(body: PortableTextBlock[]): string {
+  return body
+    .map(block => {
+      if (block._type === 'block' && Array.isArray(block.children)) {
+        return block.children.map((child) => typeof child.text === "string" ? child.text : "").join('');
+      }
+      return '';
+    })
+    .join(' ')
+    .slice(0, 160);
+}
+
+
 // 2. Use in generateMetadata
 export async function generateMetadata({
   params,
@@ -54,15 +68,7 @@ export async function generateMetadata({
     };
   }
 
-  const plainTextDescription = post.body
-    .map(block => {
-      if (block._type === 'block' && Array.isArray(block.children)) {
-        return block.children.map((child) => typeof child.text === "string" ? child.text : "").join('');
-      }
-      return '';
-    })
-    .join(' ')
-    .slice(0, 160);
+  const plainTextDescription = post ? extractPlainTextDescription(post.body) : "";
 
   return {
     title: post.title,
@@ -94,8 +100,27 @@ export default async function DeepDivePage({
     return <div>Post not found.</div>;
   }
 
+  const plainTextDescription = extractPlainTextDescription(post.body);
+  const imageUrl = post.mainImage ? urlFor(post.mainImage.asset._ref) : undefined;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": plainTextDescription,
+    ...(imageUrl && { "image": imageUrl }),
+    "url": `https://redditbeauty.com/posts/${slug}`,
+  };
+
   return (
     <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
+
       <h2 className="font-bold m-2 text-neutral">{post.title}</h2>
       {post.mainImage && (
         <img

@@ -6,6 +6,16 @@ import Link from "next/link";
 export default async function Home() {
   const API_URL = CONSTANTS.APP_URL;
 
+    // --- Structured data for HomePage ---
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Reddit Beauty & Skincare Reviews",
+      "url": "https://redditbeauty.com",
+      "description": "Discover the most talked-about skincare and beauty products on Reddit.",
+    };
+
+
   try {
     const res = await fetch(`${API_URL}/api/getData`, {
       next: { revalidate: 3600 }, // Revalidate every 1 hour
@@ -18,6 +28,15 @@ export default async function Home() {
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
+        
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          }}
+        />
+
         <h1 className="text-lg font-bold m-2 mt-4 text-neutral text-center">Reddit Beauty & Skincare Reviews</h1>
         <h2 className="text-sm m-2 text-gray-600 text-center mb-4"> No influencers. No ads. Insights straight from the top skincare and beauty threads. </h2>
         

@@ -67,8 +67,33 @@ export default async function PostsPage() {
 
   const categoryNames = Object.keys(categoryMap);
 
+
+  const overviewJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Reddit Beauty Blog",
+    "url": "https://redditbeauty.com/posts",
+    "description": "Deep dives, data breakdowns, and honest skincare discussions from the Reddit Beauty team.",
+    "blogPost": posts.map((post) => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "url": `https://redditbeauty.com/posts/${post.slug.current}`,
+      ...(post.mainImage?.asset?._ref && {
+        "image": urlFor(post.mainImage.asset._ref)
+      }),
+      "description": getExcerpt(post.body),
+    })),
+  };
+
+
   return (
     <main className="max-w-[600px] mx-auto px-4 py-4 bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(overviewJsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <h1 className="text-2xl font-bold text-center mb-6">Blog Posts</h1>
       {categoryNames.map((cat) => (
         <section key={cat} className="mb-10">
