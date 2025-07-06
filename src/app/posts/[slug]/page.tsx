@@ -3,6 +3,7 @@ import { groq } from "next-sanity";
 import { PortableText, PortableTextBlock } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import { cache } from "react";
+import { notFound } from 'next/navigation';
 
 const builder = imageUrlBuilder(client);
 
@@ -97,8 +98,9 @@ export default async function DeepDivePage({
   const post = await getPostBySlug(slug);
 
   if (!post) {
-    return <div>Post not found.</div>;
+    notFound();
   }
+
 
   const plainTextDescription = extractPlainTextDescription(post.body);
   const imageUrl = post.mainImage ? urlFor(post.mainImage.asset._ref) : undefined;

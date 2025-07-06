@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import CategoryPageWrapper from "@/components/categorypagewrapper";
 import * as CONSTANTS from "../../../constants";
 import DiscussionsBox from "@/components/discussionsbox";
@@ -58,13 +59,20 @@ export default async function CategoryPage({
     );
 
     if (!res.ok) {
-      throw new Error(
-        `API responded with status: ${res.status} - ${await res.text()}`
-      );
+      if (res.status === 404) return notFound(); // ✅ explicitly return 404 if backend says it's gone
+      throw new Error(`API responded with status: ${res.status}`);
     }
 
+
     const { success, data } = await res.json();
-    if (!success) throw new Error("API request unsuccessful");
+    if (
+      !success ||
+      !data ||
+      !Array.isArray(data.products) ||
+      data.products.length === 0
+    ) {
+      return notFound();
+    }
 
     const discussion_data = data.discussions;
     const products = data.products;
@@ -153,6 +161,6 @@ export default async function CategoryPage({
     );
   } catch (error) {
     console.error("Error fetching data:", error);
-    return <p className="text-red-600">Error fetching category data.</p>;
+    return notFound();
   }
 }

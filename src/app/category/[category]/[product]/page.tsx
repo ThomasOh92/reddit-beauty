@@ -1,5 +1,6 @@
 import { QuotesDisplay } from "@/components/quotes-display";
 import * as CONSTANTS from "../../../../constants";
+import { notFound } from 'next/navigation';
 
 type ProductPageProps = Promise<{
   category: string;
@@ -61,7 +62,14 @@ export default async function ProductPage({
     }
 
     const { success, productData } = await res.json();
-    if (!success) throw new Error("API request unsuccessful");
+    if (
+      !success ||
+      !productData ||
+      !productData.product_name || // core field missing
+      !Array.isArray(productData.quotes) || productData.quotes.length === 0
+    ) {
+      return notFound();
+    }
     
     const jsonLd = {
       "@context": "https://schema.org",
@@ -194,9 +202,7 @@ export default async function ProductPage({
     
   } catch (error) {
     console.error("Error fetching product data:", error);
-    return (
-      <p className="text-red-600 text-center mt-4">Error fetching product data.</p>
-    );
+    return notFound();
   }
 
 }

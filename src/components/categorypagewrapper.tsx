@@ -8,10 +8,10 @@ export default function CategoryPageWrapper({
   products,
   category
 }: {
-  products: Product[];
+  products?: Product[]; // ✅ make optional to handle undefined
   category: string;
 }) {
-  const [userCountry, setUserCountry] = useState("US"); // Default fallback
+  const [userCountry, setUserCountry] = useState("US");
 
   useEffect(() => {
     fetch("https://ipapi.co/json/")
@@ -21,12 +21,14 @@ export default function CategoryPageWrapper({
           setUserCountry(data.country);
         }
       })
-      .catch(() => setUserCountry("US")); // Fallback if geo lookup fails
+      .catch(() => setUserCountry("US"));
   }, []);
+
+  const safeProducts = Array.isArray(products) ? products : [];
 
   return (
     <>
-      {products
+      {safeProducts
         .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity))
         .map((product) => (
           <ProductCard
@@ -36,7 +38,6 @@ export default function CategoryPageWrapper({
             category={category}
           />
         ))}
-
     </>
   );
 }
