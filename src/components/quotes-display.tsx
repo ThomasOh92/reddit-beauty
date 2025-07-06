@@ -28,7 +28,7 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
     <div>
       {sortedQuotes.slice(0, 5).map((quote, idx) => (
         <div className="card bg-base-100 mb-10 mx-4" key={idx}>
-            <div className="card-body p-0 !gap-0 !space-y-0">
+          <div className="card-body p-0 !gap-0 !space-y-0">
             <a
               href={`https://reddit.com${quote.url}`}
               target="_blank"
@@ -39,7 +39,17 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
             </a>
             <div className="flex flex-wrap gap-2 text-xs text-gray-500">
               <span>u/{quote.author ? quote.author : "[deleted]"}</span>
-              <span>Sentiment: {quote.sentiment} </span>
+              <span
+                className={
+                  quote.sentiment === "positive"
+                    ? "text-green-600"
+                    : quote.sentiment === "negative"
+                      ? "text-red-500"
+                      : "text-gray-500"
+                }
+              >
+                Sentiment: likely {quote.sentiment}{" "}
+              </span>
               <span>Upvotes: {quote.score}</span>
             </div>
           </div>
@@ -48,23 +58,40 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
       {sortedQuotes.length > 5 && (
         <div className="collapse collapse-arrow bg-base-100 mt-4">
           <input type="checkbox" className="collapse-toggle p-0" />
-          <div className="collapse-title text-xs font-bold">More Reddit Reviews...</div>
+          <div className="collapse-title text-xs font-bold">
+            More Reddit Reviews...
+          </div>
           <div className="collapse-content">
             {sortedQuotes.slice(5).map((quote, idx) => (
               <div className="card bg-base-100 mb-10" key={idx}>
                 <div className="card-body p-0 !gap-0 !space-y-0">
-                    <a
+                  <a
                     href={`https://reddit.com${quote.url}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block no-underline hover:underline transition"
-                    style={{ wordBreak: "break-word", overflowWrap: "break-word" }}
-                    >
-                    <p className="text-xs mb-1 whitespace-pre-line break-words">{quote.comment}</p>
-                    </a>
+                    style={{
+                      wordBreak: "break-word",
+                      overflowWrap: "break-word",
+                    }}
+                  >
+                    <p className="text-xs mb-1 whitespace-pre-line break-words">
+                      {quote.comment}
+                    </p>
+                  </a>
                   <div className="flex flex-wrap gap-2 text-xs text-gray-500">
                     <span>u/{quote.author}</span>
-                    <span>Sentiment: {quote.sentiment}</span>
+                    <span
+                      className={
+                        quote.sentiment === "positive"
+                          ? "text-green-600"
+                          : quote.sentiment === "negative"
+                            ? "text-red-500"
+                            : "text-gray-500"
+                      }
+                    >
+                      Sentiment: likely {quote.sentiment}
+                    </span>
                     <span>Upvotes: {quote.score}</span>
                   </div>
                 </div>

@@ -6,22 +6,32 @@ export default function HomePageCard({
   readyForDisplay,
   subtitle,
   lastUpdated,
+  thumbnailUrl,
 }: CategoryDetails) {
   //For Cards that are ready to go
   if (readyForDisplay) {
     return (
       <a
         href={`/category/${slug}`}
-        className="card shadow-sm mx-2 rounded my-4 hover:scale-105 hover:bg-[#faedf2] cursor-pointer transition-transform duration-300"
+        className="card bg-white shadow-sm mx-2 my-4 rounded hover:scale-[1.02] hover:bg-[#faedf2] cursor-pointer transition-transform duration-300"
       >
-        <div className="card-body p-4">
-          <h2 className="text-xs font-bold card-title">
-        <span className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-500">
-          {title}
-        </span>
+        <div className="flex flex-col items-center text-center p-4 gap-2">
+          <img
+            src={thumbnailUrl}
+            alt={title}
+            className="w-20 h-20 aspect-square object-contain rounded-md"
+          />
+
+          <h2 className="text-xs font-bold">
+            <span className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-500">
+              {title}
+            </span>
           </h2>
+
           <p className="text-xs">{subtitle}</p>
-          <p className="text-xs">Last Updated On: {lastUpdated}</p>
+          <p className="text-[10px] text-gray-500">
+            Last Updated: {lastUpdated}
+          </p>
         </div>
       </a>
     );

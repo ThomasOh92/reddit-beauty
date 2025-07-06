@@ -1,14 +1,17 @@
 import { QuotesDisplay } from "@/components/quotes-display";
 import * as CONSTANTS from "../../../../constants";
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
 
 type ProductPageProps = Promise<{
   category: string;
   product: string;
 }>;
 
-
-export async function generateMetadata({ params }: { params: ProductPageProps }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: ProductPageProps;
+}) {
   const { category, product } = await params;
   const API_URL = CONSTANTS.APP_URL;
   const res = await fetch(
@@ -21,7 +24,7 @@ export async function generateMetadata({ params }: { params: ProductPageProps })
   const now = new Date();
   const month = now.toLocaleString("default", { month: "long" });
   const year = now.getFullYear();
-  const image = productData.image_url || '/opengraph-image.png'
+  const image = productData.image_url || "/opengraph-image.png";
 
   // Optional: Top quote - Future optimization
   // const topQuote = Array.isArray(productData.quotes) && productData.quotes.length > 0
@@ -36,10 +39,9 @@ export async function generateMetadata({ params }: { params: ProductPageProps })
       description: `See what Reddit users think about ${productName}. Read real quotes, upvotes, and honest reviews from the Reddit beauty community. Updated ${month} ${year}.`,
       images: [{ url: image, alt: `${productName}` }],
       url: `https://redditbeauty.com/category/${category}/${product}`,
-    }
+    },
   };
 }
-
 
 export default async function ProductPage({
   params,
@@ -66,99 +68,85 @@ export default async function ProductPage({
       !success ||
       !productData ||
       !productData.product_name || // core field missing
-      !Array.isArray(productData.quotes) || productData.quotes.length === 0
+      !Array.isArray(productData.quotes) ||
+      productData.quotes.length === 0
     ) {
       return notFound();
     }
-    
+
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "Product",
-      "name": productData.product_name,
-      "image": productData.image_url,
-      "description": productData.subtitle || `See what Reddit users think about ${productData.product_name}.`,
-      "url": `https://redditbeauty.com/category/${category}/${product}`,
-      "additionalProperty": [
+      name: productData.product_name,
+      image: productData.image_url,
+      description:
+        productData.subtitle ||
+        `See what Reddit users think about ${productData.product_name}.`,
+      url: `https://redditbeauty.com/category/${category}/${product}`,
+      additionalProperty: [
         {
           "@type": "PropertyValue",
-          "name": "Total Upvotes",
-          "value": productData.upvote_count
+          name: "Total Upvotes",
+          value: productData.upvote_count,
         },
         {
           "@type": "PropertyValue",
-          "name": "Positive Reviews",
-          "value": productData.positive_mentions
+          name: "Positive Reviews",
+          value: productData.positive_mentions,
         },
         {
           "@type": "PropertyValue",
-          "name": "Negative Reviews",
-          "value": productData.negative_mentions
-        }
-      ]
+          name: "Negative Reviews",
+          value: productData.negative_mentions,
+        },
+      ],
     };
-
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
 
         <div className="flex flex-col gap-4">
-            {productData.image_url && (
-              <div className="flex justify-center">
-                <img
-                  src={productData.image_url}
-                  alt={productData.product_name}
-                  className="w-[50%] h-auto object-contain"
-                />
-              </div>
-            )}
-          {/* Title and Picture */}
+          {productData.image_url && (
+            <div className="flex justify-center">
+              <img
+                src={productData.image_url}
+                alt={productData.product_name}
+                className="w-[50%] h-auto object-contain"
+              />
+            </div>
+          )}
+
           <h1 className="text-l font-bold mx-4">{productData.product_name}</h1>
-          <div className="flex gap-4 mx-4">
+
+          <div className="flex flex-col gap-1 mx-4">
             {productData.amazon_url_us && (
-            <a
-              href={productData.amazon_url_us}
-              className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Amazon
-            </a>
-            )}
-            {productData.amazon_url_uk && (
-            <a
-              href={productData.amazon_url_uk}
-              className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Amazon UK
-            </a>
-            )}
-            {productData.sephora_url && (
-            <a
-              href={productData.sephora_url}
-              className="btn btn-neutral text-white font-bold h-8 flex-1 text-xs"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Sephora
-            </a>
-            )}
-            {productData.fallback_url && (
-            <a
-              href={productData.fallback_url}
-              className="btn text-black font-bold h-8 flex-1 text-xs border border-gray-300"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Product Site
-            </a>
+              <>
+                <a
+                  href={
+                    productData.amazon_url_us ||
+                    productData.amazon_url ||
+                    productData.sephora_url ||
+                    productData.fallback_url
+                  }
+                  className="btn btn-warning text-white font-bold h-8 text-xs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  See Product
+                </a>
+
+                <p className="text-[10px] text-gray-500 text-center leading-snug mt-1">
+                  We may earn a small commission if you click our link. It
+                  doesn’t cost you anything — but it helps support the cost of
+                  running our analysis and keeping this site independent.
+                </p>
+              </>
             )}
           </div>
 
@@ -174,11 +162,14 @@ export default async function ProductPage({
               <div className="stat-value">{productData.upvote_count}</div>
             </div>
           </div>
-          
+
           {/* Positive and Negative Reviews */}
           <div>
             <h2 className="ml-4 text-m font-bold mt-4">Reddit Reviews</h2>
-            <p className="text-xs mx-4 mt-1">Calculated by the the number of posts or comments that have an opinion on this product</p>
+            <p className="text-xs mx-4 mt-1">
+              Calculated by the the number of posts or comments that have an
+              opinion on this product
+            </p>
           </div>
           <div className="stats border mx-4 mb-4">
             <div className="stat">
@@ -192,17 +183,15 @@ export default async function ProductPage({
           </div>
 
           {/* Quotes */}
-          {Array.isArray(productData.quotes) && productData.quotes.length > 0 && (
-            <QuotesDisplay productData={{ quotes: productData.quotes }} />
-          )}
-          
+          {Array.isArray(productData.quotes) &&
+            productData.quotes.length > 0 && (
+              <QuotesDisplay productData={{ quotes: productData.quotes }} />
+            )}
         </div>
       </div>
     );
-    
   } catch (error) {
     console.error("Error fetching product data:", error);
     return notFound();
   }
-
 }

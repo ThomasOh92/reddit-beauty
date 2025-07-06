@@ -35,4 +35,5 @@ export interface CategoryDetails {
     subtitle: string;
     readyForDisplay?: boolean;
     lastUpdated: string;
+    thumbnailUrl?: string;
   }
