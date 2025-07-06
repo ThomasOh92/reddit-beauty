@@ -143,7 +143,7 @@ export default async function ProductPage({
 
                 <p className="text-[10px] text-gray-500 text-center leading-snug mt-1">
                   We may earn a small commission if you click our link. It
-                  doesn’t cost you anything — but it helps support the cost of
+                  doesn’t cost you anything - but it helps support the cost of
                   running our analysis and keeping this site independent.
                 </p>
               </>
