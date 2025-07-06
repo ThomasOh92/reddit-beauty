@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <Link href={productUrl} className="block">
-      <div className="card card-side w-full bg-base-100 shadow rounded-none mb-1 relative transition-transform duration-300 hover:scale-[1.01] hover:bg-base-200">
+      <div className="card card-side w-full bg-base-100 shadow rounded-none mb-1 relative transition-transform duration-300 hover:scale-[1.01] hover:bg-base-200 p-2">
         {/* Rank badge */}
         <div className="badge badge-sm badge-soft badge-secondary absolute top-2 left-2 z-10">
           {product.rank}
@@ -41,8 +41,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
 
           {/* Text Section - 60% */}
-          <div className="basis-[60%] card-body p-4">
-            <p className="text-s font-bold line-clamp-2">
+          <div className="basis-[60%] card-body p-2">
+            <p className="text-s font-bold line-clamp-2 leading-tight">
               {product.product_name}
             </p>
 
@@ -51,13 +51,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 {product.upvote_count} Aggregated Upvotes
               </strong>
             </p>
-            <p className="text-xs line-clamp-1">
-              {product.positive_mentions} positive reviews,{" "}
+            <p className="text-xs">
+              {product.positive_mentions} positive,{" "}
               {product.negative_mentions} negative reviews
             </p>
 
             {/* External Link Button */}
-            <div className="mt-4 flex items-center justify-center">
+            <div className="flex items-center justify-center">
               <button
                 onClick={(e) => {
                   e.preventDefault();
