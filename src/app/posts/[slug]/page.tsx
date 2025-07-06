@@ -3,10 +3,12 @@ import { groq } from "next-sanity";
 import { PortableText, PortableTextBlock } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import { cache } from "react";
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
+
+// 👇 Static mode for SEO
+export const dynamic = "force-static";
 
 const builder = imageUrlBuilder(client);
-
 function urlFor(source: string) {
   return builder.image(source).url();
 }
@@ -26,7 +28,7 @@ type Params = {
   slug: string;
 };
 
-// 1. Use React's cache()
+// 🧠 1. Fetch single post by slug
 const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
   return client.fetch(
     groq`*[_type == "post" && slug.current == $slug][0]{
@@ -38,28 +40,43 @@ const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
   );
 });
 
-
+// 📄 2. Extract description
 function extractPlainTextDescription(body: PortableTextBlock[]): string {
   return body
-    .map(block => {
-      if (block._type === 'block' && Array.isArray(block.children)) {
-        return block.children.map((child) => typeof child.text === "string" ? child.text : "").join('');
+    .map((block) => {
+      if (block._type === "block" && Array.isArray(block.children)) {
+        return block.children
+          .map((child) => (typeof child.text === "string" ? child.text : ""))
+          .join("");
       }
-      return '';
+      return "";
     })
-    .join(' ')
+    .join(" ")
     .slice(0, 160);
 }
 
+// ⚙️ 3. generateStaticParams for pre-rendering static blog post pages
+export async function generateStaticParams() {
+  const slugs: { slug: { current: string } }[] = await client.fetch(
+    groq`*[_type == "post" && defined(slug.current)]{
+      slug
+    }`
+  );
 
-// 2. Use in generateMetadata
+  return slugs.map((s) => ({ slug: s.slug.current }));
+}
+
+// 🧠 4. Metadata
 export async function generateMetadata({
   params,
 }: {
   params: Promise<Params>;
-}): Promise<{ title: string; description: string; openGraph?: { images: { url: string; alt: string }[] } }> {
+}): Promise<{
+  title: string;
+  description: string;
+  openGraph?: { images: { url: string; alt: string }[] };
+}> {
   const { slug } = await params;
-
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -69,7 +86,7 @@ export async function generateMetadata({
     };
   }
 
-  const plainTextDescription = post ? extractPlainTextDescription(post.body) : "";
+  const plainTextDescription = extractPlainTextDescription(post.body);
 
   return {
     title: post.title,
@@ -87,31 +104,31 @@ export async function generateMetadata({
   };
 }
 
-// 3. Use in your page
+// 🧾 5. Page Component
 export default async function DeepDivePage({
   params,
 }: {
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-
   const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-
   const plainTextDescription = extractPlainTextDescription(post.body);
-  const imageUrl = post.mainImage ? urlFor(post.mainImage.asset._ref) : undefined;
+  const imageUrl = post.mainImage
+    ? urlFor(post.mainImage.asset._ref)
+    : undefined;
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": post.title,
-    "description": plainTextDescription,
-    ...(imageUrl && { "image": imageUrl }),
-    "url": `https://redditbeauty.com/posts/${slug}`,
+    headline: post.title,
+    description: plainTextDescription,
+    ...(imageUrl && { image: imageUrl }),
+    url: `https://redditbeauty.com/posts/${slug}`,
   };
 
   return (
@@ -119,7 +136,7 @@ export default async function DeepDivePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
 
