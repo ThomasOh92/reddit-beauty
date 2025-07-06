@@ -24,6 +24,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://redditbeauty.com",
   },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+    }
+  }
 };
 
 
