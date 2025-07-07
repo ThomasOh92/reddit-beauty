@@ -3,6 +3,7 @@ import Testimonials from "@/components/testimonials";
 import Link from "next/link";
 import { getAllCategories } from "../../lib/getAllCategories";
 
+export const dynamicParams = true;
 export const revalidate = 3600
 
 export default async function Home() {
