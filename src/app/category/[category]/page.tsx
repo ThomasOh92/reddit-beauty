@@ -1,8 +1,12 @@
 import { notFound } from 'next/navigation';
 import CategoryPageWrapper from "@/components/categorypagewrapper";
-import * as CONSTANTS from "../../../constants";
 import DiscussionsBox from "@/components/discussionsbox";
 import { Discussion, Product } from "../../../types";
+import { getAllCategories } from '../../../../lib/getAllCategories';
+import { getCategoryData } from "../../../../lib/getCategoryData";
+
+export const dynamicParams = true;
+export const revalidate = 3600; // optional, for ISR support
 
 type CategoryPageProps = Promise<{
   category: string;
@@ -40,13 +44,33 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+
+  try {
+    const data = await getAllCategories();
+
+    const categories = data
+      .filter(
+        (category: { slug: string; readyForDisplay?: boolean }) =>
+          category.slug && category.readyForDisplay
+      )
+      .map((category: { slug: string }) => ({
+        category: category.slug,
+      }));
+
+    return categories;
+  } catch (err) {
+    console.error("Error generating static params for category:", err);
+    return [];
+  }
+}
+
 export default async function CategoryPage({
   params,
 }: {
   params: CategoryPageProps;
 }) {
   const { category } = await params;
-  const API_URL = CONSTANTS.APP_URL;
 
   const categoryCapitalized = category
     .split("-")
@@ -54,22 +78,10 @@ export default async function CategoryPage({
     .join(" ");
 
   try {
-    const res = await fetch(
-      `${API_URL}/api/getCategoryData?category=${category}`,
-      {
-        next: { revalidate: 3600 }, // Optional: revalidate every hour
-      }
-    );
 
-    if (!res.ok) {
-      if (res.status === 404) return notFound(); // ✅ explicitly return 404 if backend says it's gone
-      throw new Error(`API responded with status: ${res.status}`);
-    }
+    const data = await getCategoryData(category);
 
-
-    const { success, data } = await res.json();
     if (
-      !success ||
       !data ||
       !Array.isArray(data.products) ||
       data.products.length === 0

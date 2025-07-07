@@ -1,11 +1,17 @@
 import { QuotesDisplay } from "@/components/quotes-display";
-import * as CONSTANTS from "../../../../constants";
 import { notFound } from "next/navigation";
+import { getAllCategories } from "../../../../../lib/getAllCategories";
+import { getCategoryData } from "../../../../../lib/getCategoryData";
+import { getProductData } from "../../../../../lib/getProductData";
+
+export const dynamicParams = true;
+export const revalidate = 3600;
 
 type ProductPageProps = Promise<{
   category: string;
   product: string;
 }>;
+
 
 export async function generateMetadata({
   params,
@@ -13,11 +19,9 @@ export async function generateMetadata({
   params: ProductPageProps;
 }) {
   const { category, product } = await params;
-  const API_URL = CONSTANTS.APP_URL;
-  const res = await fetch(
-    `${API_URL}/api/getProductData?category=${category}&slug=${product}`
-  );
-  const { productData } = await res.json();
+
+  const productData = await getProductData(category, product);
+  if (!productData) return notFound();
 
   const productName = productData.product_name;
   const categoryName = category.replace(/-/g, " ");
@@ -43,29 +47,50 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams(): Promise<{ category: string; product: string }[]> {
+
+  try {
+    // Step 1: Get categories
+    const data = await getAllCategories();
+    if (!Array.isArray(data)) return [];
+    
+    const categorySlugs = data
+      .filter((c) => c.readyForDisplay && c.slug)
+      .map((c) => c.slug);
+
+    const allParams: { category: string; product: string }[] = [];
+
+    // Step 2: For each category, fetch its products
+    for (const category of categorySlugs) {
+      const data = await getCategoryData(category);
+      if (!data || !data.products || !Array.isArray(data.products)) continue;
+
+      for (const product of data.products) {
+        if (product?.slug) {
+          allParams.push({ category, product: product.slug });
+        }
+      }
+    }
+
+    return allParams;
+  } catch (err) {
+    console.error("generateStaticParams() error:", err);
+    return [];
+  }
+}
+
+
 export default async function ProductPage({
   params,
 }: {
   params: ProductPageProps;
 }) {
   const { category, product } = await params;
-  const API_URL = CONSTANTS.APP_URL;
 
   try {
-    const res = await fetch(
-      `${API_URL}/api/getProductData?category=${category}&slug=${product}`,
-      { next: { revalidate: 3600 } }
-    );
+    const productData = await getProductData(category, product);
 
-    if (!res.ok) {
-      throw new Error(
-        `API responded with status: ${res.status} - ${await res.text()}`
-      );
-    }
-
-    const { success, productData } = await res.json();
     if (
-      !success ||
       !productData ||
       !productData.product_name || // core field missing
       !Array.isArray(productData.quotes) ||
@@ -80,7 +105,6 @@ export default async function ProductPage({
       name: productData.product_name,
       image: productData.image_url,
       description:
-        productData.subtitle ||
         `See what Reddit users think about ${productData.product_name}.`,
       url: `https://redditbeauty.com/category/${category}/${product}`,
       additionalProperty: [
@@ -130,7 +154,7 @@ export default async function ProductPage({
                 <a
                   href={
                     productData.amazon_url_us ||
-                    productData.amazon_url ||
+                    productData.amazon_url_uk ||
                     productData.sephora_url ||
                     productData.fallback_url
                   }

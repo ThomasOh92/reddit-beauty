@@ -13,14 +13,6 @@ export interface Product {
   slug: string;
 }
 
-export interface SpecialMention {
-  id?: string;
-  product_name?: string;
-  amazon_url_us?: string;
-  amazon_url_uk?: string;
-  upvote_count?: number;
-  slug: string;
-}
 
 export interface Discussion {
   thread_url: string;

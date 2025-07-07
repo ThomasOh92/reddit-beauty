@@ -1,10 +1,11 @@
 import HomePageCard from "@/components/homepagecard";
-import * as CONSTANTS from "../constants";
 import Testimonials from "@/components/testimonials";
 import Link from "next/link";
+import { getAllCategories } from "../../lib/getAllCategories";
+
+export const revalidate = 3600
 
 export default async function Home() {
-  const API_URL = CONSTANTS.APP_URL;
 
   // --- Structured data for HomePage ---
   const jsonLd = {
@@ -17,14 +18,7 @@ export default async function Home() {
   };
 
   try {
-    const res = await fetch(`${API_URL}/api/getData`, {
-      next: { revalidate: 3600 }, // Revalidate every 1 hour
-    });
-
-    if (!res.ok) throw new Error(`API responded with status: ${res.status}`);
-
-    const { success, data } = await res.json();
-    if (!success) throw new Error("API request unsuccessful");
+    const data = await getAllCategories();
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">

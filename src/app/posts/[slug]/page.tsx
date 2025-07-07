@@ -6,7 +6,8 @@ import { cache } from "react";
 import { notFound } from "next/navigation";
 
 // 👇 Static mode for SEO
-export const dynamic = "force-static";
+export const dynamicParams = true;
+export const revalidate = 3600;
 
 const builder = imageUrlBuilder(client);
 function urlFor(source: string) {
