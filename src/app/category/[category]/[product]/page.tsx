@@ -12,6 +12,9 @@ type ProductPageProps = Promise<{
   product: string;
 }>;
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export async function generateMetadata({
   params,
@@ -70,6 +73,9 @@ export async function generateStaticParams(): Promise<{ category: string; produc
           allParams.push({ category, product: product.slug });
         }
       }
+      
+      await delay(200);
+
     }
 
     return allParams;
