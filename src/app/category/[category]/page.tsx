@@ -6,7 +6,7 @@ import { getAllCategories } from '../../../../lib/getAllCategories';
 import { getCategoryData } from "../../../../lib/getCategoryData";
 
 export const dynamicParams = true;
-export const revalidate = 3600; // optional, for ISR support
+export const revalidate = 7200; // optional, for ISR support
 
 type CategoryPageProps = Promise<{
   category: string;

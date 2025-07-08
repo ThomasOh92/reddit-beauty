@@ -1,4 +1,5 @@
 // lib/data/getAllCategories.ts
+import { cache } from "react";
 import { db } from "./firebaseAdmin";
 
 export type Category = {
@@ -12,11 +13,10 @@ export type Category = {
   readyForDisplay?: boolean;
 };
 
-export async function getAllCategories(): Promise<Category[]> {
+export const getAllCategories = cache(async function getAllCategories(): Promise<Category[]> {
   const snapshot = await db.collection("categories").get();
-
   return snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   })) as Category[];
-}
+});

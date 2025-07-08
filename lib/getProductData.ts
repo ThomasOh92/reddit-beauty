@@ -1,3 +1,5 @@
+// lib/getProductData.ts
+import { cache } from "react";
 import { db } from "./firebaseAdmin";
 import { Product } from "../src/types";
 
@@ -10,12 +12,11 @@ type Quote = {
   score: number;
 };
 
-
 type ProductWithQuotes = Product & {
   quotes: Quote[];
 };
 
-export async function getProductData(
+export const getProductData = cache(async function getProductData(
   category: string,
   slug: string
 ): Promise<ProductWithQuotes | null> {
@@ -23,15 +24,13 @@ export async function getProductData(
 
   try {
     const baseRef = db.collection(category).doc(`${category}-category`);
-
-    const slugDocRef = baseRef.collection("slugs").doc(slug);
-    const slugDocSnap = await slugDocRef.get();
+    const slugDocSnap = await baseRef.collection("slugs").doc(slug).get();
     if (!slugDocSnap.exists) throw new Error("Slug not found");
 
     const { productId } = slugDocSnap.data() as { productId: string };
     if (!productId) throw new Error("Missing productId in slug doc");
 
-    // Try to get from top-level "products"
+    // Try top-level products
     let productDocRef = baseRef.collection("products").doc(productId);
     let productDocSnap = await productDocRef.get();
 
@@ -39,11 +38,13 @@ export async function getProductData(
     if (!productDocSnap.exists) {
       const skinTypesSnap = await baseRef.collection("skin-types").get();
       for (const skinTypeDoc of skinTypesSnap.docs) {
-        const altRef = skinTypeDoc.ref.collection("products").doc(productId);
-        const altSnap = await altRef.get();
-
+        const altSnap = await skinTypeDoc
+          .ref
+          .collection("products")
+          .doc(productId)
+          .get();
         if (altSnap.exists) {
-          productDocRef = altRef;
+          productDocRef = altSnap.ref;
           productDocSnap = altSnap;
           break;
         }
@@ -51,10 +52,7 @@ export async function getProductData(
     }
 
     if (!productDocSnap.exists) throw new Error("Product not found");
-
-    const data = productDocSnap.data();
-    if (!data) throw new Error("No product data");
-
+    const data = productDocSnap.data()!;
     const product: Product = {
       id: productDocSnap.id,
       slug: data.slug ?? "",
@@ -83,12 +81,9 @@ export async function getProductData(
       };
     });
 
-    return {
-      ...product,
-      quotes,
-    };
+    return { ...product, quotes };
   } catch (err) {
     console.error("getProductData error:", err);
     return null;
   }
-}
+});

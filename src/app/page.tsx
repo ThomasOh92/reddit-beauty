@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getAllCategories } from "../../lib/getAllCategories";
 
 export const dynamicParams = true;
-export const revalidate = 3600
+export const revalidate = 7200
 
 export default async function Home() {
 

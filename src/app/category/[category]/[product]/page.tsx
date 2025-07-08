@@ -5,7 +5,7 @@ import { getCategoryData } from "../../../../../lib/getCategoryData";
 import { getProductData } from "../../../../../lib/getProductData";
 
 export const dynamicParams = true;
-export const revalidate = 3600;
+export const revalidate = 7200;
 
 type ProductPageProps = Promise<{
   category: string;

@@ -1,3 +1,5 @@
+// lib/getCategoryData.ts
+import { cache } from "react";
 import { db } from "./firebaseAdmin";
 import { Product, Discussion } from "../src/types";
 
@@ -7,111 +9,77 @@ type SkinTypeData = {
   products: Product[];
 };
 
-type CategoryData = {
+export type CategoryData = {
   products?: Product[];
   discussions?: Discussion[];
   "skin-types"?: SkinTypeData[];
 };
 
-export async function getCategoryData(category: string): Promise<CategoryData | null> {
+function mapProduct(doc: FirebaseFirestore.DocumentSnapshot): Product {
+  const d = doc.data()!;
+  return {
+    id: doc.id,
+    slug: d.slug ?? "",
+    product_name: d.product_name ?? "",
+    image_url: d.image_url ?? "",
+    positive_mentions: d.positive_mentions ?? 0,
+    negative_mentions: d.negative_mentions ?? 0,
+    // spread only fields you truly need:
+    amazon_url_us: d.amazon_url_us,
+    amazon_url_uk: d.amazon_url_uk,
+    sephora_url: d.sephora_url,
+    fallback_url: d.fallback_url,
+    rank: d.rank ?? 0,
+    upvote_count: d.upvote_count ?? 0,
+  };
+}
+
+function mapDiscussion(doc: FirebaseFirestore.DocumentSnapshot): Discussion {
+  const d = doc.data()!;
+  return {
+    thread_url: d.thread_url ?? "",
+    Subreddit: d.Subreddit ?? "",
+    thread_title: d.thread_title ?? "",
+    date: d.date ?? "",
+  };
+}
+
+export const getCategoryData = cache(async function getCategoryData(
+  category: string
+): Promise<CategoryData | null> {
   if (!category) return null;
 
-  try {
-    const docRef = db.collection(category).doc(`${category}-category`);
-    const collections = await docRef.listCollections();
+  const categoryRef = db.collection(category).doc(`${category}-category`);
 
-    const result: CategoryData = {};
+  // kick off reads in parallel:
+  const [prodSnap, discSnap, skinTypeIndex] = await Promise.all([
+    categoryRef.collection("products").get(),
+    categoryRef.collection("discussions").get(),
+    categoryRef.collection("skin-types").listDocuments(), // just get doc refs
+  ]);
 
-    for (const subcollection of collections) {
-      const snapshot = await subcollection.get();
+  const result: CategoryData = {
+    products: prodSnap.docs.map(mapProduct),
+    discussions: discSnap.docs.map(mapDiscussion),
+  };
 
-      if (subcollection.id === "products") {
-        result.products = snapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            slug: data.slug ?? "",
-            product_name: data.product_name ?? "",
-            image_url: data.image_url ?? "",
-            positive_mentions: data.positive_mentions ?? 0,
-            negative_mentions: data.negative_mentions ?? 0,
-            ...data,
-          } as Product;
-        });
-      }
+  if (skinTypeIndex.length) {
+    // fetch each skin-type’s products & discussions in parallel
+    result["skin-types"] = await Promise.all(
+      skinTypeIndex.map(async (skinDocRef) => {
+        const [stProdSnap, stDiscSnap] = await Promise.all([
+          skinDocRef.collection("products").get(),
+          skinDocRef.collection("discussions").get(),
+        ]);
 
-      else if (subcollection.id === "discussions") {
-        result.discussions = snapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            thread_url: data.thread_url ?? "",
-            Subreddit: data.Subreddit ?? "",
-            thread_title: data.thread_title ?? "",
-            date: data.date ?? "",
-            ...data,
-          } as Discussion;
-        });
-      }
-    }
-
-    const hasSkinTypes = collections.some((c) => c.id === "skin-types");
-    if (hasSkinTypes) {
-      const skinTypeSnapshot = await docRef.collection("skin-types").get();
-      const skinTypes: SkinTypeData[] = [];
-
-      for (const doc of skinTypeSnapshot.docs) {
-        const skinTypeRef = docRef.collection("skin-types").doc(doc.id);
-        const subcollections = await skinTypeRef.listCollections();
-
-        const skinTypeObj: SkinTypeData = {
-          id: doc.id,
-          discussions: [],
-          products: [],
+        return {
+          id: skinDocRef.id,
+          products: stProdSnap.docs.map(mapProduct),
+          discussions: stDiscSnap.docs.map(mapDiscussion),
         };
-
-        for (const subcollection of subcollections) {
-          const subSnap = await subcollection.get();
-
-          if (subcollection.id === "products") {
-            skinTypeObj.products = subSnap.docs.map((d) => {
-              const data = d.data();
-              return {
-                id: d.id,
-                slug: data.slug ?? "",
-                product_name: data.product_name ?? "",
-                image_url: data.image_url ?? "",
-                positive_mentions: data.positive_mentions ?? 0,
-                negative_mentions: data.negative_mentions ?? 0,
-                ...data,
-              } as Product;
-            });
-          }
-
-          else if (subcollection.id === "discussions") {
-            skinTypeObj.discussions = subSnap.docs.map((d) => {
-              const data = d.data();
-              return {
-                id: d.id,
-                thread_url: data.thread_url ?? "",
-                Subreddit: data.Subreddit ?? "",
-                thread_title: data.thread_title ?? "",
-                date: data.date ?? "",
-                ...data,
-              } as Discussion;
-            });
-          }
-        }
-
-        skinTypes.push(skinTypeObj);
-      }
-
-      result["skin-types"] = skinTypes;
-    }
-
-    return result;
-  } catch (err) {
-    console.error("getCategoryData error:", err);
-    return null;
+      })
+    );
   }
-}
+
+  return result;
+});
