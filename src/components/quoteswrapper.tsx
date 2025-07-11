@@ -20,6 +20,7 @@ export default function QuotesWrapper({
   const [cursorId, setCursorId] = useState<string | null>(initialCursorId);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Function to load more quotes
   const loadMoreQuotes = async () => {
     if (!cursorId) return;
     setIsLoading(true);
