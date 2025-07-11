@@ -37,7 +37,7 @@ function mapProduct(doc: FirebaseFirestore.DocumentSnapshot): Product {
 function mapDiscussion(doc: FirebaseFirestore.DocumentSnapshot): Discussion {
   const d = doc.data()!;
   return {
-    thread_url: d.thread_url ?? "",
+    permalink: d.permalink ?? "",
     Subreddit: d.Subreddit ?? "",
     thread_title: d.thread_title ?? "",
     date: d.date ?? "",
@@ -52,15 +52,22 @@ export const getCategoryData = cache(async function getCategoryData(
   const categoryRef = db.collection(category).doc(`${category}-category`);
 
   // kick off reads in parallel:
-  const [prodSnap, discSnap, skinTypeIndex] = await Promise.all([
+  const [prodSnap, categoryDoc, skinTypeIndex] = await Promise.all([
     categoryRef.collection("products").get(),
-    categoryRef.collection("discussions").get(),
+    categoryRef.get(),
     categoryRef.collection("skin-types").listDocuments(), // just get doc refs
   ]);
 
+  const discussionsArray = categoryDoc.data()?.[`discussions-index-1`] || [];
+
   const result: CategoryData = {
     products: prodSnap.docs.map(mapProduct),
-    discussions: discSnap.docs.map(mapDiscussion),
+    discussions: discussionsArray.map((discussionData: any) => ({
+      permalink: discussionData.permalink ?? "",
+      Subreddit: discussionData.Subreddit ?? "",
+      thread_title: discussionData.thread_title ?? "",
+      date: discussionData.date ?? "",
+    })),
   };
 
   if (skinTypeIndex.length) {

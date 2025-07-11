@@ -47,7 +47,7 @@ const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => {
             .map((discussion, index) => (
               <li key={index} className="mb-1 line-clamp-1">
                 <a
-                  href={discussion.thread_url}
+                  href={`https://reddit.com${discussion.permalink}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="link link-hover"

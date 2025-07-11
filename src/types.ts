@@ -15,10 +15,10 @@ export interface Product {
 
 
 export interface Discussion {
-  thread_url: string;
   Subreddit: string;
   thread_title: string;
   date: string;
+  permalink: string;
 }
 
 export interface CategoryDetails {
