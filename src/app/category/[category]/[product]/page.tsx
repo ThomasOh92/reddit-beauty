@@ -1,8 +1,8 @@
-import { QuotesDisplay } from "@/components/quotes-display";
 import { notFound } from "next/navigation";
 import { getAllCategories } from "../../../../../lib/getAllCategories";
-import { getCategoryData } from "../../../../../lib/getCategoryData";
 import { getProductData } from "../../../../../lib/getProductData";
+import { getProductSlugsForCategory } from "../../../../../lib/getProductSlugsForCategory";
+import QuotesWrapper from "@/components/quoteswrapper";
 
 export const dynamicParams = true;
 export const revalidate = 7200;
@@ -63,17 +63,19 @@ export async function generateStaticParams(): Promise<{ category: string; produc
 
     const allParams: { category: string; product: string }[] = [];
 
-    // Step 2: For each category, fetch its products
+    // Step 2: For each category, fetch the product slugs
     for (const category of categorySlugs) {
-      const data = await getCategoryData(category);
-      if (!data || !data.products || !Array.isArray(data.products)) continue;
 
-      for (const product of data.products) {
-        if (product?.slug) {
-          allParams.push({ category, product: product.slug });
-        }
-      }
+      const slugs = await getProductSlugsForCategory(category);
       
+      if (!slugs || !Array.isArray(slugs) || slugs.length === 0) continue;
+      
+      for (const slug of slugs) {
+        if (slug) {
+          allParams.push({ category, product: slug });
+        }
+      } 
+
       await delay(200);
 
     }
@@ -94,7 +96,7 @@ export default async function ProductPage({
   const { category, product } = await params;
 
   try {
-    const productData = await getProductData(category, product);
+    const productData = await getProductData(category, product); // First page of quotes
 
     if (
       !productData ||
@@ -131,6 +133,11 @@ export default async function ProductPage({
         },
       ],
     };
+  
+    // The initial data to pass to the client component
+    const initialQuotes = productData.quotes;
+    const initialCursorId = productData.nextCursor ? productData.nextCursor.id : null;
+
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
@@ -213,10 +220,16 @@ export default async function ProductPage({
           </div>
 
           {/* Quotes */}
-          {Array.isArray(productData.quotes) &&
+          {/* {Array.isArray(productData.quotes) &&
             productData.quotes.length > 0 && (
               <QuotesDisplay productData={{ quotes: productData.quotes }} />
-            )}
+            )} */}
+          <QuotesWrapper
+            initialQuotes={initialQuotes}
+            initialCursorId={initialCursorId}
+            category={category}
+            productSlug={product}
+          />
         </div>
       </div>
     );

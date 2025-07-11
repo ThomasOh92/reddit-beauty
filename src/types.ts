@@ -29,3 +29,13 @@ export interface CategoryDetails {
     lastUpdated: string;
     thumbnailUrl?: string;
   }
+
+export interface Quote {
+  id: string;
+  comment: string;
+  author: string;
+  url: string;
+  helpfulness_score: number;
+  sentiment: string;
+  score: number;
+};

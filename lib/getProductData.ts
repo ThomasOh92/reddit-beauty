@@ -2,8 +2,10 @@
 import { cache } from "react";
 import { db } from "./firebaseAdmin";
 import { Product } from "../src/types";
+import type { DocumentSnapshot } from "firebase-admin/firestore"; // NEW: Import the type for the cursor
 
 type Quote = {
+  id: string; // Add id for the 'key' prop in React
   comment: string;
   author: string;
   url: string;
@@ -12,14 +14,16 @@ type Quote = {
   score: number;
 };
 
-type ProductWithQuotes = Product & {
+type ProductWithPaginatedQuotes = Product & {
   quotes: Quote[];
+  nextCursor: DocumentSnapshot | null;
 };
 
 export const getProductData = cache(async function getProductData(
   category: string,
-  slug: string
-): Promise<ProductWithQuotes | null> {
+  slug: string,
+  options: { limit?: number; startAfter?: DocumentSnapshot } = {}
+): Promise<ProductWithPaginatedQuotes | null> {
   if (!category || !slug) return null;
 
   try {
@@ -30,11 +34,9 @@ export const getProductData = cache(async function getProductData(
     const { productId } = slugDocSnap.data() as { productId: string };
     if (!productId) throw new Error("Missing productId in slug doc");
 
-    // Try top-level products
+    // This block of logic to find the product is UNCHANGED
     let productDocRef = baseRef.collection("products").doc(productId);
     let productDocSnap = await productDocRef.get();
-
-    // Fallback: skin-types/*/products
     if (!productDocSnap.exists) {
       const skinTypesSnap = await baseRef.collection("skin-types").get();
       for (const skinTypeDoc of skinTypesSnap.docs) {
@@ -50,7 +52,6 @@ export const getProductData = cache(async function getProductData(
         }
       }
     }
-
     if (!productDocSnap.exists) throw new Error("Product not found");
     const data = productDocSnap.data()!;
     const product: Product = {
@@ -67,11 +68,30 @@ export const getProductData = cache(async function getProductData(
       sephora_url: data.sephora_url,
       fallback_url: data.fallback_url,
     };
+    // End of unchanged block
 
-    const quotesSnap = await productDocRef.collection("quotes").get();
+    // --- NEW PAGINATION LOGIC FOR QUOTES ---
+    const { limit = 10, startAfter = null } = options;
+
+    // 1. Create the base query with ordering and a limit
+    let quotesQuery = productDocRef
+      .collection("quotes")
+      .orderBy("score", "desc") // Ordering by score, as defined in your Quote type
+      .limit(limit);
+
+    // 2. If a cursor is provided, start the query after that document
+    if (startAfter) {
+      quotesQuery = quotesQuery.startAfter(startAfter);
+    }
+
+    // 3. Execute the paginated query
+    const quotesSnap = await quotesQuery.get();
+    // --- END OF NEW LOGIC ---
+
     const quotes: Quote[] = quotesSnap.docs.map((doc) => {
       const d = doc.data();
       return {
+        id: doc.id, // NEW: Pass the document ID
         comment: d.comment ?? "",
         author: d.author ?? "",
         url: d.url ?? "",
@@ -81,7 +101,11 @@ export const getProductData = cache(async function getProductData(
       };
     });
 
-    return { ...product, quotes };
+    // NEW: Determine the cursor for the *next* page
+    const lastVisible = quotesSnap.docs[quotesSnap.docs.length - 1] || null;
+
+    // MODIFIED: Return the product, the first batch of quotes, and the next cursor
+    return { ...product, quotes, nextCursor: lastVisible };
   } catch (err) {
     console.error("getProductData error:", err);
     return null;
