@@ -62,7 +62,7 @@ export const getCategoryData = cache(async function getCategoryData(
 
   const result: CategoryData = {
     products: prodSnap.docs.map(mapProduct),
-    discussions: discussionsArray.map((discussionData: any) => ({
+    discussions: discussionsArray.map((discussionData: Discussion) => ({
       permalink: discussionData.permalink ?? "",
       Subreddit: discussionData.Subreddit ?? "",
       thread_title: discussionData.thread_title ?? "",
