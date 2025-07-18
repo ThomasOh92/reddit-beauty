@@ -72,7 +72,7 @@ export default async function PostsPage() {
   const overviewJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Reddit Beauty Blog",
+    "name": "Reddit Beauty and Skincare | Blog",
     "url": "https://redditbeauty.com/posts",
     "description": "Deep dives, data breakdowns, and honest skincare discussions from the Reddit Beauty team.",
     "blogPost": posts.map((post) => ({

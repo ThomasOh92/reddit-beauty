@@ -10,11 +10,6 @@ const jsonLd = {
   "name": "About Reddit Beauty",
   "url": "https://redditbeauty.com/about",
   "description": "Reddit Beauty aggregates and analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.",
-  "mainEntity": {
-    "@type": "WebSite",
-    "name": "Reddit Beauty & Skincare Reviews",
-    "url": "https://redditbeauty.com"
-  }
 };
 
 

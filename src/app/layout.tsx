@@ -8,10 +8,10 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: {
-    default: "Reddit Beauty & Skincare Reviews",
-    template: "%s | Reddit Beauty",
+    default: "Reddit Beauty and Skincare",
+    template: "%s | Reddit Beauty and Skincare",
   },
-  description: "Discover the most talked-about skincare and beauty products on Reddit.",
+  description: "Discover the most talked about skincare and beauty products on Reddit.",
   keywords: [
     "Reddit beauty",
     "Reddit skincare",
@@ -35,14 +35,30 @@ export const metadata: Metadata = {
   }
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Reddit Beauty and Skincare",
+    url: "https://redditbeauty.com",
+    description:
+      "Discover the most talked about skincare and beauty products on Reddit.",
+  };
+
   return (
     <html lang="en" className={open_sans.className}>
+      <meta property="og:site_name" content="Reddit Beauty and Skincare" />
+      <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+      />
       <body>
         <Banner />
         {children}
