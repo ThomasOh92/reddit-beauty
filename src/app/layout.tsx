@@ -46,8 +46,8 @@ export default function RootLayout({
     "@type": "WebSite",
     name: "Reddit Beauty and Skincare",
     url: "https://redditbeauty.com",
-    description:
-      "Discover the most talked about skincare and beauty products on Reddit.",
+    description: "Discover the most talked about skincare and beauty products on Reddit.",
+    alternateName: ["Reddit Beauty", "RedditBeauty", "Reddit Beauty & Skincare"],
   };
 
   return (
