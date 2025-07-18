@@ -16,7 +16,7 @@ export const ProductCardButton: React.FC<ProductCardButtonProps> = ({
             }}
             className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
         >
-            See Prorduct
+            See Product
         </button>
     );
 };

@@ -162,7 +162,6 @@ export default async function ProductPage({
           <h1 className="text-l font-bold mx-4">{productData.product_name}</h1>
 
           <div className="flex flex-col gap-1 mx-4">
-            {productData.amazon_url_us && (
               <>
                 <a
                   href={
@@ -184,7 +183,6 @@ export default async function ProductPage({
                   running our analysis and keeping this site independent.
                 </p>
               </>
-            )}
           </div>
 
           {/* Ranking by Upvotes */}
