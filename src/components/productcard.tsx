@@ -1,24 +1,20 @@
 import React from "react";
 import { Product } from "../types";
 import Link from "next/link";
+import {ProductCardButton} from "@/components/productcardbutton";
 
 interface ProductCardProps {
   product: Product;
-  userCountry: string;
   category: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
   product,
-  userCountry,
   category,
 }) => {
   const productUrl = `/category/${category}/${product.slug}`;
 
-  const externalUrl =
-    userCountry === "US"
-      ? product.amazon_url_us
-      : product.amazon_url_uk || product.sephora_url || product.fallback_url;
+  const externalUrl = product.amazon_url_us || product.amazon_url_uk || product.sephora_url || product.fallback_url;
 
   return (
     <Link href={productUrl} className="block">
@@ -58,16 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
             {/* External Link Button */}
             <div className="flex items-center justify-center">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  window.open(externalUrl, "_blank", "noopener,noreferrer");
-                }}
-                className="btn btn-warning text-white font-bold h-8 flex-1 text-xs"
-              >
-                See Product
-              </button>
+              {externalUrl && <ProductCardButton externalUrl={externalUrl} />}
             </div>
           </div>
         </div>

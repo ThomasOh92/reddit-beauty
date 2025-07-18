@@ -52,13 +52,15 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={open_sans.className}>
-      <meta property="og:site_name" content="Reddit Beauty and Skincare" />
-      <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-      />
+      <head>
+        <meta property="og:site_name" content="Reddit Beauty and Skincare" />
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+            }}
+        />
+      </head>
       <body>
         <Banner />
         {children}
