@@ -2,9 +2,16 @@ import HomePageCard from "@/components/homepagecard";
 import Testimonials from "@/components/testimonials";
 import Link from "next/link";
 import { getAllCategories } from "../../lib/getAllCategories";
+import type { Metadata } from "next";
 
 export const dynamicParams = true;
 export const revalidate = 7200
+
+export const metadata: Metadata = {
+ alternates: { 
+  canonical: `/`
+  },
+}
 
 export default async function Home() {
   try {

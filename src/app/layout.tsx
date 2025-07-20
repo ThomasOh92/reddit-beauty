@@ -21,9 +21,6 @@ export const metadata: Metadata = {
     "Reddit beauty tips"
   ],
   metadataBase: new URL("https://redditbeauty.com"),
-  alternates: {
-    canonical: "https://redditbeauty.com",
-  },
   robots: {
     index: true,
     follow: true,

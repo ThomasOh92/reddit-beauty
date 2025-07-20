@@ -41,11 +41,14 @@ export async function generateMetadata({
   return {
     title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
     description: `See what Reddit users think about ${productName}. Read real quotes, upvotes, and honest reviews from the Reddit beauty community. Updated ${month} ${year}.`,
+    alternates: {
+      canonical: `/category/${category}/${product}`,
+    },
     openGraph: {
       title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
       description: `See what Reddit users think about ${productName}. Read real quotes, upvotes, and honest reviews from the Reddit beauty community. Updated ${month} ${year}.`,
       images: [{ url: image, alt: `${productName}` }],
-      url: `https://redditbeauty.com/category/${category}/${product}`,
+      url: `/category/${category}/${product}`,
     },
   };
 }
