@@ -62,6 +62,11 @@ const Banner = () => {
             </Link>
           </li>
           <li>
+            <Link href="/faq" className="text-xs px-1">
+              FAQ
+            </Link>
+          </li>
+          <li>
             <Link href="/posts" className="text-xs px-1">
               Blog
             </Link>
