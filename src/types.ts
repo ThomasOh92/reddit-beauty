@@ -3,6 +3,7 @@ export interface Product {
   product_name: string;
   positive_mentions: number;
   negative_mentions: number;
+  neutral_mentions: number;
   amazon_url_us?: string;
   amazon_url_uk?: string;
   image_url: string;
@@ -21,7 +22,6 @@ export interface Product {
   sentiment_score?: number;
 }
 
-
 export interface Discussion {
   Subreddit: string;
   thread_title: string;
@@ -30,13 +30,13 @@ export interface Discussion {
 }
 
 export interface CategoryDetails {
-    slug: string;
-    title: string;
-    subtitle: string;
-    readyForDisplay?: boolean;
-    lastUpdated: string;
-    thumbnailUrl?: string;
-  }
+  slug: string;
+  title: string;
+  subtitle: string;
+  readyForDisplay?: boolean;
+  lastUpdated: string;
+  thumbnailUrl?: string;
+}
 
 export interface Quote {
   id: string;
@@ -46,4 +46,4 @@ export interface Quote {
   helpfulness_score: number;
   sentiment: string;
   score: number;
-};
+}

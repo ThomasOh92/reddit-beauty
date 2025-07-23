@@ -62,6 +62,7 @@ export const getProductData = cache(async function getProductData(
       upvote_count: data.upvote_count ?? 0,
       positive_mentions: data.positive_mentions ?? 0,
       negative_mentions: data.negative_mentions ?? 0,
+      neutral_mentions: data.neutral_mentions ?? 0, 
       rank: data.rank ?? 0,
       amazon_url_us: data.amazon_url_us,
       amazon_url_uk: data.amazon_url_uk,
