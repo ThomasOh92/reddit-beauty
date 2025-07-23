@@ -18,7 +18,7 @@ export const QuotesDisplay: React.FC<QuotesDisplayProps> = ({
   return (
     <div>
       {quotes.map((quote) => (
-        <div className="card bg-base-100 mb-10 mx-4" key={quote.id}>
+        <div className="card bg-base-100 mb-8 mx-6" key={quote.id}>
           <div className="card-body p-0 !gap-0 !space-y-0">
             <a
               href={`https://reddit.com${quote.url}`}

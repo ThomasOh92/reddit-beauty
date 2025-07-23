@@ -56,17 +56,16 @@ export default function QuotesWrapper({
 
   return (
     <div>
-      <div className="text-sm mx-4 mb-4 text-center">
-        Currently Showing <b>{quotes.length}</b> Reviews
-      </div>
-
       <QuotesDisplay productData={{ quotes }} />
 
       <div className="text-center mt-4">
+        <div className="text-primary text-sm mx-4 text-center">
+          Currently Showing <b>{quotes.length}</b> Reviews
+        </div>
         <button
           onClick={loadMoreQuotes}
           disabled={isLoading || !cursorId}
-          className={`btn btn-primary ${
+          className={`mb-4 btn btn-primary ${
             isLoading || !cursorId ? 'opacity-50 cursor-not-allowed' : ''
           }`}
         >

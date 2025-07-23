@@ -14,11 +14,11 @@ export interface Product {
   slug: string;
   editorial_rating?: number;
   editorial_summary?: string;
-  faq?: Map<string, string>[];
+  faq?: { [key: string]: string }[];
   lastUpdated?: string;
   methodology?: string;
   one_sentence_definition?: string;
-  pros_cons?: Map<string, string[]>;
+  pros_cons?: { [key: string]: string[] };
   sentiment_score?: number;
 }
 

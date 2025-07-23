@@ -129,7 +129,7 @@ export default async function ProductPage({
           positiveNotes:{
             "@type": "ItemList",
             itemListElement: productData.pros_cons ? 
-              productData.pros_cons.get("pros")?.map((pro, index) => ({
+              productData.pros_cons["pros"]?.map((pro, index) => ({
               "@type": "ListItem",
               "position": index + 1,
               "name": pro
@@ -138,21 +138,14 @@ export default async function ProductPage({
           negativeNotes:{
             "@type": "ItemList",
             itemListElement: productData.pros_cons ? 
-              productData.pros_cons.get("cons")?.map((con, index) => ({
+              productData.pros_cons["cons"]?.map((con, index) => ({
               "@type": "ListItem",
               "position": index + 1,
               "name": con
               })) : []
           },
           datePublished: productData.lastUpdated,
-        },
-        {
-          "@type": "Review",
-          author: { "@type": "Organization", name: "Reddit Beauty Editorial Team" },
-          name: "Methodology: Reddit Opinion Analysis",
-          reviewBody: productData.methodology || "No methodology provided.",
-          datePublished: productData.lastUpdated
-        },
+        }
       ],
 
       additionalProperty: [
@@ -191,10 +184,10 @@ export default async function ProductPage({
       "@type": "FAQPage",
       mainEntity: productData.faq?.map((item) => ({
         "@type": "Question",
-        name: item.get("q"),
+        name: item["q"],
         acceptedAnswer: {
           "@type": "Answer",
-          text: item.get("a"),
+          text: item["a"],
         },
       })) || [],
     };  
@@ -232,12 +225,15 @@ export default async function ProductPage({
               <img
                 src={productData.image_url}
                 alt={productData.product_name}
-                className="w-[50%] h-auto object-contain"
+                className="w-[50%] max-h-[250px] object-contain"
               />
             </div>
           )}
-
-          <h1 className="text-l font-bold mx-4">{productData.product_name}</h1>
+          
+          <div className='mx-4'>
+            <h1 className="text-l font-bold">{productData.product_name}</h1>
+            <p id="one-sentence-definition" className="mb-4 text-xs">{productData.one_sentence_definition}</p>
+          </div>
 
           <div className="flex flex-col gap-1 mx-4">
             <>
@@ -256,19 +252,65 @@ export default async function ProductPage({
               </a>
 
               <p className="text-[10px] text-gray-500 text-center leading-snug mt-1">
-                We may earn a small commission if you click our link. It doesn’t
-                cost you anything - but it helps support the cost of running our
+                We may earn a small commission if you click our link. It helps support the cost of running our
                 analysis and keeping this site independent.
               </p>
             </>
           </div>
 
           {/* Editorial Summary */}
-          <p id="one-sentence-definition" className="mb-4 text-lg font-semibold">{productData.one_sentence_definition}</p>
+          <div className="mx-4 card border">
+          <div className="m-4">
+            <p className="text-xs">
+              <strong>Editorial Rating: </strong><span className="text-xl font-bold">{productData.editorial_rating || "No editorial rating available."}</span>
+            </p>
+            <p className="text-xs">
+              <strong>Editorial Summary: </strong>{productData.editorial_summary || "No editorial summary available."}
+            </p>
+          </div>
+          {productData.pros_cons && (
+            <div className="mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {productData.pros_cons.pros && productData.pros_cons.pros.length > 0 && (
+                  <div className="mx-4">
+                    <h4 className="text-sm font-semibold text-green-600 mb-2">Pros</h4>
+                    <ul className="text-xs space-y-1">
+                      {productData.pros_cons.pros.map((pro, index) => (
+                        <li key={index} className="flex items-start">
+                          <span className="text-green-500 mr-2">✓</span>
+                          {pro}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {productData.pros_cons.cons && productData.pros_cons.cons.length > 0 && (
+                  <div className="mx-4">
+                    <h4 className="text-sm font-semibold text-red-600 mb-2">Cons</h4>
+                    <ul className="text-xs space-y-1">
+                      {productData.pros_cons.cons.map((con, index) => (
+                        <li key={index} className="flex items-start">
+                          <span className="text-red-500 mr-2">✗</span>
+                          {con}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          <p className="text-xs mx-4 mb-4">
+            <strong>Methodology:</strong> {productData.methodology || "Not available right now."} 
+          </p>
+
+          </div>
+
 
 
           {/* Ranking by Upvotes */}
-          <h2 className="ml-4 text-m font-bold mt-4">Rankings by Upvotes</h2>
+          <h2 className="ml-4 text-m font-bold mt-4">Rankings by Sentiment Analysis</h2>
           <div className="stats border mx-4">
             <div className="stat">
               <div className="stat-title">Reddit Rank</div>
@@ -282,23 +324,23 @@ export default async function ProductPage({
 
           {/* Positive and Negative Reviews */}
           <div>
-            <h2 className="ml-4 text-m font-bold mt-4">Reddit Reviews</h2>
+            <h2 className="ml-4 text-m font-bold mt-4">Reddit Reviews:</h2>
             <p className="text-xs mx-4 mt-1">
               Calculated by the the number of posts or comments that have an
               opinion on this product
             </p>
           </div>
-          <div className="stats border mx-4 mb-4">
+          <div className="stats border mx-4">
             <div className="stat">
-              <div className="stat-title">Positive Reviews</div>
+              <div className="stat-title">Positive</div>
               <div className="stat-value">{productData.positive_mentions}</div>
             </div>
             <div className="stat">
-              <div className="stat-title">Neutral Reviews</div>
+              <div className="stat-title">Neutral</div>
               <div className="stat-value">{productData.neutral_mentions}</div>
             </div>
             <div className="stat">
-              <div className="stat-title">Negative Reviews</div>
+              <div className="stat-title">Negative</div>
               <div className="stat-value">{productData.negative_mentions}</div>
             </div>
           </div>
