@@ -1,20 +1,21 @@
 import React from "react";
 import { Product } from "../types";
 import Link from "next/link";
-import {ProductCardButton} from "@/components/productcardbutton";
+import { ProductCardButton } from "@/components/productcardbutton";
 
 interface ProductCardProps {
   product: Product;
   category: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  product,
-  category,
-}) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
   const productUrl = `/category/${category}/${product.slug}`;
 
-  const externalUrl = product.amazon_url_us || product.amazon_url_uk || product.sephora_url || product.fallback_url;
+  const externalUrl =
+    product.amazon_url_us ||
+    product.amazon_url_uk ||
+    product.sephora_url ||
+    product.fallback_url;
 
   return (
     <Link href={productUrl} className="block">
@@ -48,8 +49,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
               </strong>
             </p>
             <p className="text-xs">
-              {product.positive_mentions} positive,{" "}
-              {product.negative_mentions} negative reviews
+              🟢 {product.positive_mentions} positive{" "}
+              {product.positive_mentions <= 1 ? "review" : "reviews"} <br />
+              🟡 {product.neutral_mentions} neutral{" "}
+              {product.neutral_mentions <= 1 ? "review" : "reviews"} <br />
+              🔴 {product.negative_mentions} negative{" "}
+              {product.negative_mentions <= 1 ? "review" : "reviews"} <br />
             </p>
 
             {/* External Link Button */}

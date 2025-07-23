@@ -24,6 +24,7 @@ function mapProduct(doc: FirebaseFirestore.DocumentSnapshot): Product {
     image_url: d.image_url ?? "",
     positive_mentions: d.positive_mentions ?? 0,
     negative_mentions: d.negative_mentions ?? 0,
+    neutral_mentions: d.neutral_mentions ?? 0,
     // spread only fields you truly need:
     amazon_url_us: d.amazon_url_us,
     amazon_url_uk: d.amazon_url_uk,
