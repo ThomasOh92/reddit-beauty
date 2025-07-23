@@ -184,10 +184,10 @@ export default async function ProductPage({
       "@type": "FAQPage",
       mainEntity: productData.faq?.map((item) => ({
         "@type": "Question",
-        name: item["q"],
+        name: item["question"],
         acceptedAnswer: {
           "@type": "Answer",
-          text: item["a"],
+          text: item["answer"],
         },
       })) || [],
     };  
@@ -197,6 +197,7 @@ export default async function ProductPage({
     const initialCursorId = productData.nextCursor
       ? productData.nextCursor.id
       : null;
+
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
@@ -258,6 +259,19 @@ export default async function ProductPage({
             </>
           </div>
 
+          {/* Ranking by Upvotes */}
+          <h2 className="ml-4 text-m font-bold mt-4">Rankings by Sentiment Analysis</h2>
+          <div className="stats border mx-4">
+            <div className="stat">
+              <div className="stat-title">Reddit Rank</div>
+              <div className="stat-value">#{productData.rank}</div>
+            </div>
+            <div className="stat">
+              <div className="stat-title">Total Upvotes</div>
+              <div className="stat-value">{productData.upvote_count}</div>
+            </div>
+          </div>
+
           {/* Editorial Summary */}
           <div className="mx-4 card border">
           <div className="m-4">
@@ -301,26 +315,31 @@ export default async function ProductPage({
             </div>
           )}
 
-          <p className="text-xs mx-4 mb-4">
-            <strong>Methodology:</strong> {productData.methodology || "Not available right now."} 
-          </p>
+            <p className="text-xs mx-4 mb-4 text-gray-500">
+              <strong>Methodology:</strong> {productData.methodology || "Not available right now."} 
+            </p>
+          
 
           </div>
 
+          {/* FAQ Section */}
+          {productData.faq && productData.faq.length > 0 && (
+           <div className="mx-4"> 
+              <h2 className="text-m font-bold mt-4 mb-2">Asked by Redditors</h2>
+              <div className="card border">
+              {productData.faq.map((item, index) => (
+                <div key={index} className="collapse collapse-arrow">
+                  <input type="radio" name={`faq-accordion`} />
+                  <div className="collapse-title font-semibold text-xs">{item["question"]}</div>
+                  <div className="collapse-content text-xs">{item["answer"]}</div>
+                </div>
+              ))}
+              </div>
+            </div>
+          )}
 
 
-          {/* Ranking by Upvotes */}
-          <h2 className="ml-4 text-m font-bold mt-4">Rankings by Sentiment Analysis</h2>
-          <div className="stats border mx-4">
-            <div className="stat">
-              <div className="stat-title">Reddit Rank</div>
-              <div className="stat-value">#{productData.rank}</div>
-            </div>
-            <div className="stat">
-              <div className="stat-title">Total Upvotes</div>
-              <div className="stat-value">{productData.upvote_count}</div>
-            </div>
-          </div>
+
 
           {/* Positive and Negative Reviews */}
           <div>
