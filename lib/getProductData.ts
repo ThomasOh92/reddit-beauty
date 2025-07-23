@@ -67,6 +67,14 @@ export const getProductData = cache(async function getProductData(
       amazon_url_uk: data.amazon_url_uk,
       sephora_url: data.sephora_url,
       fallback_url: data.fallback_url,
+      editorial_rating: data.editorial_rating,
+      editorial_summary: data.editorial_summary,
+      faq: data.faq,
+      lastUpdated: data.lastUpdated,
+      methodology: data.methodology,
+      one_sentence_definition: data.one_sentence_definition,
+      pros_cons: data.pros_cons,
+      sentiment_score: data.sentiment_score,
     };
     // End of unchanged block
 

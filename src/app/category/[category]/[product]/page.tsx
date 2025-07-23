@@ -40,13 +40,13 @@ export async function generateMetadata({
 
   return {
     title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-    description: `See what Reddit users think about ${productName}. Read real quotes, upvotes, and honest reviews from the Reddit beauty community. Updated ${month} ${year}.`,
+    description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated || `${month} ${year}`}.`,
     alternates: {
       canonical: `/category/${category}/${product}`,
     },
     openGraph: {
       title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-      description: `See what Reddit users think about ${productName}. Read real quotes, upvotes, and honest reviews from the Reddit beauty community. Updated ${month} ${year}.`,
+      description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated || `${month} ${year}`}.`,
       images: [{ url: image, alt: `${productName}` }],
       url: `/category/${category}/${product}`,
     },
@@ -110,7 +110,8 @@ export default async function ProductPage({
       return notFound();
     }
 
-    const jsonLd = {
+    // Product JSON-LD Schema
+    const productLd = {
       "@context": "https://schema.org",
       "@type": "Product",
       name: productData.product_name,
@@ -118,6 +119,45 @@ export default async function ProductPage({
       description:
         `See what Reddit users think about ${productData.product_name}.`,
       url: `https://redditbeauty.com/category/${category}/${product}`,
+      review: [
+        {
+          "@type": "Review",
+          name: productData.product_name + " Editorial Review",
+          author: {
+            "@type": "Organization",
+            name: "Reddit Beauty Editorial Team",
+          },
+          reviewBody: productData.editorial_summary || "No editorial summary available.",
+          reviewRating:{"@type":"Rating","ratingValue": productData.editorial_rating || 0, "bestRating": 5},
+          positiveNotes:{
+            "@type": "ItemList",
+            itemListElement: productData.pros_cons ? 
+              productData.pros_cons.get("pros")?.map((pro, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "name": pro
+              })) : []
+          },
+          negativeNotes:{
+            "@type": "ItemList",
+            itemListElement: productData.pros_cons ? 
+              productData.pros_cons.get("cons")?.map((con, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "name": con
+              })) : []
+          },
+          datePublished: productData.lastUpdated,
+        },
+        {
+          "@type": "Review",
+          author: { "@type": "Organization", name: "Reddit Beauty Editorial Team" },
+          name: "Methodology: Reddit Opinion Analysis",
+          reviewBody: productData.methodology || "No methodology provided.",
+          datePublished: productData.lastUpdated
+        },
+      ],
+
       additionalProperty: [
         {
           "@type": "PropertyValue",
@@ -137,6 +177,31 @@ export default async function ProductPage({
       ],
     };
   
+    // Webpage JSON-LD Schema
+    const webpageLd = {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      url: `https://redditbeauty.com/category/${category}/${product}`,
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: ["#one-sentence-definition"]
+      },
+    };
+
+    //FAQ JSON-LD Schema
+    const faqLd = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: productData.faq?.map((item) => ({
+        "@type": "Question",
+        name: item.get("q"),
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.get("a"),
+        },
+      })) || [],
+    };  
+
     // The initial data to pass to the client component
     const initialQuotes = productData.quotes;
     const initialCursorId = productData.nextCursor ? productData.nextCursor.id : null;
@@ -147,7 +212,19 @@ export default async function ProductPage({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(productLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webpageLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqLd).replace(/</g, "\\u003c"),
           }}
         />
 
@@ -187,6 +264,10 @@ export default async function ProductPage({
                 </p>
               </>
           </div>
+
+          {/* Editorial Summary */}
+          <p id="one-sentence-definition" className="mb-4 text-lg font-semibold">{productData.one_sentence_definition}</p>
+
 
           {/* Ranking by Upvotes */}
           <h2 className="ml-4 text-m font-bold mt-4">Rankings by Upvotes</h2>

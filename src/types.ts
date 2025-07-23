@@ -11,6 +11,14 @@ export interface Product {
   upvote_count?: number;
   rank?: number;
   slug: string;
+  editorial_rating?: number;
+  editorial_summary?: string;
+  faq?: Map<string, string>[];
+  lastUpdated?: string;
+  methodology?: string;
+  one_sentence_definition?: string;
+  pros_cons?: Map<string, string[]>;
+  sentiment_score?: number;
 }
 
 
