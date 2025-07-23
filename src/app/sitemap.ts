@@ -92,6 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${APP_URL}/` },
     { url: `${APP_URL}/about` },
     { url: `${APP_URL}/posts` },
+    { url: `${APP_URL}/faq` }
   ];
 
   // Blog posts (Sanity)
