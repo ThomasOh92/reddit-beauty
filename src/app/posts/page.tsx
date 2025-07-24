@@ -4,6 +4,7 @@ import { groq } from "next-sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import { PortableTextBlock } from "@portabletext/react";
+import Image from "next/image";
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -107,10 +108,12 @@ export default async function PostsPage() {
                 className="card bg-base-100 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer flex flex-col h-full"
               >
                 {post.mainImage?.asset?._ref && (
-                  <img
+                  <Image
                     className="h-30 w-full object-cover"
                     src={urlFor(post.mainImage.asset._ref)}
                     alt={post.title}
+                    width={250}
+                    height={100}
                   />
                 )}
                 <div className="p-4 flex flex-col h-full">

@@ -1,4 +1,5 @@
 import { CategoryDetails } from "../types";
+import Image from "next/image";
 
 export default function HomePageCard({
   slug,
@@ -16,8 +17,10 @@ export default function HomePageCard({
         className="card bg-white shadow-sm mx-2 my-4 rounded hover:scale-[1.02] hover:bg-[#faedf2] cursor-pointer transition-transform duration-300"
       >
         <div className="flex flex-col items-center text-center p-4 gap-2">
-          <img
-            src={thumbnailUrl}
+          <Image
+            width={200}
+            height={200}
+            src={thumbnailUrl || '/redditbeautyicon.png'}
             alt={title}
             className="w-20 h-20 aspect-square object-contain rounded-md"
           />

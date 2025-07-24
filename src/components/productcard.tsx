@@ -2,6 +2,7 @@ import React from "react";
 import { Product } from "../types";
 import Link from "next/link";
 import { ProductCardButton } from "@/components/productcardbutton";
+import Image from "next/image";
 
 interface ProductCardProps {
   product: Product;
@@ -29,7 +30,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
           {/* Image Section - 40% */}
           <div className="flex items-center basis-[40%] justify-center p-2">
             <figure className="w-full h-full overflow-hidden">
-              <img
+              <Image
+                width={250}
+                height={250}
                 src={product.image_url}
                 alt={product.product_name}
                 className="object-contain w-full h-28 sm:h-32"

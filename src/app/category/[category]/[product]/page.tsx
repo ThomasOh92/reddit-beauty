@@ -3,6 +3,7 @@ import { getAllCategories } from "../../../../../lib/getAllCategories";
 import { getProductData } from "../../../../../lib/getProductData";
 import { getProductSlugsForCategory } from "../../../../../lib/getProductSlugsForCategory";
 import QuotesWrapper from "@/components/quoteswrapper";
+import Image from "next/image";
 
 export const dynamicParams = true;
 export const revalidate = 7200;
@@ -222,9 +223,11 @@ export default async function ProductPage({
         <div className="flex flex-col gap-4">
           {productData.image_url && (
             <div className="flex justify-center">
-              <img
+              <Image
                 src={productData.image_url}
                 alt={productData.product_name}
+                width={250}
+                height={250}
                 className="w-[50%] max-h-[250px] object-contain"
               />
             </div>

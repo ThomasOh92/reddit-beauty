@@ -4,6 +4,7 @@ import { PortableText, PortableTextBlock } from "@portabletext/react";
 import imageUrlBuilder from "@sanity/image-url";
 import { cache } from "react";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 // 👇 Static mode for SEO
 export const dynamicParams = true;
@@ -143,7 +144,9 @@ export default async function DeepDivePage({
 
       <h2 className="font-bold m-2 text-neutral">{post.title}</h2>
       {post.mainImage && (
-        <img
+        <Image
+          width={250}
+          height={250}
           src={urlFor(post.mainImage.asset._ref)}
           alt={post.mainImage.alt || "Image"}
           className="w-full h-auto rounded-md"
