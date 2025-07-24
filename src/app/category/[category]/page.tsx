@@ -102,9 +102,9 @@ export default async function CategoryPage({
       name: `${categoryCapitalized} – Reddit Rankings`,
       description: `Discover the top ${categoryCapitalized} as voted and reviewed by Reddit users. See which ${categoryCapitalized} are popular, read real experiences, and compare upvotes, quotes, and discussions.`,
       url: `https://redditbeauty.com/category/${category}`,
-      mainEntity: products
+      itemListElement: products
         ? products.map((product: Product) => ({
-            "@type": "Product",
+            "@type": "ListItem",
             name: product.product_name,
             url: `https://redditbeauty.com/category/${category}/${product.slug}`,
             image: product.image_url,
