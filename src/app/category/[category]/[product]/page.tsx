@@ -125,7 +125,6 @@ export default async function ProductPage({
             name: "Reddit Beauty Editorial Team",
           },
           reviewBody: productData.editorial_summary || "No editorial summary available.",
-          reviewRating:{"@type":"Rating","ratingValue": productData.editorial_rating || 0, "bestRating": 5},
           positiveNotes:{
             "@type": "ItemList",
             itemListElement: productData.pros_cons ? 
@@ -183,14 +182,14 @@ export default async function ProductPage({
       "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: productData.faq?.map((item) => ({
-        "@type": "Question",
-        name: item["question"],
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item["answer"],
-        },
+      "@type": "Question",
+      name: item["question"] || item["q"],
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item["answer"] || item["a"],
+      },
       })) || [],
-    };  
+    };
 
     // The initial data to pass to the client component
     const initialQuotes = productData.quotes;
@@ -274,14 +273,9 @@ export default async function ProductPage({
 
           {/* Editorial Summary */}
           <div className="mx-4 card border">
-          <div className="m-4">
-            <p className="text-xs">
-              <strong>Editorial Rating: </strong><span className="text-xl font-bold">{productData.editorial_rating || "No editorial rating available."}</span>
-            </p>
-            <p className="text-xs">
-              <strong>Editorial Summary: </strong>{productData.editorial_summary || "No editorial summary available."}
-            </p>
-          </div>
+          <p className="text-xs m-4">
+            <strong>Editorial Summary: </strong>{productData.editorial_summary || "No editorial summary available."}
+          </p>
           {productData.pros_cons && (
             <div className="mb-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -330,8 +324,8 @@ export default async function ProductPage({
               {productData.faq.map((item, index) => (
                 <div key={index} className="collapse collapse-arrow">
                   <input type="radio" name={`faq-accordion`} />
-                  <div className="collapse-title font-semibold text-xs">{item["question"]}</div>
-                  <div className="collapse-content text-xs">{item["answer"]}</div>
+                  <div className="collapse-title font-semibold text-xs">{item["question"] || item["q"]}</div>
+                  <div className="collapse-content text-xs">{item["answer"] || item["a"]}</div>
                 </div>
               ))}
               </div>
