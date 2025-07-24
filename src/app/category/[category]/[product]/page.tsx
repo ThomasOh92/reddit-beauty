@@ -183,10 +183,10 @@ export default async function ProductPage({
       "@type": "FAQPage",
       mainEntity: productData.faq?.map((item) => ({
       "@type": "Question",
-      name: item["question"] || item["q"],
+      name: item["question"] || item["q"] || item["Q"],
       acceptedAnswer: {
         "@type": "Answer",
-        text: item["answer"] || item["a"],
+        text: item["answer"] || item["a"] || item["A"],
       },
       })) || [],
     };
@@ -324,8 +324,8 @@ export default async function ProductPage({
               {productData.faq.map((item, index) => (
                 <div key={index} className="collapse collapse-arrow">
                   <input type="radio" name={`faq-accordion`} />
-                  <div className="collapse-title font-semibold text-xs">{item["question"] || item["q"]}</div>
-                  <div className="collapse-content text-xs">{item["answer"] || item["a"]}</div>
+                  <div className="collapse-title font-semibold text-xs">{item["question"] || item["q"] || item["Q"]}</div>
+                  <div className="collapse-content text-xs">{item["answer"] || item["a"] || item["A"]}</div>
                 </div>
               ))}
               </div>
