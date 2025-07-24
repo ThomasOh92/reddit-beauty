@@ -20,7 +20,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
 
   return (
     <Link href={productUrl} className="block">
-      <div className="card card-side w-full bg-base-100 shadow rounded-none mb-1 relative transition-transform duration-300 hover:scale-[1.01] hover:bg-base-200 p-2">
+      <div className="card card-side w-full bg-base-100 shadow-lg rounded mb-2 border-base-300 border relative transition-transform duration-300 hover:scale-[1.01] hover:bg-base-200 p-2">
         {/* Rank badge */}
         <div className="badge badge-sm badge-soft badge-secondary absolute top-2 left-2 z-10">
           {product.rank}
@@ -46,11 +46,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
               {product.product_name}
             </p>
 
-            <p className="text-xs line-clamp-1">
-              <strong className="text-secondary">
-                {product.upvote_count} Aggregated Upvotes
-              </strong>
-            </p>
             <p className="text-xs">
               🟢 {product.positive_mentions} positive{" "}
               {product.positive_mentions <= 1 ? "review" : "reviews"} <br />
