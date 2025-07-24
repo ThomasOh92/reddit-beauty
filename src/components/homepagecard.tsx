@@ -18,7 +18,7 @@ export default function HomePageCard({
       >
         <div className="flex flex-col items-center text-center p-4 gap-2">
           <Image
-            loading="eager"
+            fetchPriority="high"
             priority={true}
             width={200}
             height={200}

@@ -145,7 +145,7 @@ export default async function DeepDivePage({
       <h2 className="font-bold m-2 text-neutral">{post.title}</h2>
       {post.mainImage && (
         <Image
-          loading="eager"
+          fetchPriority="high"
           priority={true}
           width={250}
           height={250}

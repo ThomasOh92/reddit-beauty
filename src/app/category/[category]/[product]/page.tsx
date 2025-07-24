@@ -224,7 +224,7 @@ export default async function ProductPage({
           {productData.image_url && (
             <div className="flex justify-center">
               <Image
-                loading="eager"
+                fetchPriority="high"
                 priority={true}
                 src={productData.image_url}
                 alt={productData.product_name}
