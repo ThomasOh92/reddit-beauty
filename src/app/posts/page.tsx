@@ -109,6 +109,8 @@ export default async function PostsPage() {
               >
                 {post.mainImage?.asset?._ref && (
                   <Image
+                    loading="eager"
+                    priority={true}
                     className="h-30 w-full object-cover"
                     src={urlFor(post.mainImage.asset._ref)}
                     alt={post.title}

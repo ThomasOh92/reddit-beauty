@@ -33,7 +33,7 @@ export async function generateMetadata({
     title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,
     description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
     alternates: {
-      canonical: `/category/${category}/`,   
+      canonical: `/category/${category}`,   
     },
     openGraph: {
       title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,

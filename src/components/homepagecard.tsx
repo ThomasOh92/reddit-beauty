@@ -18,6 +18,8 @@ export default function HomePageCard({
       >
         <div className="flex flex-col items-center text-center p-4 gap-2">
           <Image
+            loading="eager"
+            priority={true}
             width={200}
             height={200}
             src={thumbnailUrl || '/redditbeautyicon.png'}

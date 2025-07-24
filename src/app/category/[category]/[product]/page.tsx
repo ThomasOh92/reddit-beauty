@@ -41,13 +41,13 @@ export async function generateMetadata({
 
   return {
     title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-    description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated || `${month} ${year}`}.`,
+    description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
     alternates: {
       canonical: `/category/${category}/${product}`,
     },
     openGraph: {
       title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-      description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated || `${month} ${year}`}.`,
+      description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
       images: [{ url: image, alt: `${productName}` }],
       url: `/category/${category}/${product}`,
     },
@@ -144,7 +144,7 @@ export default async function ProductPage({
               "name": con
               })) : []
           },
-          datePublished: productData.lastUpdated,
+          datePublished: productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toISOString() : "not available",
         }
       ],
 
@@ -224,6 +224,8 @@ export default async function ProductPage({
           {productData.image_url && (
             <div className="flex justify-center">
               <Image
+                loading="eager"
+                priority={true}
                 src={productData.image_url}
                 alt={productData.product_name}
                 width={250}

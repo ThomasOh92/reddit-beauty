@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase-admin/firestore";
+
 export interface Product {
   id: string;
   product_name: string;
@@ -15,7 +17,7 @@ export interface Product {
   editorial_rating?: number;
   editorial_summary?: string;
   faq?: { [key: string]: string }[];
-  lastUpdated?: string;
+  lastUpdated?: Timestamp;
   methodology?: string;
   one_sentence_definition?: string;
   pros_cons?: { [key: string]: string[] };

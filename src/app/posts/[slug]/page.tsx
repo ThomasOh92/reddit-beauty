@@ -145,6 +145,8 @@ export default async function DeepDivePage({
       <h2 className="font-bold m-2 text-neutral">{post.title}</h2>
       {post.mainImage && (
         <Image
+          loading="eager"
+          priority={true}
           width={250}
           height={250}
           src={urlFor(post.mainImage.asset._ref)}
