@@ -142,7 +142,7 @@ export default async function DeepDivePage({
         }}
       />
 
-      <h2 className="font-bold m-2 text-neutral">{post.title}</h2>
+      <h1 className="font-bold m-2 text-neutral">{post.title}</h1>
       {post.mainImage && (
         <Image
           fetchPriority="high"
