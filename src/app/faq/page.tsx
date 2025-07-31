@@ -55,7 +55,7 @@ const jsonLd = {
       name: "How can I suggest a product or subreddit?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Just drop us a line at reddit.beauty.reviews@gmail.com with the product name and subreddit link. We review all suggestions in our next data refresh.",
+        text: "Just drop us a line at beauty.aggregate@gmail.com with the product name and subreddit link. We review all suggestions in our next data refresh.",
       },
     },
   ],
@@ -152,10 +152,10 @@ export default function FaqPage() {
           <dd className="mt-2 text-sm">
             Just drop us a line at{" "}
             <a
-              href="mailto:reddit.beauty.reviews@gmail.com"
+              href="mailto:beauty.aggregate@gmail.com"
               className="text-blue-500 underline"
             >
-              reddit.beauty.reviews@gmail.com
+              beauty.aggregate@gmail.com
             </a>{" "}
             with the product name and subreddit link. We review all suggestions
             in our next data refresh.

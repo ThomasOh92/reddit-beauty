@@ -73,7 +73,7 @@ export default function AboutPage() {
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
                 <h2 className="text-l font-semibold">Get in Touch</h2>
                 <p className="mt-4 text-sm">
-                    Have questions or feedback? Feel free to reach out to us at <a href="mailto:reddit.beauty.reviews@gmail.com" className="text-blue-500 underline">reddit.beauty.reviews@gmail.com</a>. We&apos;d love to hear your thoughts!
+                    Have questions or feedback? Feel free to reach out to us at <a href="mailto:beauty.aggregate@gmail.com" className="text-blue-500 underline">beauty.aggregate@gmail.com</a>. We&apos;d love to hear your thoughts!
                 </p>
             </div>
         </div>

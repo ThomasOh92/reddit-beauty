@@ -9,10 +9,10 @@ const Footer = () => {
         <p className="text-xs">
           Contact:{" "}
           <a
-            href="mailto:reddit.beauty.reviews@gmail.com"
+            href="mailto:beauty.aggregate@gmail.com"
             className="text-blue-500 underline"
           >
-            reddit.beauty.reviews@gmail.com
+            beauty.aggregate@gmail.com
           </a>
         </p>
         <p className="text-xs mt-2">
