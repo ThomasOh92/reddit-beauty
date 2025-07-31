@@ -73,13 +73,13 @@ export default async function PostsPage() {
   const overviewJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Reddit Beauty and Skincare | Blog",
-    "url": "https://redditbeauty.com/posts",
-    "description": "Deep dives, data breakdowns, and honest skincare discussions from the Reddit Beauty team.",
+    "name": "Beauty Aggregate | Blog",
+    "url": "https://beautyaggregate.com/posts",
+    "description": "Deep dives, data breakdowns, and honest skincare discussions from the Beauty Aggregate team.",
     "blogPost": posts.map((post) => ({
       "@type": "BlogPosting",
       "headline": post.title,
-      "url": `https://redditbeauty.com/posts/${post.slug.current}`,
+      "url": `https://beautyaggregate.com/posts/${post.slug.current}`,
       ...(post.mainImage?.asset?._ref && {
         "image": urlFor(post.mainImage.asset._ref)
       }),

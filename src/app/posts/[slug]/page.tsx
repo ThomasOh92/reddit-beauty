@@ -130,7 +130,7 @@ export default async function DeepDivePage({
     headline: post.title,
     description: plainTextDescription,
     ...(imageUrl && { image: imageUrl }),
-    url: `https://redditbeauty.com/posts/${slug}`,
+    url: `https://beautyaggregate.com/posts/${slug}`,
   };
 
   return (

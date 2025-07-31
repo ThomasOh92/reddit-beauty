@@ -30,13 +30,13 @@ export async function generateMetadata({
   // Optionally fetch top products here for future enhancements
 
   return {
-    title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,
+    title: `${categoryCapitalized} – Product Rankings on Reddit (${year})`,
     description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
     alternates: {
       canonical: `/category/${category}`,   
     },
     openGraph: {
-      title: `${categoryCapitalized} – Ranked by Reddit: Top Products, Experiences & Discussions (${year})`,
+      title: `${categoryCapitalized} – Product Rankings on Reddit  (${year})`,
       description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
       url: `/category/${category}/`,
 
@@ -101,12 +101,12 @@ export default async function CategoryPage({
       "@type": "CollectionPage",
       name: `${categoryCapitalized} – Reddit Rankings`,
       description: `Discover the top ${categoryCapitalized} as voted and reviewed by Reddit users. See which ${categoryCapitalized} are popular, read real experiences, and compare upvotes, quotes, and discussions.`,
-      url: `https://redditbeauty.com/category/${category}`,
+      url: `https://beautyaggregate.com/category/${category}`,
       itemListElement: products
         ? products.map((product: Product) => ({
             "@type": "ListItem",
             name: product.product_name,
-            url: `https://redditbeauty.com/category/${category}/${product.slug}`,
+            url: `https://beautyaggregate.com/category/${category}/${product.slug}`,
             image: product.image_url,
           }))
         : [],

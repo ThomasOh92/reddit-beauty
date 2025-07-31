@@ -41,13 +41,13 @@ export async function generateMetadata({
 
   return {
     title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-    description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
+    description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
     alternates: {
       canonical: `/category/${category}/${product}`,
     },
     openGraph: {
       title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-      description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from the Reddit beauty community"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
+      description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
       images: [{ url: image, alt: `${productName}` }],
       url: `/category/${category}/${product}`,
     },
@@ -116,14 +116,14 @@ export default async function ProductPage({
       name: productData.product_name,
       image: productData.image_url,
       description: `See what Reddit users think about ${productData.product_name}.`,
-      url: `https://redditbeauty.com/category/${category}/${product}`,
+      url: `https://beautyaggregate.com/category/${category}/${product}`,
       review: [
         {
           "@type": "Review",
           name: productData.product_name + " Editorial Review",
           author: {
             "@type": "Organization",
-            name: "Reddit Beauty Editorial Team",
+            name: "Beauty Aggregate Editorial Team",
           },
           reviewBody: productData.editorial_summary || "No editorial summary available.",
           positiveNotes:{
@@ -171,7 +171,7 @@ export default async function ProductPage({
     const webpageLd = {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      url: `https://redditbeauty.com/category/${category}/${product}`,
+      url: `https://beautyaggregate.com/category/${category}/${product}`,
       speakable: {
         "@type": "SpeakableSpecification",
         cssSelector: ["#one-sentence-definition"]

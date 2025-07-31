@@ -22,7 +22,7 @@ export default function HomePageCard({
             priority={true}
             width={200}
             height={200}
-            src={thumbnailUrl || '/redditbeautyicon.png'}
+            src={thumbnailUrl || '/beautyaggregateicon.png'}
             alt={title}
             className="w-20 h-20 aspect-square object-contain rounded-md"
           />

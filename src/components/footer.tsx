@@ -16,8 +16,7 @@ const Footer = () => {
           </a>
         </p>
         <p className="text-xs mt-2">
-          Copyright © {new Date().getFullYear()}. All rights reserved by Reddit
-          Beauty.
+          Copyright © {new Date().getFullYear()}. All rights reserved by Beauty Aggregate
         </p>
       </aside>
     </footer>

@@ -8,19 +8,19 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: {
-    default: "Reddit Beauty and Skincare",
-    template: "%s | Reddit Beauty and Skincare",
+    default: "Beauty Aggregate",
+    template: "%s | Beauty Aggregate",
   },
   description: "Discover the most talked about skincare and beauty products on Reddit.",
   keywords: [
-    "Reddit beauty",
-    "Reddit skincare",
-    "Reddit product reviews",
-    "best skincare Reddit",
-    "beauty products ranked by Reddit",
-    "Reddit beauty tips"
+    "Beauty Aggregate",
+    "Beauty Aggregate skincare",
+    "Beauty Aggregate product reviews",
+    "best skincare Beauty Aggregate",
+    "beauty products ranked by Beauty Aggregate",
+    "Beauty Aggregate beauty tips"
   ],
-  metadataBase: new URL("https://redditbeauty.com"),
+  metadataBase: new URL("https://beautyaggregate.com"),
   robots: {
     index: true,
     follow: true,
@@ -41,16 +41,16 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Reddit Beauty and Skincare",
-    url: "https://redditbeauty.com",
+    name: "Beauty Aggregate",
+    url: "https://beautyaggregate.com",
     description: "Discover the most talked about skincare and beauty products on Reddit.",
-    alternateName: ["Reddit Beauty", "RedditBeauty", "Reddit Beauty & Skincare"],
+    alternateName: ["Beauty Aggregate", "BeautyAggregate", "Beauty Aggregate & Skincare"],
   };
 
   return (
     <html lang="en" className={open_sans.className}>
       <head>
-        <meta property="og:site_name" content="Reddit Beauty and Skincare" />
+        <meta property="og:site_name" content="Beauty Aggregate" />
         <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{

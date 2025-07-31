@@ -7,9 +7,9 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "name": "About Reddit Beauty",
-  "url": "https://redditbeauty.com/about",
-  "description": "Reddit Beauty aggregates and analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.",
+  "name": "About Beauty Aggregate",
+  "url": "https://beautyaggregate.com/about",
+  "description": "Beauty Aggregate analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.",
 };
 
 
@@ -36,7 +36,7 @@ export default function AboutPage() {
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
                 <h2 className="text-l font-semibold">Real Reviews. No Sponsorships</h2>
                 <p className="mt-4 text-sm">
-                    At Reddit Beauty, we believe that the best beauty and skincare advice doesn’t come from ads—it comes from real people sharing real experiences. That’s why we built this site: to help you discover the most loved and most talked-about beauty and skincare products according to real users on Reddit.
+                    At Beauty Aggregate, we believe that the best beauty and skincare advice doesn’t come from ads—it comes from real people sharing real experiences. That’s why we built this site: to help you discover the most loved and most talked-about beauty and skincare products according to real users on Reddit.
                 </p>
                 <p className="mt-4 text-sm">
                     Every product guide and ranking you see here is based on thousands of authentic Reddit comments from skincare communities like r/SkincareAddiction, r/AsianBeauty, r/30PlusSkinCare, and more. We analyze what people are actually saying—what they love, what they hate, and what actually works.
