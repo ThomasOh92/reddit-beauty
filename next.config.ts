@@ -70,7 +70,16 @@ const nextConfig: NextConfig = {
         hostname: 'cdn.sanity.io',
         port: '',
       },
-      
+      {
+        protocol: 'https',
+        hostname: 'ziipbeauty.co.uk',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'shop.dranettareszko.com',
+        port: '',
+      },
     ],
   },
 };
