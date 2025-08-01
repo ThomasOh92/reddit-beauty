@@ -4,6 +4,7 @@ import { getProductData } from "../../../../../lib/getProductData";
 import { getProductSlugsForCategory } from "../../../../../lib/getProductSlugsForCategory";
 import QuotesWrapper from "@/components/quoteswrapper";
 import Image from "next/image";
+import { APP_URL } from '@/constants';
 
 export const dynamicParams = true;
 export const revalidate = 7200;
@@ -43,13 +44,13 @@ export async function generateMetadata({
     title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
     description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
     alternates: {
-      canonical: `/category/${category}/${product}`,
+      canonical: `${APP_URL}/category/${category}/${product}`,
     },
     openGraph: {
       title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
       description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
       images: [{ url: image, alt: `${productName}` }],
-      url: `/category/${category}/${product}`,
+      url: `${APP_URL}/category/${category}/${product}`,
     },
   };
 }

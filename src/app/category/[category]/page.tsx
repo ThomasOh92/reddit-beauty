@@ -4,6 +4,7 @@ import DiscussionsBox from "@/components/discussionsbox";
 import { Discussion, Product } from "../../../types";
 import { getAllCategories } from '../../../../lib/getAllCategories';
 import { getCategoryData } from "../../../../lib/getCategoryData";
+import { APP_URL } from '@/constants';
 
 export const dynamicParams = true;
 export const revalidate = 7200; // optional, for ISR support
@@ -33,12 +34,12 @@ export async function generateMetadata({
     title: `${categoryCapitalized} – Product Rankings on Reddit (${year})`,
     description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
     alternates: {
-      canonical: `/category/${category}`,   
+      canonical: `${APP_URL}/category/${category}`,
     },
     openGraph: {
       title: `${categoryCapitalized} – Product Rankings on Reddit  (${year})`,
       description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
-      url: `/category/${category}/`,
+      url: `${APP_URL}/category/${category}/`,
 
       // Dynamically create or assign an image in the future
     },

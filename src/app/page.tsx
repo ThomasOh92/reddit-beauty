@@ -3,15 +3,16 @@ import Testimonials from "@/components/testimonials";
 import Link from "next/link";
 import { getAllCategories } from "../../lib/getAllCategories";
 import type { Metadata } from "next";
+import { APP_URL } from '@/constants';
 
 export const dynamicParams = true;
 export const revalidate = 7200
 
 export const metadata: Metadata = {
  alternates: { 
-  canonical: `/`
+  canonical: `${APP_URL}/`
   },
-}
+};
 
 export default async function Home() {
   try {
