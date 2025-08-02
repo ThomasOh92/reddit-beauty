@@ -37,11 +37,6 @@ async function fetchCategories(): Promise<CategoryDoc[]> {
   }
 }
 
-// --- Helper: Fetch all subcollections under category ---
-type SubcollectionsResult = {
-  products?: ProductDoc[];
-};
-
 // --- Optimized: Batch fetch all data for a category ---
 async function fetchCategoryDataOptimized(category: string): Promise<{
   products: ProductDoc[];
