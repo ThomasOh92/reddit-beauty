@@ -39,7 +39,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${categoryCapitalized} – Product Rankings on Reddit  (${year})`,
       description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
-      url: `${APP_URL}/category/${category}/`,
+      url: `${APP_URL}/category/${category}`,
 
       // Dynamically create or assign an image in the future
     },
