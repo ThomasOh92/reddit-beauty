@@ -5,6 +5,7 @@ import { Product } from "../../../types";
 import { getAllCategories } from '../../../../lib/getAllCategories';
 import { getCategoryData } from "../../../../lib/getCategoryData";
 import { APP_URL } from '@/constants';
+import { cache } from "react";
 
 export const dynamicParams = true;
 export const revalidate = 7200; // optional, for ISR support
@@ -12,6 +13,8 @@ export const revalidate = 7200; // optional, for ISR support
 type CategoryPageProps = Promise<{
   category: string;
 }>;
+
+export const getCachedCategoryData = cache((category: string) => getCategoryData(category));
 
 export async function generateMetadata({
   params,
@@ -28,23 +31,30 @@ export async function generateMetadata({
   const month = now.toLocaleString("default", { month: "long" });
   const year = now.getFullYear();
 
-  // Optionally fetch top products here for future enhancements
+  // Pull categoryData so we can enrich meta
+  const data = await getCachedCategoryData(category);
+  const categoryData = (data?.categoryData ?? {}) as { editorial_summary?: string };
+
+  // safe, short description preferring editorial_summary
+  const baseDesc = `Discover the top ${categoryWithSpaces} ranked from Reddit discussions. Updated ${month} ${year}.`;
+  const editorial = (categoryData.editorial_summary || "").replace(/\s+/g, " ").trim();
+  const description = (editorial && editorial.length > 80)
+    ? (editorial.length > 180 ? editorial.slice(0, 177) + "…" : editorial)
+    : baseDesc;
+
 
   return {
     title: `${categoryCapitalized} – Product Rankings on Reddit (${year})`,
-    description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
+    description: description,
     alternates: {
       canonical: `${APP_URL}/category/${category}`,
     },
+    keywords: [categoryWithSpaces, "Reddit rankings", `best ${categoryWithSpaces}`],
     openGraph: {
       title: `${categoryCapitalized} – Product Rankings on Reddit  (${year})`,
-      description: `Discover the top ${categoryWithSpaces} as voted and reviewed by Reddit users. See which ${categoryWithSpaces} are popular, read real experiences, and compare upvotes, quotes, and discussions. Updated ${month} ${year}.`,
-      url: `${APP_URL}/category/${category}`,
-
-      // Dynamically create or assign an image in the future
-    },
-
-    // Optionally add structured data (inject via <Script type="application/ld+json"> in layout)
+      description: description,
+      url: `${APP_URL}/category/${category}`
+    }
   };
 }
 
@@ -83,7 +93,7 @@ export default async function CategoryPage({
 
   try {
 
-    const data = await getCategoryData(category);
+    const data = await getCachedCategoryData(category);
 
     if (
       !data ||
@@ -109,21 +119,156 @@ export default async function CategoryPage({
       recommendations?: string[];
     };
 
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: `${categoryCapitalized} – Reddit Rankings`,
-      description: `Discover the top ${categoryCapitalized} as voted and reviewed by Reddit users. See which ${categoryCapitalized} are popular, read real experiences, and compare upvotes, quotes, and discussions.`,
-      url: `https://beautyaggregate.com/category/${category}`,
-      itemListElement: products
-        ? products.map((product: Product) => ({
-            "@type": "ListItem",
-            name: product.product_name,
-            url: `https://beautyaggregate.com/category/${category}/${product.slug}`,
-            image: product.image_url,
-          }))
-        : [],
-    };
+    function buildCategoryJsonLd({
+      appUrl, category, categoryName, products, categoryData,
+    }: {
+      appUrl: string;
+      category: string;
+      categoryName: string;
+      products: Product[];
+      categoryData: {
+        editorial_summary?: string;
+        application_tips?: string[];
+        faq?: Array<{ question?: string; q?: string; Q?: string; answer?: string; a?: string; A?: string }>;
+        recommendations?: string[];
+      };
+    }) {
+      const pageUrl = `${appUrl}/category/${category}`;
+      const byId = (suffix: string) => `${pageUrl}#${suffix}`;
+
+      // Index products for rec matching
+      const slugByName = new Map(products.map(p => [p.product_name.toLowerCase(), p.slug]));
+      const tips = (categoryData.application_tips ?? []).filter(Boolean);
+
+      const recs = (categoryData.recommendations ?? []).filter(Boolean);
+
+      // --- CollectionPage
+      const hasPartIds: string[] = [];
+      if (products.length) hasPartIds.push(byId("rankings"));
+      if (recs.length) hasPartIds.push(byId("picks"));
+      if ((categoryData.faq ?? []).length) hasPartIds.push(byId("faq"));
+      if (tips.length) hasPartIds.push(byId("tips")); // or "howto" if you switch
+
+      const collectionPage = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": byId("webpage"),
+        url: pageUrl,
+        name: `${categoryName} – Reddit Rankings`,
+        description: categoryData.editorial_summary || `Top ${categoryName} ranked from Reddit.`,
+        abstract: categoryData.editorial_summary || undefined,
+        inLanguage: "en",
+        dateModified: new Date().toISOString(),
+        about: { "@type": "Thing", name: categoryName },
+        mainEntity: { "@id": byId("rankings") },
+        hasPart: hasPartIds.map(id => ({ "@id": id })),
+      };
+
+      // --- Rankings (ItemList of Products)
+      const topN = products.slice(0, 10);
+      const rankings = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": byId("rankings"),
+        itemListOrder: "ItemListOrderDescending",
+        numberOfItems: products.length,
+        isPartOf: { "@id": byId("webpage") },
+        itemListElement: topN.map((p, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "Product",
+            name: p.product_name,
+            url: `${pageUrl}/${p.slug}`,
+            image: p.image_url,
+            review: {
+              name: p.product_name + " Editorial Review",
+              author: {
+                "@type": "Organization",
+                name: "Beauty Aggregate Editorial Team",
+              },
+              reviewBody: p.editorial_summary
+            }
+          },
+        })),
+      };
+
+      // --- Recommendations (ItemList)
+      const recommendations = recs.length ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": byId("picks"),
+        name: `${categoryName} – Top Picks`,
+        isPartOf: { "@id": byId("webpage") },
+        itemListOrder: "ItemListOrderDescending",
+        itemListElement: recs.map((r, i) => {
+          const lower = r.toLowerCase();
+          const matchedName = [...slugByName.keys()].find(n => lower.includes(n));
+          const item = matchedName
+            ? { "@type": "Product", name: r, url: `${pageUrl}/${slugByName.get(matchedName)!}` }
+            : { "@type": "Thing", name: r };
+          return { "@type": "ListItem", position: i + 1, item };
+        }),
+      } : null;
+
+      // --- FAQ (FAQPage)
+      const faqPairs = (categoryData.faq ?? [])
+        .map(f => ({
+          q: (f.question || f.q || f.Q || "").toString().trim(),
+          a: (f.answer || f.a || f.A || "").toString().trim(),
+        }))
+        .filter(({ q, a }) => q && a);
+
+      const faq = faqPairs.length ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": byId("faq"),
+        mainEntity: faqPairs.map(({ q, a }) => ({
+          "@type": "Question",
+          name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
+        isPartOf: { "@id": byId("webpage") },
+      } : null;
+
+      // --- Application Tips
+      const tipsList = tips.length ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": byId("tips"),
+        name: `${categoryName} Application Tips`,
+        isPartOf: { "@id": byId("webpage") },
+        itemListElement: tips.map((t, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: { "@type": "Thing", name: t },
+        })),
+      } : null;
+
+      // --- Breadcrumb (use function arg)
+      const breadcrumb = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: appUrl },
+          { "@type": "ListItem", position: 2, name: "Categories", item: `${appUrl}/category` },
+          { "@type": "ListItem", position: 3, name: categoryName, item: pageUrl },
+        ],
+      };
+
+      return [collectionPage, rankings, recommendations, faq, tipsList, breadcrumb]
+        .filter(Boolean);
+    }
+
+
+    const jsonLd = buildCategoryJsonLd({
+      appUrl: APP_URL,
+      category,
+      categoryName: categoryCapitalized,
+      products,
+      categoryData,
+    });
+
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">

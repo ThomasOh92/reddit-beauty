@@ -16,7 +16,14 @@ export type CategoryData = {
   categoryData?: {
     application_tips: string[];
     editorial_summary: string;
-    faq: string[];
+    faq: Array<{
+          question?: string;
+          q?: string;
+          Q?: string;
+          answer?: string;
+          a?: string;
+          A?: string;
+        }>;
     recommendations: string[];
   };
 };
