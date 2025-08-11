@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import CategoryPageWrapper from "@/components/categorypagewrapper";
 import DiscussionsBox from "@/components/discussionsbox";
-import { Discussion, Product } from "../../../types";
+import { Product } from "../../../types";
 import { getAllCategories } from '../../../../lib/getAllCategories';
 import { getCategoryData } from "../../../../lib/getCategoryData";
 import { APP_URL } from '@/constants';
