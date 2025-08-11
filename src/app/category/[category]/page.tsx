@@ -14,7 +14,7 @@ type CategoryPageProps = Promise<{
   category: string;
 }>;
 
-export const getCachedCategoryData = cache((category: string) => getCategoryData(category));
+const getCachedCategoryData = cache((category: string) => getCategoryData(category));
 
 export async function generateMetadata({
   params,
