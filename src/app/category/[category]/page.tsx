@@ -95,7 +95,19 @@ export default async function CategoryPage({
 
     const discussion_data = data.discussions;
     const products = data.products;
-    const skinTypeData = data["skin-types"];
+    const categoryData = data.categoryData || {} as {
+      editorial_summary?: string;
+      application_tips?: string[];
+      faq?: Array<{
+        question?: string;
+        q?: string;
+        Q?: string;
+        answer?: string;
+        a?: string;
+        A?: string;
+      }>;
+      recommendations?: string[];
+    };
 
     const jsonLd = {
       "@context": "https://schema.org",
@@ -131,102 +143,76 @@ export default async function CategoryPage({
           Reddit Rankings (by upvotes)
         </h2>
 
-        {/* Navigation for skin type if available */}
-        {skinTypeData &&
-          Array.isArray(skinTypeData) &&
-          skinTypeData.length > 0 && (
-            <div className="text-center mb-4 sticky top-0 z-10">
-              <ul className="menu menu-horizontal bg-base-200 rounded-box text-xs">
-                <li>
-                  <a href="#general">General</a>
-                </li>
-                {skinTypeData.map(
-                  (
-                    skinType: {
-                      id: string;
-                      discussions: Discussion[];
-                      products: Product[];
-                    },
-                    idx: number
-                  ) => (
-                    <li key={skinType.id || idx}>
-                      <a href={`#${skinType.id}`}>
-                        {skinType.id
-                          .split("-")
-                          .map(
-                            (word) =>
-                              word.charAt(0).toUpperCase() + word.slice(1)
-                          )
-                          .join(" ")}
-                      </a>
-                    </li>
-                  )
-                )}
-              </ul>
-            </div>
-          )}
-
-        {/* General Section */}
-        {skinTypeData &&
-          Array.isArray(skinTypeData) &&
-          skinTypeData.length > 0 && (
-            <p
-              className="text-secondary font-bold text-sm ml-4 mb-2"
-              id="general"
-            >
-              General
-            </p>
-          )}
+        {/* Discussions Box */}
         <DiscussionsBox discussion_data={discussion_data} />
+
+
+        {/* Analysis Section */}
+        <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4">
+          <input type="checkbox" defaultChecked={false} />
+          <div className="collapse-title text-sm font-bold">Reddit Analysis </div>
+          <div className="collapse-content">
+            <div className="text-xs mb-4">
+              <p>
+                <strong>Editorial Summary:</strong> {categoryData.editorial_summary ||
+                  "No editorial summary available."}
+              </p>
+            </div>
+            <div className="text-xs">
+                <strong>Recommendations:</strong>
+                  {categoryData.recommendations && categoryData.recommendations.length > 0 ? (
+                    <ul className="mt-1 ml-4">
+                    {categoryData.recommendations.map((tip, index) => (
+                      <li key={index} className="list-disc mb-2">{tip}</li>
+                    ))}
+                    </ul>
+                  ) : (
+                    " No recommendations available."
+                  )}
+            </div>
+          </div>
+
+        </div>
+
+        {/* Rankings */}
         <CategoryPageWrapper products={products} category={category} />
 
-        {/* Skin Type Data */}
-        {skinTypeData &&
-          Array.isArray(skinTypeData) &&
-          skinTypeData.length > 0 && (
-            <div className="mt-8">
-              {skinTypeData.map(
-                (
-                  skinType: {
-                    id: string;
-                    discussions: Discussion[];
-                    products: Product[];
-                  },
-                  idx: number
-                ) => (
-                  <div key={skinType.id || idx} className="mb-6">
-                    <p
-                      className="text-secondary font-bold text-sm ml-4 mb-2"
-                      id={skinType.id}
-                    >
-                      {/* Convert "acne-prone" to Acne Prone */}
-                      {skinType.id
-                        .split("-")
-                        .map(
-                          (word) => word.charAt(0).toUpperCase() + word.slice(1)
-                        )
-                        .join(" ")}{" "}
-                      Skin Concern
-                    </p>
-
-                    {skinType.discussions &&
-                      skinType.discussions.length > 0 && (
-                        <DiscussionsBox
-                          discussion_data={skinType.discussions || []}
-                        />
-                      )}
-
-                    {skinType.products && skinType.products.length > 0 && (
-                      <CategoryPageWrapper
-                        products={skinType.products}
-                        category={category}
-                      />
-                    )}
+        {/* FAQs */}
+        {categoryData.faq && categoryData.faq.length > 0 && (
+           <div className="mx-2 mb-4 mt-8"> 
+              <h2 className="text-m font-bold mt-4 mb-2">Asked by Redditors</h2>
+              <div className="card border">
+              {categoryData.faq.map((item, index) => {
+                if (typeof item === 'string') return null;
+                return (
+                  <div key={index} className="collapse collapse-arrow">
+                    <input type="radio" name={`faq-accordion`} />
+                    <div className="collapse-title font-semibold text-xs">{item.question || item.q || item.Q}</div>
+                    <div className="collapse-content text-xs">{item.answer || item.a || item.A}</div>
                   </div>
-                )
-              )}
+                );
+              })}
+              </div>
             </div>
           )}
+
+        {/* Application Tips*/}
+
+        <div className="mx-2 mb-4 mt-8"> 
+          <h2 className="text-m font-bold mt-4 mb-2">Application Tips by Redditors:</h2>
+          <div className="card border">
+            {categoryData.application_tips && categoryData.application_tips.length > 0 ? (
+              <ul className="m-4 mx-6">
+              {categoryData.application_tips.map((tip, index) => (
+                <li key={index} className="list-decimal mb-2 text-xs">{tip}</li>
+              ))}
+              </ul>
+            ) : (
+              " No application tips available."
+            )}
+          </div>
+        </div>
+
       </div>
     );
   } catch (error) {

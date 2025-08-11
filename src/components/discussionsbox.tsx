@@ -11,12 +11,11 @@ const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => {
   return (
     <div
       tabIndex={0}
-      className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4"
+      className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-2"
     >
       <input type="checkbox" defaultChecked={false} />
       <div className="collapse-title text-sm">
         <span className="font-bold">{safeDiscussions.length}</span> discussions analyzed
-        <div>...</div>
       </div>
       <div className="collapse-content">
         <ul className="text-xs mt-2">

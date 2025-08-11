@@ -13,6 +13,12 @@ export type CategoryData = {
   products?: Product[];
   discussions?: Discussion[];
   "skin-types"?: SkinTypeData[];
+  categoryData?: {
+    application_tips: string[];
+    editorial_summary: string;
+    faq: string[];
+    recommendations: string[];
+  };
 };
 
 function mapProduct(doc: FirebaseFirestore.DocumentSnapshot): Product {
@@ -60,6 +66,11 @@ export const getCategoryData = cache(async function getCategoryData(
   ]);
 
   const discussionsArray = categoryDoc.data()?.[`discussions-index-1`] || [];
+  const categoryData = categoryDoc.data();
+  const application_tips = categoryData?.application_tips || [];
+  const editorial_summary = categoryData?.editorial_summary || "";
+  const faq = categoryData?.faq || [];
+  const recommendations = categoryData?.recommendations || [];
 
   const result: CategoryData = {
     products: prodSnap.docs.map(mapProduct),
@@ -69,6 +80,12 @@ export const getCategoryData = cache(async function getCategoryData(
       thread_title: discussionData.thread_title ?? "",
       date: discussionData.date ?? "",
     })),
+    categoryData: {
+      application_tips,
+      editorial_summary,
+      faq,
+      recommendations,
+    },
   };
 
   if (skinTypeIndex.length) {
