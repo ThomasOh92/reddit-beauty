@@ -24,7 +24,7 @@ export default defineType({
           title: 'Alt text',
           type: 'string',
           validation: (Rule) => Rule.custom((val, ctx) => {
-            const hasImage = !!(ctx.parent as any)?.asset
+            const hasImage = !!(ctx.parent as { asset?: unknown })?.asset
             return hasImage ? (val ? true : 'Alt text required when an image is set') : true
           })
         })
