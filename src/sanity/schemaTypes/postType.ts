@@ -85,6 +85,48 @@ export const postType = defineType({
       of: [{type: 'reference', to: {type: 'post'}}],
       group: 'relations',
     }),
+    defineField({
+      name: 'relatedLinks',
+      title: 'Related links (for monetization/key pages)',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          {
+            name: 'title',
+            type: 'string',
+            title: 'Link title',
+            validation: (R) => R.required()
+          },
+          {
+            name: 'url',
+            type: 'url',
+            title: 'URL',
+            validation: (R) => R.required()
+          },
+          {
+            name: 'description',
+            type: 'text',
+            title: 'Description (optional)',
+            rows: 2
+          }
+        ],
+        preview: {
+          select: {
+            title: 'title',
+            url: 'url'
+          },
+          prepare(selection) {
+            const {title, url} = selection
+            return {
+              title: title,
+              subtitle: url
+            }
+          }
+        }
+      }],
+      group: 'relations',
+    }),
 
     // Rich-result content
     defineField({
