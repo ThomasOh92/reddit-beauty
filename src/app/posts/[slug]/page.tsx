@@ -141,7 +141,7 @@ export async function generateMetadata({
   params: Promise<Params>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  let post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   // If not found by current slug, see if this slug is an old one and redirect
   if (!post) {
