@@ -8,7 +8,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   "name": "About Beauty Aggregate",
-  "url": "https://beautyaggregate.com/about",
+  "url": "https://www.beautyaggregate.com/about",
   "description": "Beauty Aggregate analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.",
 };
 

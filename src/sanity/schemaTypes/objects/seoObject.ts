@@ -25,18 +25,6 @@ export const seoObject = defineType({
       validation: (Rule) => Rule.uri({allowRelative: false, scheme: ['https']}),
     }),
     defineField({
-      name: 'robots',
-      title: 'Robots',
-      type: 'object',
-      fields: [
-        {name: 'index', type: 'boolean', initialValue: true},
-        {name: 'follow', type: 'boolean', initialValue: true},
-        {name: 'maxSnippet', type: 'number'},
-        {name: 'maxImagePreview', type: 'string', options: {list: ['none','standard','large']}},
-        {name: 'maxVideoPreview', type: 'number'},
-      ],
-    }),
-    defineField({
       name: 'ogTitle',
       title: 'OG title (override)',
       type: 'string',

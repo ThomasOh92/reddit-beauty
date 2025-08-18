@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "beauty products ranked by Beauty Aggregate",
     "Beauty Aggregate beauty tips"
   ],
-  metadataBase: new URL("https://beautyaggregate.com"),
+  metadataBase: new URL("https://www.beautyaggregate.com"),
   robots: {
     index: true,
     follow: true,
@@ -42,7 +42,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Beauty Aggregate",
-    url: "https://beautyaggregate.com",
+    url: "https://www.beautyaggregate.com",
     description: "Discover the most talked about skincare and beauty products on Reddit.",
     alternateName: ["Beauty Aggregate", "BeautyAggregate", "Beauty Aggregate & Skincare"],
   };

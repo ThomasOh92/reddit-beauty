@@ -26,12 +26,6 @@ export default defineType({
     }),
     // Optional SEO niceties that map to Schema.org HowTo
     defineField({ name: 'totalTime', title: 'Total time (optional, ISO 8601 e.g. PT10M)', type: 'string' }),
-    defineField({
-      name: 'difficulty',
-      title: 'Difficulty (optional)',
-      type: 'string',
-      options: { list: ['Beginner', 'Intermediate', 'Advanced'] }
-    })
   ],
   preview: {
     select: { title: 'title', count: 'steps.length' },

@@ -23,6 +23,21 @@ type ProductDoc = {
   lastUpdated?: string;
 };
 
+// Guard: prefer HTTPS same-domain canonical from CMS; otherwise fallback to local site URL
+function canonicalForPost(slug: string, cmsCanonical?: string): string {
+  if (cmsCanonical) {
+    try {
+      const u = new URL(cmsCanonical);
+      if (u.protocol === "https:" && cmsCanonical.startsWith(`${APP_URL}/`)) {
+        return cmsCanonical;
+      }
+    } catch {
+      // ignore invalid URL
+    }
+  }
+  return `${APP_URL}/posts/${slug}`;
+}
+
 // --- Helper: Fetch all categories ---
 async function fetchCategories(): Promise<CategoryDoc[]> {
   try {
@@ -88,14 +103,23 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
   // Parallel fetch of all data sources
   const [posts, categories] = await Promise.all([
     // Blog posts (Sanity)
-    client.fetch(groq`*[_type == "post" && defined(slug.current)]{slug, publishedAt}`),
+    client.fetch(groq`*[_type == "post"
+      && defined(slug.current)
+      && defined(publishedAt)
+      && publishedAt <= now()
+      && !(_id in path("drafts.**"))
+    ]{
+      "slug": slug.current,
+      "lastmod": coalesce(dateModified, publishedAt),
+      "canonicalUrl": seo.canonicalUrl
+    }`),
     // Categories (Firestore)
     fetchCategories()
   ]);
 
-  const postEntries: SitemapEntry[] = posts.map((post: { slug: { current: string }; publishedAt: string }) => ({
-    url: `${APP_URL}/posts/${post.slug.current}`,
-    lastModified: post.publishedAt,
+  const postEntries: SitemapEntry[] = posts.map((post: { slug: string; lastmod?: string; canonicalUrl?: string }) => ({
+    url: canonicalForPost(post.slug, post.canonicalUrl),
+    lastModified: post.lastmod,
   }));
 
   // Parallel fetch of all category data

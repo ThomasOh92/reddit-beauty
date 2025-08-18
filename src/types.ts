@@ -1,4 +1,5 @@
 import { Timestamp } from "firebase-admin/firestore";
+import { PortableTextBlock } from "next-sanity";
 
 export interface Product {
   id: string;
@@ -49,3 +50,70 @@ export interface Quote {
   sentiment: string;
   score: number;
 }
+
+// Shape for the post data. All optional fields are marked accordingly
+export interface Post {
+  _id: string;
+  _createdAt?: string;
+  title: string;
+  slug: string;
+  body: PortableTextBlock[];
+  excerpt?: string;
+  mainImage?: {
+    asset?: { _ref?: string };
+    alt?: string;
+  };
+  publishedAt?: string;
+  dateModified?: string;
+  locale?: string;
+  author?: {
+    _id: string;
+    name?: string;
+    slug?: string;
+    image?: { asset?: { _ref?: string }; alt?: string } | null;
+  } | null;
+  primaryCategory?: { _id: string; title?: string; slug?: string } | null;
+  categories?: { _id: string; title?: string; slug?: string }[] | null;
+  tags?: string[] | null;
+  relatedPosts?: Array<{
+    _id: string;
+    title?: string;
+    slug?: string;
+    publishedAt?: string;
+    mainImage?: { asset?: { _ref?: string }; alt?: string } | null;
+  }> | null;
+  relatedLinks?: Array<{ title?: string; url?: string; description?: string }>; 
+  faq?: Array<{ question?: string; answer?: string }>; 
+  howTo?: {
+    title?: string;
+    intro?: string;
+    totalTime?: string;
+    steps?: Array<{
+      title?: string;
+      body?: PortableTextBlock[];
+      image?: { asset?: { _ref?: string }; alt?: string } | null;
+    }>
+  } | null;
+  reviewBlock?: {
+    itemName?: string;
+    ratingValue?: number;
+    ratingCount?: number;
+  } | null;
+  sources?: Array<{ title?: string; publisher?: string; url?: string; rel?: string[] }>; 
+  reviewedBy?: { _id: string; name?: string; slug?: string; image?: { asset?: { _ref?: string }; alt?: string } | null } | null;
+  lastReviewedAt?: string;
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    canonicalUrl?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: { asset?: { _ref?: string }; alt?: string } | null;
+    twitterCard?: string;
+    structuredData?: string;
+  } | null;
+  featured?: boolean;
+  ogImage?: { asset?: { _ref?: string }; alt?: string } | null;
+  previousSlugs?: string[];
+  readingTime?: number;
+};

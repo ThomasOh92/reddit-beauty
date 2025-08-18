@@ -46,6 +46,7 @@ export async function generateMetadata({
     alternates: {
       canonical: `${APP_URL}/category/${category}/${product}`,
     },
+    keywords: [productName, "Reddit", categoryName, "Reviews", "Beauty", "Skincare"],
     openGraph: {
       title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
       description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
@@ -117,7 +118,7 @@ export default async function ProductPage({
       name: productData.product_name,
       image: productData.image_url,
       description: `See what Reddit users think about ${productData.product_name}.`,
-      url: `https://beautyaggregate.com/category/${category}/${product}`,
+      url: `https://www.beautyaggregate.com/category/${category}/${product}`,
       review: [
         {
           "@type": "Review",
@@ -172,7 +173,7 @@ export default async function ProductPage({
     const webpageLd = {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      url: `https://beautyaggregate.com/category/${category}/${product}`,
+      url: `https://www.beautyaggregate.com/category/${category}/${product}`,
       speakable: {
         "@type": "SpeakableSpecification",
         cssSelector: ["#one-sentence-definition"]

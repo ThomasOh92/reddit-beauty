@@ -5,6 +5,7 @@ import imageUrlBuilder from "@sanity/image-url";
 import Link from "next/link";
 import { PortableTextBlock } from "@portabletext/react";
 import Image from "next/image";
+import { Post } from "../../types";
 
 export const dynamicParams = true;
 export const revalidate = 3600;
@@ -15,14 +16,6 @@ function urlFor(source: string) {
   return builder.image(source).url();
 }
 
-type Post = {
-  _id: string;
-  title: string;
-  body?: PortableTextBlock[];
-  mainImage?: { asset?: { _ref?: string } };
-  slug: { current: string };
-  categories?: { title?: string }[] | null;
-};
 
 function getExcerpt(body?: PortableTextBlock[]): string {
   if (!body || !Array.isArray(body)) return "";
@@ -45,12 +38,13 @@ function getCategoryTitles(categories: Post["categories"]): string[] {
 
 export default async function PostsPage() {
   const posts: Post[] = await client.fetch(
-    groq`*[_type == "post"] | order(publishedAt desc){
+    groq`*[_type == "post" && defined(slug.current)] | order(publishedAt desc){
       _id,
       title,
       body,
       mainImage,
-      slug,
+  "slug": slug.current,
+      excerpt,
       categories[]->{
         title
       }
@@ -74,16 +68,16 @@ export default async function PostsPage() {
     "@context": "https://schema.org",
     "@type": "Blog",
     "name": "Beauty Aggregate | Blog",
-    "url": "https://beautyaggregate.com/posts",
+    "url": "https://www.beautyaggregate.com/posts",
     "description": "Deep dives, data breakdowns, and honest skincare discussions from the Beauty Aggregate team.",
     "blogPost": posts.map((post) => ({
       "@type": "BlogPosting",
       "headline": post.title,
-      "url": `https://beautyaggregate.com/posts/${post.slug.current}`,
+      "url": `https://www.beautyaggregate.com/posts/${post.slug}`,
       ...(post.mainImage?.asset?._ref && {
         "image": urlFor(post.mainImage.asset._ref)
       }),
-      "description": getExcerpt(post.body),
+  "description": post.excerpt || getExcerpt(post.body),
     })),
   };
 
@@ -104,7 +98,7 @@ export default async function PostsPage() {
             {categoryMap[cat].map((post) => (
               <Link
                 key={post._id}
-                href={`/posts/${post.slug.current}`}
+                href={`/posts/${post.slug}`}
                 className="card bg-base-100 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer flex flex-col h-full"
               >
                 {post.mainImage?.asset?._ref && (
@@ -119,8 +113,8 @@ export default async function PostsPage() {
                   />
                 )}
                 <div className="p-4 flex flex-col h-full">
-                  <h3 className="text-m font-semibold mb-2">{post.title}</h3>
-                  <p className="flex-grow text-gray-700 text-xs">{getExcerpt(post.body)}</p>
+                  <h3 className="text-m font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                  <p className="flex-grow text-gray-700 text-xs">{post.excerpt || getExcerpt(post.body)}</p>
                 </div>
               </Link>
             ))}
