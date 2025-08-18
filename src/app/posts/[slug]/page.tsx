@@ -222,7 +222,7 @@ export default async function DeepDivePage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  let post = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     const canonical = await getCanonicalSlugFromPrevious(slug);
@@ -240,7 +240,6 @@ export default async function DeepDivePage({
   const description = post.seo?.metaDescription || post.excerpt || extractPlainTextDescription(post.body);
   const heroImgRef = post.seo?.ogImage?.asset?._ref || post.ogImage?.asset?._ref || post.mainImage?.asset?._ref;
   const heroImgUrl = heroImgRef ? urlFor(heroImgRef) : undefined;
-  const imgAlt = post.seo?.ogImage?.alt || post.ogImage?.alt || post.mainImage?.alt || post.title;
 
   // Compute wordCount & timeRequired (reading time)
   const fullText = extractPlainTextFull(post.body);
@@ -408,7 +407,7 @@ export default async function DeepDivePage({
         )}
 
       {/* Main Body */}
-      <div className="max-w-[600px] prose prose-xs text-[12px] m-2 [&_p]:mb-2 [&_p]:mt-4 [&_h2]:mt-8 [&_h2]:mb-2 [&_a]:font-normal [&_a]:not-italic [&_a]:text-[12px] [&_a]:text-gray-400 [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-2 [&_a]:decoration-gray-300 [&_blockquote]:font-normal [&_blockquote]:not-italic [&_blockquote]:text-[12px] [&_blockquote]:text-inherit">
+      <div className="max-w-[600px] prose prose-xs text-[12px] m-2 [&_p]:mb-2 [&_p]:mt-4 [&_h2]:mt-8 [&_h2]:mb-2 [&_a]:font-normal [&_a]:not-italic [&_a]:text-[12px] [&_a]:text-gray-400 [&_a]:no-underline [&_blockquote]:font-normal [&_blockquote]:not-italic [&_blockquote]:text-[12px] [&_blockquote]:text-inherit">
         <PortableText value={post.body} />
       </div>
 
