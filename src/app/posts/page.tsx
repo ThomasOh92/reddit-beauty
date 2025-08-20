@@ -6,9 +6,18 @@ import Link from "next/link";
 import { PortableTextBlock } from "@portabletext/react";
 import Image from "next/image";
 import { Post } from "../../types";
+import type { Metadata } from "next";
 
 export const dynamicParams = true;
 export const revalidate = 3600;
+
+// Basic SEO metadata for the posts index page
+export const metadata: Metadata = {
+  title: "Blog Posts | Thorough Beauty",
+  description:
+    "Deep dives and data breakdowns from the Thorough Beauty team.",
+  alternates: { canonical: "/posts" },
+};
 
 const builder = imageUrlBuilder(client);
 
@@ -67,13 +76,13 @@ export default async function PostsPage() {
   const overviewJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Beauty Aggregate | Blog",
-    "url": "https://www.beautyaggregate.com/posts",
-    "description": "Deep dives, data breakdowns, and honest skincare discussions from the Beauty Aggregate team.",
+    "name": "Thorough Beauty | Blog",
+    "url": "https://www.thoroughbeauty.com/posts",
+    "description": "Deep dives, data breakdowns, and honest skincare discussions from the Thorough Beauty team.",
     "blogPost": posts.map((post) => ({
       "@type": "BlogPosting",
       "headline": post.title,
-      "url": `https://www.beautyaggregate.com/posts/${post.slug}`,
+      "url": `https://www.thoroughbeauty.com/posts/${post.slug}`,
       ...(post.mainImage?.asset?._ref && {
         "image": urlFor(post.mainImage.asset._ref)
       }),

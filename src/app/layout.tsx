@@ -8,19 +8,19 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: {
-    default: "Beauty Aggregate",
-    template: "%s | Beauty Aggregate",
+    default: "Thorough Beauty",
+    template: "%s | Thorough Beauty",
   },
   description: "Discover the most talked about skincare and beauty products on Reddit.",
   keywords: [
-    "Beauty Aggregate",
-    "Beauty Aggregate skincare",
-    "Beauty Aggregate product reviews",
-    "best skincare Beauty Aggregate",
-    "beauty products ranked by Beauty Aggregate",
-    "Beauty Aggregate beauty tips"
+    "Thorough Beauty",
+    "Thorough Beauty skincare",
+    "Thorough Beauty product reviews",
+    "best skincare Thorough Beauty",
+    "beauty products ranked by Thorough Beauty",
+    "beauty tips by Thorough Beauty"
   ],
-  metadataBase: new URL("https://www.beautyaggregate.com"),
+  metadataBase: new URL("https://www.thoroughbeauty.com"),
   robots: {
     index: true,
     follow: true,
@@ -41,16 +41,16 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Beauty Aggregate",
-    url: "https://www.beautyaggregate.com",
+    name: "Thorough Beauty",
+    url: "https://www.thoroughbeauty.com",
     description: "Discover the most talked about skincare and beauty products on Reddit.",
-    alternateName: ["Beauty Aggregate", "BeautyAggregate", "Beauty Aggregate & Skincare"],
+    alternateName: ["Thorough Beauty", "ThoroughBeauty", "Thorough Beauty & Skincare"],
   };
 
   return (
     <html lang="en" className={open_sans.className}>
       <head>
-        <meta property="og:site_name" content="Beauty Aggregate" />
+        <meta property="og:site_name" content="Thorough Beauty" />
         <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{

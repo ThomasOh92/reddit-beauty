@@ -118,14 +118,14 @@ export default async function ProductPage({
       name: productData.product_name,
       image: productData.image_url,
       description: `See what Reddit users think about ${productData.product_name}.`,
-      url: `https://www.beautyaggregate.com/category/${category}/${product}`,
+      url: `https://www.thoroughbeauty.com/category/${category}/${product}`,
       review: [
         {
           "@type": "Review",
           name: productData.product_name + " Editorial Review",
           author: {
             "@type": "Organization",
-            name: "Beauty Aggregate Editorial Team",
+            name: "Thorough Beauty Editorial Team",
           },
           reviewBody: productData.editorial_summary || "No editorial summary available.",
           positiveNotes:{
@@ -173,7 +173,7 @@ export default async function ProductPage({
     const webpageLd = {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      url: `https://www.beautyaggregate.com/category/${category}/${product}`,
+      url: `https://www.thoroughbeauty.com/category/${category}/${product}`,
       speakable: {
         "@type": "SpeakableSpecification",
         cssSelector: ["#one-sentence-definition"]

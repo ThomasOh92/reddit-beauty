@@ -23,18 +23,8 @@ type ProductDoc = {
   lastUpdated?: string;
 };
 
-// Guard: prefer HTTPS same-domain canonical from CMS; otherwise fallback to local site URL
-function canonicalForPost(slug: string, cmsCanonical?: string): string {
-  if (cmsCanonical) {
-    try {
-      const u = new URL(cmsCanonical);
-      if (u.protocol === "https:" && cmsCanonical.startsWith(`${APP_URL}/`)) {
-        return cmsCanonical;
-      }
-    } catch {
-      // ignore invalid URL
-    }
-  }
+// Canonical for posts: always our site base + slug
+function canonicalForPost(slug: string): string {
   return `${APP_URL}/posts/${slug}`;
 }
 
@@ -110,15 +100,14 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
       && !(_id in path("drafts.**"))
     ]{
       "slug": slug.current,
-      "lastmod": coalesce(dateModified, publishedAt),
-      "canonicalUrl": seo.canonicalUrl
+      "lastmod": coalesce(dateModified, publishedAt)
     }`),
     // Categories (Firestore)
     fetchCategories()
   ]);
 
-  const postEntries: SitemapEntry[] = posts.map((post: { slug: string; lastmod?: string; canonicalUrl?: string }) => ({
-    url: canonicalForPost(post.slug, post.canonicalUrl),
+  const postEntries: SitemapEntry[] = posts.map((post: { slug: string; lastmod?: string }) => ({
+    url: canonicalForPost(post.slug),
     lastModified: post.lastmod,
   }));
 

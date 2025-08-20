@@ -7,6 +7,7 @@ import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Post } from "../../../types"; 
+import { APP_URL } from "@/constants";
 
 // 👇 Static mode for SEO
 export const dynamicParams = true;
@@ -66,7 +67,6 @@ const getPostBySlug = cache(async (slug: string): Promise<Post | null> => {
       seo{
         metaTitle,
         metaDescription,
-        canonicalUrl,
         ogTitle,
         ogDescription,
         ogImage{asset, alt},
@@ -159,7 +159,7 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = "https://www.beautyaggregate.com";
+  const baseUrl = APP_URL;
   const url = `${baseUrl}/posts/${post.slug}`;
 
   const fallbackDesc = extractPlainTextDescription(post.body);
@@ -179,11 +179,8 @@ export async function generateMetadata({
       ? post.seo.twitterCard
       : "summary_large_image";
 
-  // Guard canonical to HTTPS absolute only; otherwise fallback to local URL
-  const canonicalFromCms = post.seo?.canonicalUrl;
-  const canonicalUrl = canonicalFromCms && /^https:\/\/.+/i.test(canonicalFromCms)
-    ? canonicalFromCms
-    : url;
+  // Canonical should always be our site base + slug (ignore CMS canonical)
+  const canonicalUrl = url;
 
   return {
     title: metaTitle,
@@ -205,7 +202,7 @@ export async function generateMetadata({
       description: post.seo?.ogDescription || metaDescription,
       images: bestImageUrl ? [{ url: bestImageUrl, alt: bestImageAlt }] : [],
       locale: post.locale || 'en-GB',
-      siteName: 'Beauty Aggregate',
+      siteName: 'Thorough Beauty',
       publishedTime: post.publishedAt,
       modifiedTime: post.dateModified || post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
@@ -235,7 +232,7 @@ export default async function DeepDivePage({
     notFound();
   }
 
-  const baseUrl = "https://www.beautyaggregate.com";
+  const baseUrl = APP_URL;
   const pageUrl = `${baseUrl}/posts/${post.slug}`;
   const description = post.seo?.metaDescription || post.excerpt || extractPlainTextDescription(post.body);
   const heroImgRef = post.seo?.ogImage?.asset?._ref || post.ogImage?.asset?._ref || post.mainImage?.asset?._ref;

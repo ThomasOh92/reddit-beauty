@@ -185,7 +185,7 @@ export default async function CategoryPage({
               name: p.product_name + " Editorial Review",
               author: {
                 "@type": "Organization",
-                name: "Beauty Aggregate Editorial Team",
+                name: "Thorough Beauty Editorial Team",
               },
               reviewBody: p.editorial_summary
             }

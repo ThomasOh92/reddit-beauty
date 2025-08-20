@@ -1,1 +1,1 @@
-export const APP_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.beautyaggregate.com";
+export const APP_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.thoroughbeauty.com";

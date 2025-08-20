@@ -8,14 +8,14 @@ const Footer = () => {
         <p className="text-xs">
           Contact:{" "}
           <a
-            href="mailto:beauty.aggregate@gmail.com"
+            href="mailto:reddit.beauty.reviews@gmail.com"
             className="text-blue-500 underline"
           >
-            beauty.aggregate@gmail.com
+            reddit.beauty.reviews@gmail.com
           </a>
         </p>
         <p className="text-xs mt-2">
-          Copyright © {new Date().getFullYear()}. All rights reserved by Beauty Aggregate
+          Copyright © {new Date().getFullYear()}. All rights reserved by Thorough Beauty
         </p>
       </aside>
     </footer>
