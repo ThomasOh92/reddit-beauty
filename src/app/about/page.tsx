@@ -36,6 +36,18 @@ export default function AboutPage() {
                 </p>
             </div>
 
+            <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
+                <h2 className="text-l font-semibold">What We Do</h2>
+                <p className="mt-4 text-sm">
+                    We build tools and summaries to help you find the best beauty and skincare products based on real user experiences from Reddit. 
+                </p>
+                <p className="mt-4 text-sm">
+                    Our main offerings are data-driven product rankings and detailed product summaries based on thousands of Reddit comments.    
+                </p>
+                <p className="mt-4 text-sm">We have also built a Reddit Backed Starter Routine Guide that we are very proud of. Do check it out <a href="/pdf-guide" className="text-primary">here!</a></p>
+            </div>
+
+
             {/* Approach Section */}
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
                 <h2 className="text-l font-semibold">Real Reviews. No Sponsorships</h2>
@@ -77,7 +89,7 @@ export default function AboutPage() {
             <div className="bg-base-100 p-6 shadow-lg w-full border-base-300 border rounded-none">
                 <h2 className="text-l font-semibold">Get in Touch</h2>
                 <p className="mt-4 text-sm">
-                    Have questions or feedback? Feel free to reach out to us at <a href="mailto:reddit.beauty.reviews@gmail.com" className="text-blue-500 underline">Contact Us</a>. We&apos;d love to hear your thoughts!
+                    Have questions or feedback? Feel free to reach out to us at <a href="mailto:tom@thoroughbeauty.com" className="text-blue-500 underline">Contact Us</a>. We&apos;d love to hear your thoughts!
                 </p>
             </div>
         </div>

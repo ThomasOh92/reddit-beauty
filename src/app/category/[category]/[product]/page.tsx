@@ -223,8 +223,9 @@ export default async function ProductPage({
         />
 
         <div className="flex flex-col gap-4">
-          {productData.image_url && (
-            <div className="flex justify-center">
+          <div>
+            {productData.image_url && (
+            <div className="flex justify-center my-4">
               <Image
                 fetchPriority="high"
                 priority={true}
@@ -263,6 +264,9 @@ export default async function ProductPage({
                 analysis and keeping this site independent.
               </p>
             </>
+          </div>
+
+
           </div>
 
           {/* Ranking by Upvotes */}
@@ -320,6 +324,11 @@ export default async function ProductPage({
               <strong>Methodology:</strong> {productData.methodology || "Not available right now."} 
             </p>
           
+            <p className="text-xs mx-4 mb-4 text-center">
+              <strong>This analysis contributed to our Reddit Backed Starter Routine</strong> <a href="/pdf-guide" className="text-primary" > here</a>
+            </p>
+
+
 
           </div>
 

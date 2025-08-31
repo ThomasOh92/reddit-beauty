@@ -4,6 +4,7 @@ import Link from "next/link";
 import { getAllCategories } from "../../lib/getAllCategories";
 import type { Metadata } from "next";
 import { APP_URL } from '@/constants';
+import { PdfGuideOverlay } from "@/components/pdf-guide-overlay";
 
 export const dynamicParams = true;
 export const revalidate = 7200
@@ -29,30 +30,35 @@ export default async function Home() {
           beauty subreddits.{" "}
         </h2>
 
-        {/* Link to Blog */}
-        <div className="flex justify-center mb-3">
-          <div
-            className="hero mb-4 rounded-xl max-w-[500px] mx-2"
-            style={{
-              backgroundImage:
-                "url(https://cdn.sanity.io/images/898a6tzr/production/ba0c204adfa35ea6b6212c3a64b6ca74c56c4c65-1066x300.jpg)",
-              backgroundSize: "50%",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            <div className="hero-overlay rounded-xl"></div>
-            <div className="hero-content text-neutral-content text-center">
-              <div className="flex flex-row items-center justify-center">
-                <Link href="/posts">
-                  <h2 className="text-xl font-bold">
-                    Discover More <span className="text-error">Blog</span>
-                  </h2>
-                </Link>
+        
+        <div className="flex justify-center mb-2">
+          {/* Link to Blog */}
+            <div
+              className="hero rounded-xl max-w-[500px] mx-1 shadow-lg"
+              style={{
+                backgroundImage:
+                  "url(https://cdn.sanity.io/images/898a6tzr/production/ba0c204adfa35ea6b6212c3a64b6ca74c56c4c65-1066x300.jpg)",
+                backgroundSize: "50%",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              <div className="hero-overlay rounded-xl shadow-lg"></div>
+              <div className="hero-content text-neutral-content text-center">
+                <div className="flex flex-row items-center justify-center">
+                  <Link href="/posts">
+                    <h2 className="text-sm font-bold leading-tight">
+                      Discover More <span className="text-error">Blog</span>
+                    </h2>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+
+          {/* Link to PDF Guide */}
+            <PdfGuideOverlay backgroundSize="60%"/>
         </div>
+
 
         <div className="grid grid-cols-1 gap-6">
           <div className="tabs tabs-border">

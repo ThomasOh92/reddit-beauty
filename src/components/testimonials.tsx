@@ -39,7 +39,7 @@ const testimonials = [
 ];
 
   return (
-    <section className="mt-4 max-w-[600px] mx-auto flex justify-center">
+    <section className="mt-4 mb-4 max-w-[600px] mx-auto flex justify-center">
       <div className="bg-white shadow pt-4 pb-4">
         <div className="grid gap-1">
           {testimonials.map((t, i) => (

@@ -6,6 +6,7 @@ import { getAllCategories } from '../../../../lib/getAllCategories';
 import { getCategoryData } from "../../../../lib/getCategoryData";
 import { APP_URL } from '@/constants';
 import { cache } from "react";
+import { PdfGuideOverlay } from '@/components/pdf-guide-overlay';
 
 export const dynamicParams = true;
 export const revalidate = 7200; // optional, for ISR support
@@ -285,8 +286,13 @@ export default async function CategoryPage({
           </span>
         </h1>
         <h2 className="text-center mb-4 text-sm">
-          Reddit Rankings (by upvotes)
+          Reddit Rankings
         </h2>
+
+        <div className='mb-4 mx-8 md:mx-0 flex justify-center items-center'>
+          <PdfGuideOverlay backgroundSize='40%'/>
+        </div>
+
 
         {/* Discussions Box */}
         <DiscussionsBox discussion_data={discussion_data} />
