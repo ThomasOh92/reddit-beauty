@@ -25,6 +25,8 @@ export default function PdfGuidePage() {
             alt="PDF Cover"
             width={400}
             height={400}
+            fetchPriority="high"
+            priority={true}
           />
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
             <a href="#slide3" className="btn btn-circle">❮</a>
@@ -38,6 +40,8 @@ export default function PdfGuidePage() {
             alt="PDF Table of Contents"
             width={400}
             height={400}
+            fetchPriority="high"
+            priority={true}
           />
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
             <a href="#slide1" className="btn btn-circle">❮</a>
@@ -51,6 +55,8 @@ export default function PdfGuidePage() {
             alt="PDF How to Use This Guide"
             width={400}
             height={400}
+            fetchPriority="high"
+            priority={true}
           />
           <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
             <a href="#slide2" className="btn btn-circle">❮</a>
