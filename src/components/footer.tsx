@@ -24,7 +24,16 @@ const Footer = () => {
             href="mailto:tom@thoroughbeauty.com"
             className="text-blue-500 underline"
           >
-            tom@thoroughbeauty.com
+            Tom@ThoroughBeauty.com
+          </a>
+
+          {" | "}
+          <a href="/about" className="text-blue-500 underline">
+            About
+          </a>
+          {" | "}
+          <a href="/faq" className="text-blue-500 underline">
+            FAQ
           </a>
         </p>
         <p className="text-xs mt-2">

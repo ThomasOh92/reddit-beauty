@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default function PdfGuidePage() {
   return (
     <div className="max-w-[600px] md:mx-auto bg-white shadow-md p-4 items-center flex flex-col">
+    <h1 className="sr-only">Reddit Backed Starter Routine</h1>
     <ConvertKitEmbed/>
 
     <div className="divider">Preview</div>
