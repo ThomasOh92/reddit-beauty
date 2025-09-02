@@ -88,7 +88,8 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${APP_URL}/` },
     { url: `${APP_URL}/about` },
     { url: `${APP_URL}/posts` },
-    { url: `${APP_URL}/faq` }
+    { url: `${APP_URL}/faq` },
+    { url: `${APP_URL}/pdf-guide` }
   ];
 
   // Parallel fetch of all data sources
