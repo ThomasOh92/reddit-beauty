@@ -205,9 +205,12 @@ export default async function CategoryPage({
         itemListElement: recs.map((r, i) => {
           const lower = r.toLowerCase();
           const matchedName = [...slugByName.keys()].find(n => lower.includes(n));
-          const item = matchedName
-            ? { "@type": "Product", name: r, url: `${pageUrl}/${slugByName.get(matchedName)!}` }
-            : { "@type": "Thing", name: r };
+          // Always use Thing to avoid Product rich result requirements (offers/review/aggregateRating)
+          const item = {
+            "@type": "Thing",
+            name: r,
+            ...(matchedName ? { url: `${pageUrl}/${slugByName.get(matchedName)!}` } : {}),
+          };
           return { "@type": "ListItem", position: i + 1, item };
         }),
       } : null;
