@@ -52,6 +52,7 @@ export async function generateMetadata({
       description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
       images: [{ url: image, alt: `${productName}` }],
       url: `${APP_URL}/category/${category}/${product}`,
+      type: "website"
     },
   };
 }

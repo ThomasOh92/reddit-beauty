@@ -9,7 +9,18 @@ export const metadata: Metadata = {
     title: `Frequently Asked Questions about Thorough Beauty`,
     description: `Everything you need to know about how we rank and surface products.`,
     url: `https://www.thoroughbeauty.com/faq`,
-  },
+    siteName: "Thorough Beauty",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://www.thoroughbeauty.com/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Frequently Asked Questions - Thorough Beauty"
+      }
+    ]
+  }
 };
 
 const jsonLd = {

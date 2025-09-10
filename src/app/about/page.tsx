@@ -10,6 +10,17 @@ export const metadata: Metadata = {
         title: `About Thorough Beauty`,
         description: `Thorough Beauty analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.`,
         url: `https://www.thoroughbeauty.com/about`,
+        siteName: "Thorough Beauty",
+        type: "website",
+        locale: "en_US",
+        images: [
+            {
+                url: "https://www.thoroughbeauty.com/opengraph-image.png",
+                width: 1200,
+                height: 630,
+                alt: "About Thorough Beauty"
+            }
+        ]
     },
 }
 

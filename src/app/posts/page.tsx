@@ -21,6 +21,17 @@ export const metadata: Metadata = {
     title: `Blog Posts | Thorough Beauty`,
     description: `Deep dives and data breakdowns from the Thorough Beauty team.`,
     url: `https://www.thoroughbeauty.com/posts`,
+    siteName: "Thorough Beauty",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://www.thoroughbeauty.com/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Blog Posts | Thorough Beauty"
+      }
+    ]
   },
 };
 

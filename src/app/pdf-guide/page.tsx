@@ -11,6 +11,17 @@ export const metadata: Metadata = {
     title: `Reddit-Backed Starter Routine (AM/PM)`,
     description: `Get your no-fluff routine built from thousands of Reddit discussions across skincare categories.`,
     url: `https://www.thoroughbeauty.com/pdf-guide`,
+    siteName: "Thorough Beauty",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://www.thoroughbeauty.com/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Reddit-Backed Starter Routine (AM/PM) - Thorough Beauty"
+      }
+    ]
   },
 };
 

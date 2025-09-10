@@ -54,7 +54,16 @@ export async function generateMetadata({
     openGraph: {
       title: `${categoryCapitalized} – Product Rankings on Reddit  (${year})`,
       description: description,
-      url: `${APP_URL}/category/${category}`
+      url: `${APP_URL}/category/${category}`,
+      type: "website",
+      images: [
+        {
+          url: "https://www.thoroughbeauty.com/opengraph-image.png",
+          width: 1200,
+          height: 630,
+          alt: description,
+        }
+      ]
     }
   };
 }
