@@ -80,6 +80,11 @@ const nextConfig: NextConfig = {
         hostname: 'shop.dranettareszko.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.hauslabs.com',
+        port: '',
+      },
     ],
   },
 };
