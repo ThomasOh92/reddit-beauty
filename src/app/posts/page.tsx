@@ -17,6 +17,11 @@ export const metadata: Metadata = {
   description:
     "Deep dives and data breakdowns from the Thorough Beauty team.",
   alternates: { canonical: "/posts" },
+  openGraph: {
+    title: `Blog Posts | Thorough Beauty`,
+    description: `Deep dives and data breakdowns from the Thorough Beauty team.`,
+    url: `https://www.thoroughbeauty.com/posts`,
+  },
 };
 
 const builder = imageUrlBuilder(client);

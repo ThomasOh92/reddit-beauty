@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/pdf-guide",
   },
+  openGraph: {
+    title: `Reddit-Backed Starter Routine (AM/PM)`,
+    description: `Get your no-fluff routine built from thousands of Reddit discussions across skincare categories.`,
+    url: `https://www.thoroughbeauty.com/pdf-guide`,
+  },
 };
 
 export default function PdfGuidePage() {

@@ -6,6 +6,11 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "/about",
     },
+    openGraph: {
+        title: `About Thorough Beauty`,
+        description: `Thorough Beauty analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.`,
+        url: `https://www.thoroughbeauty.com/about`,
+    },
 }
 
 const jsonLd = {

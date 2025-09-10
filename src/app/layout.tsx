@@ -21,6 +21,14 @@ export const metadata: Metadata = {
     "beauty tips by Thorough Beauty"
   ],
   metadataBase: new URL("https://www.thoroughbeauty.com"),
+  openGraph: {
+    title: "Thorough Beauty",
+    description: "Discover the most talked about skincare and beauty products on Reddit.",
+    url: "https://www.thoroughbeauty.com",
+    siteName: "Thorough Beauty",
+    type: "website",
+    locale: "en_US"
+  },
   robots: {
     index: true,
     follow: true,

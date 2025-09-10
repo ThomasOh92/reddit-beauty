@@ -5,6 +5,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/faq",
   },
+  openGraph: {
+    title: `Frequently Asked Questions about Thorough Beauty`,
+    description: `Everything you need to know about how we rank and surface products.`,
+    url: `https://www.thoroughbeauty.com/faq`,
+  },
 };
 
 const jsonLd = {
