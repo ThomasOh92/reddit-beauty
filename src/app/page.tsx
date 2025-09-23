@@ -56,7 +56,7 @@ export default async function Home() {
             </div>
 
           {/* Link to PDF Guide */}
-            <PdfGuideOverlay backgroundSize="60%"/>
+            <PdfGuideOverlay backgroundSize="80%"/>
         </div>
 
 

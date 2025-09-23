@@ -302,7 +302,7 @@ export default async function CategoryPage({
         </h2>
 
         <div className='mb-4 mx-8 md:mx-0 flex justify-center items-center'>
-          <PdfGuideOverlay backgroundSize='40%'/>
+          <PdfGuideOverlay backgroundSize='80%'/>
         </div>
 
 
