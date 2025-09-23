@@ -40,19 +40,19 @@ export async function generateMetadata({
   const baseDesc = `Discover the top ${categoryWithSpaces} ranked from Reddit discussions. Updated ${month} ${year}.`;
   const editorial = (categoryData.editorial_summary || "").replace(/\s+/g, " ").trim();
   const description = (editorial && editorial.length > 80)
-    ? (editorial.length > 180 ? editorial.slice(0, 177) + "…" : editorial)
+    ? (editorial.length > 155 ? editorial.slice(0, 152) + "…" : editorial)
     : baseDesc;
 
 
   return {
-    title: `${categoryCapitalized} – Product Rankings on Reddit (${year})`,
+    title: `${categoryCapitalized} – Reddit Rankings (${year})`,
     description: description,
     alternates: {
       canonical: `${APP_URL}/category/${category}`,
     },
     keywords: [categoryWithSpaces, "Reddit rankings", `best ${categoryWithSpaces}`],
     openGraph: {
-      title: `${categoryCapitalized} – Product Rankings on Reddit  (${year})`,
+      title: `${categoryCapitalized} – Reddit Rankings (${year})`,
       description: description,
       url: `${APP_URL}/category/${category}`,
       type: "website",

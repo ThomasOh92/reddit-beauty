@@ -41,15 +41,15 @@ export async function generateMetadata({
   //   : undefined;
 
   return {
-    title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-    description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
+    title: `${productName} – Reddit Reviews and Analysis (${year})`,
+    description: `${productName} - Read real and honest Reddit opinions. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
     alternates: {
       canonical: `${APP_URL}/category/${category}/${product}`,
     },
     keywords: [productName, "Reddit", categoryName, "Reviews", "Beauty", "Skincare"],
     openGraph: {
-      title: `${productName} (${categoryName}) – Reddit Reviews, Rankings & Real Quotes (${year})`,
-      description: `Reddit Opinions on ${productName}: ${productData.editorial_summary || "Read real quotes, upvotes, and honest reviews from Reddit"}. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
+      title: `${productName} – Reddit Reviews and Analysis (${year})`,
+      description: `${productName} - Read real and honest Reddit opinions. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
       images: [{ url: image, alt: `${productName}` }],
       url: `${APP_URL}/category/${category}/${product}`,
       type: "website"
