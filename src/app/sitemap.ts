@@ -85,7 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages
   const staticEntries: SitemapEntry[] = [
-    { url: `${APP_URL}/` },
+    { url: `${APP_URL}` },
     { url: `${APP_URL}/about` },
     { url: `${APP_URL}/posts` },
     { url: `${APP_URL}/faq` },
