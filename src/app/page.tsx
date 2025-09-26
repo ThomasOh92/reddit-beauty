@@ -11,7 +11,7 @@ export const revalidate = 7200
 
 export const metadata: Metadata = {
  alternates: { 
-  canonical: `${APP_URL}/`
+  canonical: `${APP_URL}`
   },
 };
 

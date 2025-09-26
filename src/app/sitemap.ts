@@ -73,7 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error("Sitemap generation failed:", error);
     // Return minimal sitemap on error
     return [
-      { url: `${APP_URL}/` },
+      { url: `${APP_URL}` },
       { url: `${APP_URL}/about` },
       { url: `${APP_URL}/posts` },
       { url: `${APP_URL}/faq` },
