@@ -1,7 +1,7 @@
 import  { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "About",
+    title: "About Thorough Beauty",
     // With metadataBase set in root layout, this relative path resolves to the full canonical URL
     alternates: {
         canonical: "/about",
