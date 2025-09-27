@@ -5,9 +5,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/faq",
   },
+  description: `Answers to common questions about our Reddit-sourced skincare rankings: how we analyze reviews, update data, monetize, and take product requests`,
   openGraph: {
     title: `Frequently Asked Questions about Thorough Beauty`,
-    description: `Everything you need to know about how we rank and surface products.`,
+    description: `Answers to common questions about our Reddit-sourced skincare rankings: how we analyze reviews, update data, monetize, and take product requests.`,
     url: `https://www.thoroughbeauty.com/faq`,
     siteName: "Thorough Beauty",
     type: "website",
@@ -20,7 +21,11 @@ export const metadata: Metadata = {
         alt: "Frequently Asked Questions - Thorough Beauty"
       }
     ]
-  }
+  },
+  twitter: {
+    description: "Answers to common questions about our Reddit-sourced skincare rankings: how we analyze reviews, update data, monetize, and take product requests.",
+    card: "summary_large_image",
+  },
 };
 
 const jsonLd = {

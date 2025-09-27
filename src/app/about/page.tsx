@@ -6,9 +6,10 @@ export const metadata: Metadata = {
     alternates: {
         canonical: "/about",
     },
+    description: `Learn how we analyze Reddit to surface skincare and beauty insights. Meet the team and our data-driven process behind product rankings.`,
     openGraph: {
         title: `About Thorough Beauty`,
-        description: `Thorough Beauty analyzes skincare and beauty discussions from Reddit to provide unbiased product insights and rankings. No sponsored content, no hidden agendas, just data-driven analysis.`,
+        description: `Learn how we analyze Reddit to surface skincare and beauty insights. Meet the team and our data-driven process behind product rankings.`,
         url: `https://www.thoroughbeauty.com/about`,
         siteName: "Thorough Beauty",
         type: "website",
@@ -22,6 +23,10 @@ export const metadata: Metadata = {
             }
         ]
     },
+    twitter: {
+        description: "Learn how we analyze Reddit to surface skincare and beauty insights. Meet the team and our data-driven process behind product rankings.",
+        card: "summary_large_image",
+  },
 }
 
 const jsonLd = {

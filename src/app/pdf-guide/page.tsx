@@ -7,9 +7,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/pdf-guide",
   },
+  description: `Get our free Reddit-Backed Starter Routine. Enter your email for a simple, derm-friendly skincare plan and proven product picks that work.`,
   openGraph: {
     title: `Reddit-Backed Starter Routine (AM/PM)`,
-    description: `Get your no-fluff routine built from thousands of Reddit discussions across skincare categories.`,
+    description: `Get our free Reddit-Backed Starter Routine. Enter your email for a simple, derm-friendly skincare plan and proven product picks that work.`,
     url: `https://www.thoroughbeauty.com/pdf-guide`,
     siteName: "Thorough Beauty",
     type: "website",
@@ -23,6 +24,11 @@ export const metadata: Metadata = {
       }
     ]
   },
+  twitter: {
+    description: "Get our free Reddit-Backed Starter Routine. Enter your email for a simple, derm-friendly skincare plan and proven product picks that work.",
+    card: "summary_large_image",
+  },
+
 };
 
 export default function PdfGuidePage() {

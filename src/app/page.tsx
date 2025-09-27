@@ -13,6 +13,15 @@ export const metadata: Metadata = {
  alternates: { 
   canonical: `${APP_URL}`
   },
+  description: "Explore skincare and beauty products ranked by Reddit reviews. Browse categories, compare top picks, and find what works for your skin.",
+  openGraph: {
+    description: "Explore skincare and beauty products ranked by Reddit reviews. Browse categories, compare top picks, and find what works for your skin.",
+    url: `${APP_URL}`,
+  },
+  twitter: {
+    description: "Explore skincare and beauty products ranked by Reddit reviews. Browse categories, compare top picks, and find what works for your skin.",
+    card: "summary_large_image",
+  },
 };
 
 export default async function Home() {

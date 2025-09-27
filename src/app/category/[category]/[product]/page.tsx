@@ -19,6 +19,45 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Format date consistently for display (e.g., "September 2025")
+function formatMonthYear(date: Date): string {
+  return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
+// Helper: smart truncate with ellipsis and whitespace cleanup
+function smartTruncate(text: string, max: number): string {
+  const clean = (text || "").toString().replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const boundary = clean.lastIndexOf(" ", Math.max(0, max - 1));
+  const cut = boundary > 60 ? boundary : Math.max(0, max - 1);
+  return clean.slice(0, cut).trimEnd() + "…";
+}
+
+// Build a meta description between 130–150 chars including editorial summary
+function createMetaDescription(productName: string, editorial: string, updatedStr?: string): string {
+  const prefix = `${productName}: `;
+  const baseSuffix = " Read real Reddit opinions and sentiment.";
+  const suffix = updatedStr ? `${baseSuffix} Updated ${updatedStr}.` : baseSuffix;
+  const target = 145; // aim
+  const min = 130;
+  const max = 150;
+
+  const maxEditorial = Math.max(0, target - prefix.length - suffix.length);
+  const editorialPart = smartTruncate(editorial, maxEditorial);
+
+  let desc = `${prefix}${editorialPart}${editorialPart ? " " : ""}${suffix}`;
+
+  if (desc.length < min) {
+    const extra = " See pros, cons, and FAQs.";
+    const addLen = Math.min(extra.length, max - desc.length);
+    desc += extra.slice(0, addLen);
+  }
+
+  return desc.length > max
+    ? smartTruncate(`${productName}: ${editorial} ${suffix}`, max)
+    : desc;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -31,11 +70,18 @@ export async function generateMetadata({
 
   const productName = productData.product_name;
   const categoryName = category.replace(/-/g, " ");
-  const now = new Date();
-  const month = now.toLocaleString("default", { month: "long" });
-  const year = now.getFullYear();
   const image = productData.image_url || "/opengraph-image.png";
   const shortenedProductName = shortenProductName(productName, 40);
+
+  const updatedStr = productData.lastUpdated
+    ? formatMonthYear(new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated))
+    : undefined;
+
+  const metaDescription = createMetaDescription(
+    productName,
+    productData.editorial_summary || "",
+    updatedStr
+  );
 
   // Optional: Top quote - Future optimization
   // const topQuote = Array.isArray(productData.quotes) && productData.quotes.length > 0
@@ -44,14 +90,14 @@ export async function generateMetadata({
 
   return {
     title: `${shortenedProductName} – Reddit Analysis`,
-    description: `${productName} - Read real and honest Reddit opinions. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
+    description: metaDescription,
     alternates: {
       canonical: `${APP_URL}/category/${category}/${product}`,
     },
     keywords: [productName, "Reddit", categoryName, "Reviews", "Beauty", "Skincare"],
     openGraph: {
       title: `${shortenedProductName} – Reddit Analysis`,
-      description: `${productName} - Read real and honest Reddit opinions. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
+      description: metaDescription,
       images: [{ url: image, alt: `${productName}` }],
       url: `${APP_URL}/category/${category}/${product}`,
       type: "website"
