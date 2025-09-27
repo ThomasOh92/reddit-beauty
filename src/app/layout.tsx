@@ -8,18 +8,10 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: {
-    default: "Thorough Beauty | Reddit's Top Skincare & Beauty Products",
+    default: "Thorough Beauty | Reddit Skincare and Beauty Reviews",
     template: "%s | Thorough Beauty",
   },
   description: "Discover the most talked about skincare and beauty products on Reddit.",
-  keywords: [
-    "Thorough Beauty",
-    "Thorough Beauty skincare",
-    "Thorough Beauty product reviews",
-    "best skincare Thorough Beauty",
-    "beauty products ranked by Thorough Beauty",
-    "beauty tips by Thorough Beauty"
-  ],
   metadataBase: new URL("https://www.thoroughbeauty.com"),
   openGraph: {
     title: "Thorough Beauty",
