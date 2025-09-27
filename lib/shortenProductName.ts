@@ -66,8 +66,9 @@ function smartEllipsis(s: string, max: number) {
 }
 
 export function shortenProductName(raw: string, max = TITLE_MAX) {
-  let s = clean(raw);
-  let { brand, rest } = splitBrandRest(s);
+  const s = clean(raw);
+  const { brand } = splitBrandRest(s);
+  let { rest } = splitBrandRest(s);
 
   // If brand alone blows the budget, truncate brand (rare, but safe)
   if (brand.length > max) return smartEllipsis(brand, max);
