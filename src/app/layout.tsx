@@ -7,10 +7,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
-  title: {
-    default: "Thorough Beauty | Reddit Skincare and Beauty Reviews",
-    template: "%s | Thorough Beauty",
-  },
+  title:  "Thorough Beauty | Reddit Skincare and Beauty Reviews",
   description: "Discover the most talked about skincare and beauty products on Reddit.",
   metadataBase: new URL("https://www.thoroughbeauty.com"),
   openGraph: {

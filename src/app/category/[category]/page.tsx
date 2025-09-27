@@ -45,14 +45,14 @@ export async function generateMetadata({
 
 
   return {
-    title: `${categoryCapitalized} – Reddit Rankings (${year})`,
+    title: `Best ${categoryCapitalized} ranked by Reddit`,
     description: description,
     alternates: {
       canonical: `${APP_URL}/category/${category}`,
     },
     keywords: [categoryWithSpaces, "Reddit rankings", `best ${categoryWithSpaces}`],
     openGraph: {
-      title: `${categoryCapitalized} – Reddit Rankings (${year})`,
+      title: `Best ${categoryCapitalized} ranked by Reddit`,
       description: description,
       url: `${APP_URL}/category/${category}`,
       type: "website",

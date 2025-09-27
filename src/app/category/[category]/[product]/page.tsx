@@ -5,6 +5,7 @@ import { getProductSlugsForCategory } from "../../../../../lib/getProductSlugsFo
 import QuotesWrapper from "@/components/quoteswrapper";
 import Image from "next/image";
 import { APP_URL } from '@/constants';
+import { shortenProductName } from "../../../../../lib/shortenProductName";
 
 export const dynamicParams = true;
 export const revalidate = 7200;
@@ -34,6 +35,7 @@ export async function generateMetadata({
   const month = now.toLocaleString("default", { month: "long" });
   const year = now.getFullYear();
   const image = productData.image_url || "/opengraph-image.png";
+  const shortenedProductName = shortenProductName(productName, 40);
 
   // Optional: Top quote - Future optimization
   // const topQuote = Array.isArray(productData.quotes) && productData.quotes.length > 0
@@ -41,14 +43,14 @@ export async function generateMetadata({
   //   : undefined;
 
   return {
-    title: `${productName} – Reddit Reviews and Analysis (${year})`,
+    title: `${shortenedProductName} – Reddit Analysis`,
     description: `${productName} - Read real and honest Reddit opinions. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
     alternates: {
       canonical: `${APP_URL}/category/${category}/${product}`,
     },
     keywords: [productName, "Reddit", categoryName, "Reviews", "Beauty", "Skincare"],
     openGraph: {
-      title: `${productName} – Reddit Reviews and Analysis (${year})`,
+      title: `${shortenedProductName} – Reddit Analysis`,
       description: `${productName} - Read real and honest Reddit opinions. Updated ${productData.lastUpdated ? new Date(productData.lastUpdated.toDate?.() || productData.lastUpdated).toLocaleDateString() : `${month} ${year}`}.`,
       images: [{ url: image, alt: `${productName}` }],
       url: `${APP_URL}/category/${category}/${product}`,
