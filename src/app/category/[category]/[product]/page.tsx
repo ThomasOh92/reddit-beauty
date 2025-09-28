@@ -374,7 +374,8 @@ export default async function ProductPage({
             </p>
           
             <p className="text-xs mx-4 mb-4 text-center">
-              <strong>This analysis contributed to our Reddit Backed Starter Routine</strong> <a href="/pdf-guide" className="text-primary" > here</a>
+              This analysis contributed to one of our key compilations:<br />
+              <strong><a href="/pdf-guide" className="text-primary" >Reddit Backed Starter Routine (PDF)</a></strong>
             </p>
 
 
