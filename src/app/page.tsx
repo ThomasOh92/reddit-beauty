@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     description: "Explore skincare and beauty products ranked by Reddit reviews. Browse categories, compare top picks, and find what works for your skin.",
     url: `${APP_URL}`,
+    type: "website"
   },
   twitter: {
     description: "Explore skincare and beauty products ranked by Reddit reviews. Browse categories, compare top picks, and find what works for your skin.",
