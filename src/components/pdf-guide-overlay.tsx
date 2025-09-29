@@ -21,7 +21,7 @@ export const PdfGuideOverlay: React.FC<PdfGuideOverlayProps> = ({
             {/* Background-like image */}
             <Image
                 src="/pdf-collage.png" // you can convert this to .webp to shrink further
-                alt=""
+                alt="3 Images of the Reddit Backed Routine PDF in a collage style next to each other"
                 fill
                 sizes="(max-width: 640px) 90vw, 500px"
                 className="z-0"
