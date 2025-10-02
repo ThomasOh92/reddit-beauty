@@ -31,10 +31,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
           <div className="flex items-center basis-[40%] justify-center p-2">
             <figure className="w-full h-full overflow-hidden">
               <Image
-                fetchPriority="high"
-                priority={true}
                 width={250}
                 height={250}
+                sizes="(max-width: 640px) 40vw, (max-width: 1024px) 33vw, 240px"
+                quality={60}
+                loading="lazy"
+                decoding="async"
                 src={product.image_url}
                 alt={product.product_name}
                 className="object-contain w-full h-28 sm:h-32"

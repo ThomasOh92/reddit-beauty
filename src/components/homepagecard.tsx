@@ -18,10 +18,12 @@ export default function HomePageCard({
       >
         <div className="flex flex-col items-center text-center p-4 gap-2">
           <Image
-            fetchPriority="high"
-            priority={true}
-            width={200}
-            height={200}
+            width={80}
+            height={80}
+            sizes="80px"
+            quality={60}
+            loading="lazy"
+            decoding="async"
             src={thumbnailUrl || '/thoroughbeautyicon.png'}
             alt={title}
             className="w-20 h-20 aspect-square object-contain rounded-md"
