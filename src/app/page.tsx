@@ -156,7 +156,7 @@ export default async function Home() {
 
         <section className="mt-8">
             <div className="text-sm font-bold text-neutral mb-3 text-center">
-            Explore Reddit's Top Choices
+            Explore Reddit&apos;s Top Choices
             </div>
           <ul className="list bg-base-100 rounded-box shadow-md">
             {data
@@ -183,8 +183,6 @@ export default async function Home() {
                   <Link
                     href={`${APP_URL}/category/${category.slug}/${product.url}`}
                     className="list-row"
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                   <div className="relative size-10 overflow-hidden rounded-box bg-base-200 items-center">
                     {product.image_url ? (

@@ -61,8 +61,6 @@ export default function HomePageCard({
           href={`/category/${slug}`}
           className="list-row flex flex-1 items-center gap-3"
           aria-label={`View ${title} category`}
-          target="_blank"
-          rel="noopener noreferrer"
         >
           {content}
         </Link>
