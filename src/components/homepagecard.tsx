@@ -1,5 +1,17 @@
-import { CategoryDetails } from "../types";
 import Image from "next/image";
+import Link from "next/link";
+import { CategoryDetails } from "../types";
+
+const formatLastUpdated = (value?: string) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
 
 export default function HomePageCard({
   slug,
@@ -9,52 +21,56 @@ export default function HomePageCard({
   lastUpdated,
   thumbnailUrl,
 }: CategoryDetails) {
-  //For Cards that are ready to go
-  if (readyForDisplay) {
-    return (
-      <a
-        href={`/category/${slug}`}
-        className="card bg-white shadow-sm mx-2 my-4 rounded hover:scale-[1.02] hover:bg-[#faedf2] cursor-pointer transition-transform duration-300"
-      >
-        <div className="flex flex-col items-center text-center p-4 gap-2">
-          <Image
-            width={80}
-            height={80}
-            sizes="80px"
-            quality={60}
-            loading="lazy"
-            decoding="async"
-            src={thumbnailUrl || '/thoroughbeautyicon.png'}
-            alt={title}
-            className="w-20 h-20 aspect-square object-contain rounded-md"
-          />
+  const formattedDate = formatLastUpdated(lastUpdated);
+  const imageSrc = thumbnailUrl || "/thoroughbeautyicon.png";
 
-          <h2 className="text-xs font-bold">
-            <span className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-pink-500">
-              {title}
-            </span>
-          </h2>
-
-          <p className="text-xs">{subtitle}</p>
-          <p className="text-[10px] text-gray-500">
-            Last Updated: {lastUpdated}
-          </p>
-        </div>
-      </a>
-    );
-  }
-
-  //For Cards that are not ready yet
-  else {
-    return (
-      <div className="card card-side bg-base-100 shadow-sm w-full opacity-50">
-        <div className="card-body">
-          <h2 className="card-title text-xs">{title}</h2>
-          <p className="text-xs">
-            Reddit Reviews coming soon for this category
-          </p>
-        </div>
+  const content = (
+    <>
+      <div className="relative size-10 overflow-hidden rounded-box bg-base-200">
+        <Image
+          src={imageSrc}
+          alt={`${title} thumbnail`}
+          fill
+          sizes="40px"
+          className="rounded-box object-contain"
+        />
       </div>
-    );
-  }
+      <div className="flex flex-1 flex-col">
+        <span className="text-xs font-semibold">{title}</span>
+        <span className="text-xs opacity-60">
+          {subtitle}
+        </span>
+        {formattedDate ? (
+          <span className="text-[0.65rem] opacity-50">
+            Updated {formattedDate}
+          </span>
+        ) : null}
+        {!readyForDisplay ? (
+          <span className="text-[0.65rem] opacity-60">
+            Reddit reviews coming soon
+          </span>
+        ) : null}
+      </div>
+    </>
+  );
+
+  return (
+    <li className="hover:bg-base-300">
+      {readyForDisplay ? (
+        <Link
+          href={`/category/${slug}`}
+          className="list-row flex flex-1 items-center gap-3"
+          aria-label={`View ${title} category`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {content}
+        </Link>
+      ) : (
+        <div className="flex flex-1 items-center gap-3 opacity-60">
+          {content}
+        </div>
+      )}
+    </li>
+  );
 }

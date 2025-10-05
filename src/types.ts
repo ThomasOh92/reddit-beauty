@@ -35,6 +35,7 @@ export interface Discussion {
 export interface CategoryDetails {
   slug: string;
   title: string;
+  type: string;
   subtitle: string;
   readyForDisplay?: boolean;
   lastUpdated: string;

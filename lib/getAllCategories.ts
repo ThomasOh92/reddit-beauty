@@ -11,6 +11,11 @@ export type Category = {
   type: string;
   thumbnailUrl?: string;
   readyForDisplay?: boolean;
+  top_product?: {
+    url: string;
+    image_url: string;
+    name: string;
+  };
 };
 
 export const getAllCategories = cache(async function getAllCategories(): Promise<Category[]> {

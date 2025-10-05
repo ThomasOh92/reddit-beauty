@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal footer-center bg-base-100 text-base-content p-6 max-w-[600px] mx-auto bottom-0 border-t border-base-300">
+    <footer className="footer sm:footer-horizontal footer-center bg-base-100 text-base-content p-6 max-w-[600px] mx-auto bottom-0">
       <aside className="space-y-2 text-center">
         <div className="bg-base-200 rounded-lg p-4 mb-4 border border-base-300">
           <h3 className="text-sm font-semibold mb-2">Reddit-Backed Starter Routine PDF</h3>

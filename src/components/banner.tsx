@@ -143,25 +143,43 @@ const Banner = () => {
               />
             </button>
             {categoriesOpen && (
-              <ul
+                <ul
                 className="bg-base-200 z-50 mt-0 absolute right-0 top-10 min-w-[140px] border border-gray-200 rounded shadow-lg"
                 role="menu"
-              >
+                >
                 {data
                   ?.filter((category) => category.readyForDisplay)
-                  .map((category, idx) => (
+                  .sort((a, b) => {
+                  const weight = (category: CategoryDetails) => {
+                    const type = category.type;
+                    if (type === "skincare") return 0;
+                    if (type === "beauty") return 1;
+                    return 2;
+                  };
+                  return weight(a) - weight(b);
+                  })
+                  .map((category, idx) => {
+                  const type = category.type;
+                  const textColor =
+                    type === "skincare"
+                    ? "text-info"
+                    : type === "beauty"
+                      ? "text-secondary"
+                      : "";
+                  return (
                     <li key={category.slug || idx}>
-                      <Link
-                        href={`/category/${category.slug}`}
-                        className="text-xs block px-4 py-2 hover:bg-base-300"
-                        onClick={() => setCategoriesOpen(false)}
-                        role="menuitem"
-                      >
-                        {category.title}
-                      </Link>
+                    <Link
+                      href={`/category/${category.slug}`}
+                      className={`text-xs block px-4 py-2 hover:bg-base-300 ${textColor}`}
+                      onClick={() => setCategoriesOpen(false)}
+                      role="menuitem"
+                    >
+                      {category.title}
+                    </Link>
                     </li>
-                  ))}
-              </ul>
+                  );
+                  })}
+                </ul>
             )}
           </li>
         </ul>
