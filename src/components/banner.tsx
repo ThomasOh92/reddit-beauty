@@ -54,10 +54,7 @@ const Banner = () => {
       {/* Left Side */}
       <Link href="/" className="btn text-xl pl-0 overflow-hidden min-h-[50px] min-w-[150px]">
         <Image src="/thoroughbeautyicon.png" alt="Icon" width={40} height={40}/>
-        <div className="flex flex-col items-start">
-          <p className="text-xl font-bold mb-[-10px]">Thorough</p>
-          <p className="text-xl font-bold">Beauty</p>
-        </div>
+        <div className="text-left text-base font-bold max-w-[100px] break-words leading-none">Thorough Beauty</div>
       </Link>
 
       {/* Right Side */}

@@ -48,13 +48,12 @@ export default async function Home() {
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
-        <h1 className="text-lg font-bold m-2 mt-4 text-neutral text-center">
-          Thorough Beauty | Reddit Skincare and Beauty Reviews
+        <h1 className="text-2xl font-bold mt-4 text-neutral text-center">
+          Thorough Beauty 
         </h1>
-        <h2 className="text-sm m-2 text-gray-600 text-center mb-4">
+        <h2 className="text-sm text-gray-600 text-center mb-4">
           {" "}
-          No influencers. No ads. Insights straight from the top skincare and
-          beauty subreddits.{" "}
+          Reddit Skincare and Beauty Reviews{" "}
         </h2>
 
         
