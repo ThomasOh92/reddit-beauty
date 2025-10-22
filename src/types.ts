@@ -118,3 +118,18 @@ export interface Post {
   previousSlugs?: string[];
   readingTime?: number;
 };
+
+export type SegmentBlock =
+  | {
+      type: "text";
+      content: string;
+    }
+  | {
+      type: "link";
+      content: string;
+      slug: string;
+    };
+
+export interface RecommendationWithLinks  {
+  segments: SegmentBlock[];
+};

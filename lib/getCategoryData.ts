@@ -1,13 +1,14 @@
 // lib/getCategoryData.ts
 import { cache } from "react";
 import { db } from "./firebaseAdmin";
-import { Product, Discussion } from "../src/types";
+import { Product, Discussion, SegmentBlock, RecommendationWithLinks } from "../src/types";
 
 type SkinTypeData = {
   id: string;
   discussions: Discussion[];
   products: Product[];
 };
+
 
 export type CategoryData = {
   products?: Product[];
@@ -17,14 +18,16 @@ export type CategoryData = {
     application_tips: string[];
     editorial_summary: string;
     faq: Array<{
-          question?: string;
-          q?: string;
-          Q?: string;
-          answer?: string;
-          a?: string;
-          A?: string;
-        }>;
+      question?: string;
+      q?: string;
+      Q?: string;
+      answer?: string;
+      a?: string;
+      A?: string;
+    }>;
     recommendations: string[];
+    editorial_summary_with_links?: SegmentBlock[];
+    recommendations_with_links?: RecommendationWithLinks[];
   };
 };
 
@@ -78,6 +81,8 @@ export const getCategoryData = cache(async function getCategoryData(
   const editorial_summary = categoryData?.editorial_summary || "";
   const faq = categoryData?.faq || [];
   const recommendations = categoryData?.recommendations || [];
+  const editorial_summary_with_links = categoryData?.editorial_summary_with_links || [];
+  const recommendations_with_links = categoryData?.recommendations_with_links || [];
 
   const result: CategoryData = {
     products: prodSnap.docs.map(mapProduct),
@@ -92,6 +97,8 @@ export const getCategoryData = cache(async function getCategoryData(
       editorial_summary,
       faq,
       recommendations,
+      editorial_summary_with_links,
+      recommendations_with_links,
     },
   };
 

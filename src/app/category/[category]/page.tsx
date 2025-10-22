@@ -1,11 +1,12 @@
+import Link from "next/link";
 import { notFound } from 'next/navigation';
 import CategoryPageWrapper from "@/components/categorypagewrapper";
 import DiscussionsBox from "@/components/discussionsbox";
-import { Product } from "../../../types";
+import { Product, SegmentBlock, RecommendationWithLinks } from "../../../types";
 import { getAllCategories } from '../../../../lib/getAllCategories';
 import { getCategoryData } from "../../../../lib/getCategoryData";
 import { APP_URL } from '@/constants';
-import { cache } from "react";
+import { cache, Fragment } from "react";
 import { PdfGuideOverlay } from '@/components/pdf-guide-overlay';
 
 export const dynamicParams = true;
@@ -117,6 +118,8 @@ export default async function CategoryPage({
     const products = data.products;
     const categoryData = data.categoryData || {} as {
       editorial_summary?: string;
+      editorial_summary_with_links?: SegmentBlock[];
+      recommendations_with_links?: RecommendationWithLinks[];
       application_tips?: string[];
       faq?: Array<{
         question?: string;
@@ -128,6 +131,29 @@ export default async function CategoryPage({
       }>;
       recommendations?: string[];
     };
+
+    const editorialSummarySegments = categoryData.editorial_summary_with_links ?? [];
+    const recommendationsWithLinkSegments = (categoryData.recommendations_with_links ?? [])
+      .map((rec) => ({ ...rec, segments: rec.segments ?? [] }))
+      .filter((rec) => Array.isArray(rec.segments) && rec.segments.length > 0);
+
+    const renderSegmentBlocks = (segments: SegmentBlock[]) =>
+      segments.map((segment, index) => {
+        if (segment.type === "link" && segment.slug) {
+          const href = `/category/${category}/${segment.slug}`;
+          return (
+            <Link
+              key={`segment-${index}-${segment.slug}`}
+              href={href}
+              className="underline text-pink-600 hover:text-pink-700"
+            >
+              {segment.content}
+            </Link>
+          );
+        }
+
+        return <Fragment key={`segment-${index}`}>{segment.content}</Fragment>;
+      });
 
     function buildCategoryJsonLd({
       appUrl, category, categoryName, products, categoryData,
@@ -317,21 +343,31 @@ export default async function CategoryPage({
           <div className="collapse-content">
             <div className="text-xs mb-4">
               <p>
-                <strong>Editorial Summary:</strong> {categoryData.editorial_summary ||
-                  "No editorial summary available."}
+                <strong>Editorial Summary:</strong>{" "}
+                {editorialSummarySegments.length > 0
+                  ? renderSegmentBlocks(editorialSummarySegments)
+                  : (categoryData.editorial_summary || "No editorial summary available.")}
               </p>
             </div>
             <div className="text-xs">
-                <strong>Recommendations:</strong>
-                  {categoryData.recommendations && categoryData.recommendations.length > 0 ? (
-                    <ul className="mt-1 ml-4">
-                    {categoryData.recommendations.map((tip, index) => (
-                      <li key={index} className="list-disc mb-2">{tip}</li>
-                    ))}
-                    </ul>
-                  ) : (
-                    " No recommendations available."
-                  )}
+              <strong>Recommendations:</strong>
+              {recommendationsWithLinkSegments.length > 0 ? (
+                <ul className="mt-1 ml-4">
+                  {recommendationsWithLinkSegments.map((rec, index) => (
+                    <li key={`recommendation-${index}`} className="list-disc mb-2">
+                      {renderSegmentBlocks(rec.segments)}
+                    </li>
+                  ))}
+                </ul>
+              ) : categoryData.recommendations && categoryData.recommendations.length > 0 ? (
+                <ul className="mt-1 ml-4">
+                  {categoryData.recommendations.map((tip, index) => (
+                    <li key={index} className="list-disc mb-2">{tip}</li>
+                  ))}
+                </ul>
+              ) : (
+                " No recommendations available."
+              )}
             </div>
           </div>
 
