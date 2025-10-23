@@ -130,6 +130,7 @@ export default async function CategoryPage({
         A?: string;
       }>;
       recommendations?: string[];
+      related_categories?: string[];
     };
 
     const editorialSummarySegments = categoryData.editorial_summary_with_links ?? [];
@@ -396,7 +397,6 @@ export default async function CategoryPage({
           )}
 
         {/* Application Tips*/}
-
         <div className="mx-2 mb-4 mt-8"> 
           <h2 className="text-m font-bold mt-4 mb-2">Application Tips by Redditors:</h2>
           <div className="card border">
@@ -408,6 +408,34 @@ export default async function CategoryPage({
               </ul>
             ) : (
               " No application tips available."
+            )}
+          </div>
+        </div>
+
+        {/* Related Categories */}
+        <div className="mx-2 mb-4 mt-8">
+          <h2 className="text-m font-bold mt-4 mb-2">Related Categories:</h2>
+          <div className="card border">
+            {categoryData.related_categories && categoryData.related_categories.length > 0 ? (
+              <ul className="m-4 mx-6">
+                {categoryData.related_categories.map((slug, index) => {
+                    const label = slug
+                      .split("-")
+                      .filter(Boolean)
+                      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                      .join(" ");
+
+                    return (
+                      <li key={index} className="list-decimal mb-2 text-xs">
+                      <Link href={`/category/${slug}`} className="underline text-pink-600 hover:text-pink-700">
+                        {label || slug}
+                      </Link>
+                      </li>
+                    );
+                })}
+              </ul>
+            ) : (
+              " No related categories available."
             )}
           </div>
         </div>

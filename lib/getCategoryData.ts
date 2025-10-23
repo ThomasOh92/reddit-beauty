@@ -28,6 +28,7 @@ export type CategoryData = {
     recommendations: string[];
     editorial_summary_with_links?: SegmentBlock[];
     recommendations_with_links?: RecommendationWithLinks[];
+    related_categories?: string[];
   };
 };
 
@@ -83,6 +84,7 @@ export const getCategoryData = cache(async function getCategoryData(
   const recommendations = categoryData?.recommendations || [];
   const editorial_summary_with_links = categoryData?.editorial_summary_with_links || [];
   const recommendations_with_links = categoryData?.recommendations_with_links || [];
+  const related_categories = categoryData?.related_categories || [];
 
   const result: CategoryData = {
     products: prodSnap.docs.map(mapProduct),
@@ -99,6 +101,7 @@ export const getCategoryData = cache(async function getCategoryData(
       recommendations,
       editorial_summary_with_links,
       recommendations_with_links,
+      related_categories
     },
   };
 
