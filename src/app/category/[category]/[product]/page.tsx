@@ -6,6 +6,7 @@ import QuotesWrapper from "@/components/quoteswrapper";
 import Image from "next/image";
 import { APP_URL } from '@/constants';
 import { shortenProductName } from "../../../../../lib/shortenProductName";
+import Link from "next/link";
 
 export const dynamicParams = true;
 export const revalidate = 7200;
@@ -147,6 +148,7 @@ export default async function ProductPage({
   params: ProductPageProps;
 }) {
   const { category, product } = await params;
+  const label = category.split("-").filter(Boolean).map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
 
   try {
     const productData = await getProductData(category, product); // First page of quotes
@@ -288,6 +290,12 @@ export default async function ProductPage({
           )}
           
           <div className='mx-4'>
+            <Link
+              href={`/category/${category}`}
+              className="badge badge-neutral badge-outline mb-1 hover:bg-gray-200 hover:text-gray-900"
+            >
+              {label}
+            </Link>
             <h1 className="text-l font-bold">{productData.product_name}</h1>
             <p id="one-sentence-definition" className="mb-4 text-xs">{productData.one_sentence_definition}</p>
           </div>
