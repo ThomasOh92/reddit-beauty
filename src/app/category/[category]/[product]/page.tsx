@@ -390,6 +390,76 @@ export default async function ProductPage({
 
           </div>
 
+          {/* Related Products */}
+          {((productData.related_alternatives?.length ?? 0) > 0 || (productData.related_complements?.length ?? 0) > 0) && (
+            <div className="mx-4 mb-4">
+              <h2 className="text-m font-bold mt-4 mb-2">Related Products</h2>
+                <div
+                  className={`grid gap-4 ${
+                  (productData.related_complements?.length ?? 0) > 0 &&
+                  (productData.related_alternatives?.length ?? 0) > 0
+                    ? "grid-cols-2"
+                    : "grid-cols-1"
+                  }`}
+                >
+
+                  {(productData.related_complements?.length ?? 0) > 0 && (
+                  <div className="card border h-full">
+                    <p className="text-xs font-bold text-center mt-2">Complementary</p>
+                    <ul className="m-4 mx-6 space-y-2">
+                    {productData.related_complements?.map((related, index) => {
+                      const label = related.slug
+                        .split(/[-_]/)
+                        .filter(Boolean)
+                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(" ");
+
+                      return (
+                      <li key={index} className="list-decimal text-xs">
+                        <Link
+                        href={`/category/${related.category}/${related.slug}`}
+                        className="underline text-pink-600 hover:text-pink-700"
+                        >
+                        {label || related.slug}
+                        </Link>
+                      </li>
+                      );
+                    })}
+                    </ul>
+                  </div>
+                  )}
+
+                  {(productData.related_alternatives?.length ?? 0) > 0 && (
+                  <div className="card border h-full">
+                    <p className="text-xs font-bold text-center mt-2">Alternatives</p>
+                    <ul className="m-4 mx-6 space-y-2">
+                    {productData.related_alternatives?.map((related, index) => {
+                      const label = related.slug
+                        .split(/[-_]/)
+                        .filter(Boolean)
+                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                        .join(" ");
+
+                      return (
+                      <li key={index} className="list-decimal text-xs">
+                        <Link
+                        href={`/category/${related.category}/${related.slug}`}
+                        className="underline text-pink-600 hover:text-pink-700"
+                        >
+                        {label || related.slug}
+                        </Link>
+                      </li>
+                      );
+                    })}
+                    </ul>
+                  </div>
+                  )}
+
+                </div>
+
+            </div>
+          )}
+
           {/* FAQ Section */}
           {productData.faq && productData.faq.length > 0 && (
            <div className="mx-4"> 
@@ -405,9 +475,6 @@ export default async function ProductPage({
               </div>
             </div>
           )}
-
-
-
 
           {/* Positive and Negative Reviews */}
           <div>

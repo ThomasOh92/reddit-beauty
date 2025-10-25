@@ -23,6 +23,8 @@ export interface Product {
   one_sentence_definition?: string;
   pros_cons?: { [key: string]: string[] };
   sentiment_score?: number;
+  related_alternatives?: { [key: string]: string }[];
+  related_complements?: { [key: string]: string }[];
 }
 
 export interface Discussion {

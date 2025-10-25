@@ -420,7 +420,7 @@ export default async function CategoryPage({
               <ul className="m-4 mx-6">
                 {categoryData.related_categories.map((slug, index) => {
                     const label = slug
-                      .split("-")
+                      .split(/[-_]/)
                       .filter(Boolean)
                       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                       .join(" ");

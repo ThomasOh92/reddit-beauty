@@ -76,6 +76,8 @@ export const getProductData = cache(async function getProductData(
       one_sentence_definition: data.one_sentence_definition,
       pros_cons: data.pros_cons,
       sentiment_score: data.sentiment_score,
+      related_alternatives: data.related_alternatives ?? [],
+      related_complements: data.related_complements ?? [],
     };
     // End of unchanged block
 
