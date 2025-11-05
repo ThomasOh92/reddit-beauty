@@ -334,6 +334,10 @@ export default async function ProductPage({
               <div className="stat-value">#{productData.rank}</div>
             </div>
             <div className="stat">
+              <div className="stat-title">Score</div>
+              <div className="stat-value">{productData.sentiment_score?.toFixed(2) ?? "N/A"}</div>
+            </div>
+            <div className="stat">
               <div className="stat-title">Total Upvotes</div>
               <div className="stat-value">{productData.upvote_count}</div>
             </div>

@@ -49,6 +49,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
             <p className="text-s font-bold line-clamp-2 leading-tight">
               {product.product_name}
             </p>
+            <p className="text-s leading-tight">
+              Score: {product.sentiment_score?.toFixed(2) ?? "N/A"}
+            </p>
 
             <p className="text-xs">
               🟢 {product.positive_mentions} positive{" "}

@@ -49,6 +49,7 @@ function mapProduct(doc: FirebaseFirestore.DocumentSnapshot): Product {
     fallback_url: d.fallback_url,
     rank: d.rank ?? 0,
     upvote_count: d.upvote_count ?? 0,
+    sentiment_score: d.sentiment_score ?? 0,
   };
 }
 
