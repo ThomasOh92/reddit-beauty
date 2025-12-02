@@ -375,11 +375,11 @@ export default async function DeepDivePage({
         <Image
           fetchPriority="high"
           priority={true}
-          width={250}
+          width={450}
           height={250}
           src={urlFor(ref)}
           alt={post.mainImage?.alt || "Image"}
-          className="rounded-md h-[250px] w-[250px] object-cover mb-1"
+          className="rounded-md h-[250px] w-[450px] object-cover mb-1"
         />
           );
         })()}
