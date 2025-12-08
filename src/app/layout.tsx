@@ -5,6 +5,7 @@ import { open_sans } from './fonts'
 import Footer from "@/components/footer";
 import { Analytics } from '@vercel/analytics/next';
 import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleTagManager } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title:  "Thorough Beauty | Reddit Skincare and Beauty Reviews",
@@ -79,6 +80,7 @@ export default function RootLayout({
         <Analytics />
       </body>
       <GoogleAnalytics gaId="G-HV12NWBY2Z" />
+      <GoogleTagManager gtmId="GTM-WBXVRDGX" />
     </html>
   );
 }
