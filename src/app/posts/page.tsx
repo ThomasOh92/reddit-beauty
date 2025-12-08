@@ -112,40 +112,52 @@ export default async function PostsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(overviewJsonLd).replace(/</g, '\\u003c'),
+          __html: JSON.stringify(overviewJsonLd).replace(/</g, "\\u003c"),
         }}
       />
+      
       <h1 className="text-2xl font-bold text-center mb-6">Blog Posts</h1>
-      {categoryNames.map((cat) => (
-        <section key={cat} className="mb-10">
+
+      {([...categoryNames].sort((a, b) => {
+        if (a === "Archive") return 1;
+        if (b === "Archive") return -1;
+        return a.localeCompare(b);
+      })).map((cat) => {
+        const isArchive = cat === "Archive";
+        return (
+          <React.Fragment key={cat}>
+        {isArchive && <hr className="my-8 border-gray-300" />}
+        <section className="mb-10">
           <h2 className="text-sm mb-4 font-semibold text-info-content text-center">{cat}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {categoryMap[cat].map((post) => (
-              <Link
-                key={post._id}
-                href={`/posts/${post.slug}`}
-                className="card bg-base-100 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer flex flex-col h-full"
-              >
-                {post.mainImage?.asset?._ref && (
-                  <Image
-                    fetchPriority="high"
-                    priority={true}
-                    className="h-30 w-full object-cover"
-                    src={urlFor(post.mainImage.asset._ref)}
-                    alt={post.title}
-                    width={250}
-                    height={100}
-                  />
-                )}
-                <div className="p-4 flex flex-col h-full">
-                  <h3 className="text-m font-semibold mb-2 line-clamp-2">{post.title}</h3>
-                  <p className="flex-grow text-gray-700 text-xs">{post.excerpt || getExcerpt(post.body)}</p>
-                </div>
-              </Link>
+          <Link
+            key={post._id}
+            href={`/posts/${post.slug}`}
+            className="card bg-base-100 shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 cursor-pointer flex flex-col h-full"
+          >
+            {!isArchive && post.mainImage?.asset?._ref && (
+              <Image
+            fetchPriority="high"
+            priority={true}
+            className="h-30 w-full object-cover"
+            src={urlFor(post.mainImage.asset._ref)}
+            alt={post.title}
+            width={250}
+            height={100}
+              />
+            )}
+            <div className="p-4 flex flex-col h-full">
+              <h3 className="text-m font-semibold mb-2 line-clamp-2">{post.title}</h3>
+              <p className="flex-grow text-gray-700 text-xs">{post.excerpt || getExcerpt(post.body)}</p>
+            </div>
+          </Link>
             ))}
           </div>
         </section>
-      ))}
+          </React.Fragment>
+        );
+      })}
     </main>
   );
 }
