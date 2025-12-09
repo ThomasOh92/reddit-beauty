@@ -131,6 +131,10 @@ export default async function CategoryPage({
       }>;
       recommendations?: string[];
       related_categories?: string[];
+      related_posts?: Array<{
+        title?: string;
+        slug?: string;
+      }>;
     };
 
     const editorialSummarySegments = categoryData.editorial_summary_with_links ?? [];
@@ -427,7 +431,7 @@ export default async function CategoryPage({
 
                     return (
                       <li key={index} className="list-decimal mb-2 text-xs">
-                      <Link href={`/category/${slug}`} className="underline text-pink-600 hover:text-pink-700">
+                      <Link href={`/category/${slug}`} className="hover:underline text-pink-600 hover:text-pink-700">
                         {label || slug}
                       </Link>
                       </li>
@@ -436,6 +440,41 @@ export default async function CategoryPage({
               </ul>
             ) : (
               " No related categories available."
+            )}
+          </div>
+        </div>
+
+        {/* Related Posts */}
+        <div className="mx-2 mb-4 mt-8">
+          <h2 className="text-m font-bold mt-4 mb-2">Related Posts:</h2>
+          <div className="card border">
+            {categoryData.related_posts && categoryData.related_posts.length > 0 ? (
+              <ul className="m-4 mx-6">
+              {categoryData.related_posts
+                .filter((post) => post?.slug)
+                .map((post, index) => {
+                const slug = post.slug!;
+                const fallbackLabel = slug
+                  .split(/[-_]/)
+                  .filter(Boolean)
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(" ");
+                const label = post.title?.trim() || fallbackLabel || slug;
+
+                return (
+                  <li key={index} className="list-decimal mb-2 text-xs">
+                  <Link
+                    href={`/posts/${slug}`}
+                    className="hover:underline text-pink-600 hover:text-pink-700"
+                  >
+                    {label}
+                  </Link>
+                  </li>
+                );
+                })}
+              </ul>
+            ) : (
+              " No related posts available."
             )}
           </div>
         </div>
