@@ -22,8 +22,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
   const positiveMentions = product.positive_mentions ?? 0;
   const neutralMentions = product.neutral_mentions ?? 0;
   const negativeMentions = product.negative_mentions ?? 0;
-  const totalMentions =
-    positiveMentions + neutralMentions + negativeMentions || 1;
 
   return (
     <Link href={productUrl} className="block">
