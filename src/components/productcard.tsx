@@ -25,10 +25,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
   const totalMentions =
     positiveMentions + neutralMentions + negativeMentions || 1;
 
-  const positivePercent = (positiveMentions / totalMentions) * 100;
-  const neutralPercent = (neutralMentions / totalMentions) * 100;
-  const negativePercent = (negativeMentions / totalMentions) * 100;
-
   return (
     <Link href={productUrl} className="block">
       <div className="card card-side w-full bg-base-100 shadow-lg rounded mb-2 border-base-300 border relative transition-transform duration-300 hover:scale-[1.01] hover:bg-base-200 p-2">
