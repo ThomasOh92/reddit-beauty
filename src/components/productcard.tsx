@@ -3,6 +3,7 @@ import { Product } from "../types";
 import Link from "next/link";
 import { ProductCardButton } from "@/components/productcardbutton";
 import Image from "next/image";
+import { SentimentBar } from "@/components/sentimentBar";
 
 interface ProductCardProps {
   product: Product;
@@ -17,6 +18,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
     product.amazon_url_uk ||
     product.sephora_url ||
     product.fallback_url;
+
+  const positiveMentions = product.positive_mentions ?? 0;
+  const neutralMentions = product.neutral_mentions ?? 0;
+  const negativeMentions = product.negative_mentions ?? 0;
+  const totalMentions =
+    positiveMentions + neutralMentions + negativeMentions || 1;
+
+  const positivePercent = (positiveMentions / totalMentions) * 100;
+  const neutralPercent = (neutralMentions / totalMentions) * 100;
+  const negativePercent = (negativeMentions / totalMentions) * 100;
 
   return (
     <Link href={productUrl} className="block">
@@ -53,14 +64,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
               Score: {product.sentiment_score?.toFixed(2) ?? "N/A"}
             </p>
 
-            <p className="text-xs">
-              🟢 {product.positive_mentions} positive{" "}
-              {product.positive_mentions <= 1 ? "review" : "reviews"} <br />
-              🟡 {product.neutral_mentions} neutral{" "}
-              {product.neutral_mentions <= 1 ? "review" : "reviews"} <br />
-              🔴 {product.negative_mentions} negative{" "}
-              {product.negative_mentions <= 1 ? "review" : "reviews"} <br />
-            </p>
+            <SentimentBar
+              positiveMentions={positiveMentions}
+              neutralMentions={neutralMentions}
+              negativeMentions={negativeMentions}
+            />
 
             {/* External Link Button */}
             <div className="flex items-center justify-center">
