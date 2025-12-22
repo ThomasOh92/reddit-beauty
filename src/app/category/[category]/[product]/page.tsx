@@ -357,6 +357,13 @@ export default async function ProductPage({
           <h2 className="ml-4 text-m font-bold mt-4">
             Rankings by Sentiment Analysis
           </h2>
+          <div className="mx-4">
+            <SentimentBar
+              positiveMentions={productData.positive_mentions ?? 0}
+              neutralMentions={productData.neutral_mentions ?? 0}
+              negativeMentions={productData.negative_mentions ?? 0}
+            />
+          </div>
           <div className="stats border mx-4">
             <div className="stat">
               <div className="stat-title">Reddit Rank</div>
@@ -545,13 +552,6 @@ export default async function ProductPage({
               Calculated by the the number of posts or comments that have an
               opinion on this product
             </p>
-          </div>
-          <div className="mx-4">
-            <SentimentBar
-              positiveMentions={productData.positive_mentions ?? 0}
-              neutralMentions={productData.neutral_mentions ?? 0}
-              negativeMentions={productData.negative_mentions ?? 0}
-            />
           </div>
 
           {/* Quotes */}
