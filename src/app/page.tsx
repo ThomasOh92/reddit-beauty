@@ -3,6 +3,7 @@ import Testimonials from "@/components/testimonials";
 import Link from "next/link";
 import Image from "next/image";
 import { getAllCategories } from "../../lib/getAllCategories";
+import { getSkinTypes } from "../../lib/getSkinTypes";
 import type { Category } from "../../lib/getAllCategories";
 import type { Metadata } from "next";
 import { APP_URL } from '@/constants';
@@ -45,6 +46,7 @@ export default async function Home() {
 
     const skincareCategories = categorize("skincare");
     const beautyCategories = categorize("beauty");
+    const skinTypes = await getSkinTypes();
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
@@ -89,7 +91,52 @@ export default async function Home() {
 
         <div className="grid grid-cols-1  mt-8">
           <h2 className="text-sm font-bold text-neutral text-center">
-            Product Rankings by Category
+            Browse by Skin Type
+          </h2>
+              {skinTypes.length === 0 ? (
+                <p className="text-sm opacity-60 text-center">No skin types available.</p>
+              ) : (
+                <div className="flex flex-wrap justify-center gap-2 m-2 mb-8">
+                  {[...skinTypes]
+                    .sort((a, b) => {
+                      const normalize = (s: string) => s.trim().toLowerCase();
+
+                      const order: Record<string, number> = {
+                        oily: 0,
+                        dry: 1,
+                      };
+
+                      const aKey = normalize(a.skin_type);
+                      const bKey = normalize(b.skin_type);
+
+                      const aIsNotSure = aKey === "not sure";
+                      const bIsNotSure = bKey === "not sure";
+
+                      // Always push "Not sure" to the end
+                      if (aIsNotSure && !bIsNotSure) return 1;
+                      if (!aIsNotSure && bIsNotSure) return -1;
+
+                      const aOrder = order[aKey] ?? 999;
+                      const bOrder = order[bKey] ?? 999;
+
+                      // Priority: Oily, then Dry, then everything else (alphabetical)
+                      if (aOrder !== bOrder) return aOrder - bOrder;
+                      return aKey.localeCompare(bKey);
+                    })
+                    .map((skinType) => (
+                      <Link
+                        key={skinType.id}
+                        href={`/skin-type/${skinType.id}`}
+                        className="btn btn-soft btn-secondary"
+                      >
+                        {skinType.skin_type}
+                      </Link>
+                    ))}
+                </div>
+              )}
+
+          <h2 className="text-sm font-bold text-neutral text-center">
+            Product Rankings
           </h2>
           <div className="tabs tabs-border">
             <input
