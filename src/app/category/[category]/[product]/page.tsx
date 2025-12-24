@@ -330,6 +330,13 @@ export default async function ProductPage({
 
             <div className="flex flex-col gap-1 mx-4">
               <>
+                <div>
+                  <SentimentBar
+                    positiveMentions={productData.positive_mentions ?? 0}
+                    neutralMentions={productData.neutral_mentions ?? 0}
+                    negativeMentions={productData.negative_mentions ?? 0}
+                  />
+                </div>
                 <a
                   href={
                     productData.amazon_url_us ||
@@ -354,16 +361,6 @@ export default async function ProductPage({
           </div>
 
           {/* Ranking by Upvotes */}
-          <h2 className="ml-4 text-m font-bold mt-4">
-            Rankings by Sentiment Analysis
-          </h2>
-          <div className="mx-4">
-            <SentimentBar
-              positiveMentions={productData.positive_mentions ?? 0}
-              neutralMentions={productData.neutral_mentions ?? 0}
-              negativeMentions={productData.negative_mentions ?? 0}
-            />
-          </div>
           <div className="stats border mx-4">
             <div className="stat">
               <div className="stat-title">Reddit Rank</div>
