@@ -3,17 +3,10 @@ import { cache } from "react";
 import { db } from "./firebaseAdmin";
 import { Product, Discussion, SegmentBlock, RecommendationWithLinks } from "../src/types";
 
-type SkinTypeData = {
-  id: string;
-  discussions: Discussion[];
-  products: Product[];
-};
-
 
 export type CategoryData = {
   products?: Product[];
   discussions?: Discussion[];
-  "skin-types"?: SkinTypeData[];
   categoryData?: {
     application_tips: string[];
     editorial_summary: string;
@@ -75,10 +68,9 @@ export const getCategoryData = cache(async function getCategoryData(
   const categoryRef = db.collection(category).doc(`${category}-category`);
 
   // kick off reads in parallel:
-  const [prodSnap, categoryDoc, skinTypeIndex] = await Promise.all([
+  const [prodSnap, categoryDoc] = await Promise.all([
     categoryRef.collection("products").get(),
     categoryRef.get(),
-    categoryRef.collection("skin-types").listDocuments(), // just get doc refs
   ]);
 
   const discussionsArray = categoryDoc.data()?.[`discussions-index-1`] || [];
@@ -112,23 +104,6 @@ export const getCategoryData = cache(async function getCategoryData(
     },
   };
 
-  if (skinTypeIndex.length) {
-    // fetch each skin-type’s products & discussions in parallel
-    result["skin-types"] = await Promise.all(
-      skinTypeIndex.map(async (skinDocRef) => {
-        const [stProdSnap, stDiscSnap] = await Promise.all([
-          skinDocRef.collection("products").get(),
-          skinDocRef.collection("discussions").get(),
-        ]);
-
-        return {
-          id: skinDocRef.id,
-          products: stProdSnap.docs.map(mapProduct),
-          discussions: stDiscSnap.docs.map(mapDiscussion),
-        };
-      })
-    );
-  }
 
   return result;
 });
