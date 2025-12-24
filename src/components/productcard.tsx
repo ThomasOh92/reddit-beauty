@@ -55,7 +55,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, category }) => {
               {product.product_name}
             </p>
             <p className="text-s leading-tight">
-              Score: {product.sentiment_score?.toFixed(2) ?? "N/A"}
+              Score:{" "}
+              {product.sentiment_score
+                ? `${(product.sentiment_score * 10).toFixed(1)}/10`
+                : "N/A"}
             </p>
 
             <SentimentBar
