@@ -6,12 +6,20 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { CategoryDetails } from "../types";
 
+type SkinType = {
+  id: string;
+  skin_type: string;
+};
+
 const Banner = () => {
   const [data, setData] = useState<CategoryDetails[]>([]);
+  const [skinTypes, setSkinTypes] = useState<SkinType[]>([]);
   const [discoverOpen, setDiscoverOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
+  const [skinTypesOpen, setSkinTypesOpen] = useState(false);
   const discoverRef = useRef<HTMLLIElement>(null);
   const categoriesRef = useRef<HTMLLIElement>(null);
+  const skinTypesRef = useRef<HTMLLIElement>(null);
 
   // Fetch categories
   useEffect(() => {
@@ -25,6 +33,22 @@ const Banner = () => {
       }
     }
     fetchData();
+  }, []);
+
+  // Fetch skin types
+  useEffect(() => {
+    async function fetchSkinTypes() {
+      try {
+        const response = await fetch("/api/getSkinTypes");
+        const result = await response.json();
+        if (result.success && Array.isArray(result.data)) {
+          setSkinTypes(result.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchSkinTypes();
   }, []);
 
   // Click-away to close dropdown
@@ -42,19 +66,25 @@ const Banner = () => {
       ) {
         setDiscoverOpen(false);
       }
+      if (
+        skinTypesRef.current &&
+        !skinTypesRef.current.contains(event.target as Node)
+      ) {
+        setSkinTypesOpen(false);
+      }
     }
-    if (categoriesOpen || discoverOpen) {
+    if (categoriesOpen || discoverOpen || skinTypesOpen) {
       document.addEventListener("mousedown", handleClick);
     }
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [categoriesOpen, discoverOpen]);
+  }, [categoriesOpen, discoverOpen, skinTypesOpen]);
 
   return (
-    <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto border-b border-gray-300 pb-4">
+    <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto border-b border-gray-300 pb-4 max-[440px]:pl-0">
       {/* Left Side */}
-      <Link href="/" className="btn text-xl pl-0 overflow-hidden min-h-[50px] min-w-[150px]">
+      <Link href="/" className="btn text-xl pl-0 pr-0 overflow-hidden min-h-[50px] min-w-[150px]">
         <Image src="/thoroughbeautyicon.png" alt="Icon" width={40} height={40}/>
-        <div className="text-left text-base font-bold max-w-[100px] break-words leading-none">Thorough Beauty</div>
+        <div className="text-left text-base font-bold max-w-[90px] break-words leading-none">Thorough Beauty</div>
       </Link>
 
       {/* Right Side */}
@@ -177,6 +207,47 @@ const Banner = () => {
                   );
                   })}
                 </ul>
+            )}
+          </li>
+
+          {/* Skin Types Dropdown */}
+          <li ref={skinTypesRef} className="relative">
+            <button
+              type="button"
+              className="text-xs px-1 flex items-center gap-1 select-none"
+              onClick={() => setSkinTypesOpen((v) => !v)}
+              aria-expanded={skinTypesOpen}
+              aria-haspopup="menu"
+            >
+              Skin Types
+              <ChevronDown
+                size={16}
+                className={`transition-transform ${skinTypesOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+
+            {skinTypesOpen && (
+              <ul
+                className="bg-base-200 z-50 mt-0 absolute right-0 top-10 min-w-[140px] border border-gray-200 rounded shadow-lg"
+                role="menu"
+              >
+                {skinTypes
+                  .slice(0)
+                  .filter((st) => Boolean(st?.id) && Boolean(st?.skin_type))
+                  .sort((a, b) => (a.skin_type || "").localeCompare(b.skin_type || ""))
+                  .map((st) => (
+                    <li key={st.id}>
+                      <Link
+                        href={`/skin-type/${st.id}`}
+                        className="text-xs block px-4 py-2 hover:bg-base-300"
+                        onClick={() => setSkinTypesOpen(false)}
+                        role="menuitem"
+                      >
+                        {st.skin_type}
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
             )}
           </li>
         </ul>

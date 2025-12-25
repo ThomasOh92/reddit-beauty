@@ -50,15 +50,15 @@ function mapProduct(doc: FirebaseFirestore.DocumentSnapshot): Product {
   };
 }
 
-function mapDiscussion(doc: FirebaseFirestore.DocumentSnapshot): Discussion {
-  const d = doc.data()!;
-  return {
-    permalink: d.permalink ?? "",
-    Subreddit: d.Subreddit ?? "",
-    thread_title: d.thread_title ?? "",
-    date: d.date ?? "",
-  };
-}
+// function mapDiscussion(doc: FirebaseFirestore.DocumentSnapshot): Discussion {
+//   const d = doc.data()!;
+//   return {
+//     permalink: d.permalink ?? "",
+//     Subreddit: d.Subreddit ?? "",
+//     thread_title: d.thread_title ?? "",
+//     date: d.date ?? "",
+//   };
+// }
 
 export const getCategoryData = cache(async function getCategoryData(
   category: string

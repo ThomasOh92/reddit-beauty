@@ -7,3 +7,24 @@ export const getProductSlugsForCategory = cache(async function getProductSlugsFo
     return slugs;
     }
 )
+
+export const getProductIdToSlugMapForCategory = cache(async function getProductIdToSlugMapForCategory(
+    category: string
+): Promise<Record<string, string>> {
+    if (!category) return {};
+
+    const baseRef = db.collection(category).doc(`${category}-category`);
+    const slugsSnap = await baseRef.collection("slugs").get();
+
+    const map: Record<string, string> = {};
+    for (const doc of slugsSnap.docs) {
+        const slug = doc.id;
+        const data = doc.data() as { productId?: string };
+        const productId = data?.productId;
+        if (productId && slug) {
+            map[productId] = slug;
+        }
+    }
+
+    return map;
+});

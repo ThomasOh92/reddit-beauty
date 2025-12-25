@@ -8,7 +8,7 @@ import { getProductData } from "../../../../lib/getProductData";
  */
 export async function POST(request) {
   try {
-    const { category, productSlug, cursorId } = await request.json();
+    const { category, productSlug, cursorId, limit } = await request.json();
 
     if (!category || !productSlug) {
       return NextResponse.json(
@@ -42,8 +42,10 @@ export async function POST(request) {
 
 
     // Call your amended getProductData function, passing the cursor
+    const pageLimit = Number.isFinite(limit) ? limit : 5;
+
     const data = await getProductData(category, productSlug, {
-      limit: 10,
+      limit: Math.max(1, Math.min(20, pageLimit)),
       startAfter: startAfterDoc,
     });
 
