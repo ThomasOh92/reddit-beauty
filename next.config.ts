@@ -86,6 +86,11 @@ const nextConfig: NextConfig = {
         hostname: 'www.hauslabs.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.skinbetter.com',
+        port: '',
+      },
     ],
   },
 };
