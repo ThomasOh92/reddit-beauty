@@ -22,7 +22,7 @@ export default function HomePageCard({
   thumbnailUrl,
 }: CategoryDetails) {
   const formattedDate = formatLastUpdated(lastUpdated);
-  const imageSrc = thumbnailUrl || "/thoroughbeautyicon.png";
+  const imageSrc = thumbnailUrl || "/tb-logo.png";
 
   const content = (
     <>

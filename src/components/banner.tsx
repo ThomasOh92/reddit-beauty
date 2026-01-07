@@ -80,16 +80,22 @@ const Banner = () => {
   }, [categoriesOpen, discoverOpen, skinTypesOpen]);
 
   return (
-    <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto border-b border-gray-300 pb-4 max-[440px]:pl-0">
+    <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto ">
       {/* Left Side */}
-      <Link href="/" className="btn text-xl pl-0 pr-0 overflow-hidden min-h-[50px] min-w-[150px]">
-        <Image src="/thoroughbeautyicon.png" alt="Icon" width={40} height={40}/>
-        <div className="text-left text-base font-bold max-w-[90px] break-words leading-none">Thorough Beauty</div>
+      <Link href="/" className="flex items-center  ">
+        <Image
+          src="/tb-logo-4.png"
+          alt="Icon"
+          width={50}
+          height={50}
+          className="w-8 h-8 md:w-[50px] md:h-[50px]"
+        />
+        <h1 className="text-xs md:text-lg font-bold">Thorough Beauty</h1>
       </Link>
 
       {/* Right Side */}
       <div className="flex-none relative z-50">
-        <ul className="menu menu-horizontal bg-base-200">
+        <ul className="menu menu-horizontal">
           {/* Discover Dropdown */}
           <li ref={discoverRef} className="relative">
             <button
@@ -170,43 +176,43 @@ const Banner = () => {
               />
             </button>
             {categoriesOpen && (
-                <ul
+              <ul
                 className="bg-base-200 z-50 mt-0 absolute right-0 top-10 min-w-[140px] border border-gray-200 rounded shadow-lg"
                 role="menu"
-                >
+              >
                 {data
                   ?.filter((category) => category.readyForDisplay)
                   .sort((a, b) => {
-                  const weight = (category: CategoryDetails) => {
-                    const type = category.type;
-                    if (type === "skincare") return 0;
-                    if (type === "beauty") return 1;
-                    return 2;
-                  };
-                  return weight(a) - weight(b);
+                    const weight = (category: CategoryDetails) => {
+                      const type = category.type;
+                      if (type === "skincare") return 0;
+                      if (type === "beauty") return 1;
+                      return 2;
+                    };
+                    return weight(a) - weight(b);
                   })
                   .map((category, idx) => {
-                  const type = category.type;
-                  const textColor =
-                    type === "skincare"
-                    ? "text-info"
-                    : type === "beauty"
-                      ? "text-secondary"
-                      : "";
-                  return (
-                    <li key={category.slug || idx}>
-                    <Link
-                      href={`/category/${category.slug}`}
-                      className={`text-xs block px-4 py-2 hover:bg-base-300 ${textColor}`}
-                      onClick={() => setCategoriesOpen(false)}
-                      role="menuitem"
-                    >
-                      {category.title}
-                    </Link>
-                    </li>
-                  );
+                    const type = category.type;
+                    const textColor =
+                      type === "skincare"
+                        ? "text-info"
+                        : type === "beauty"
+                          ? "text-secondary"
+                          : "";
+                    return (
+                      <li key={category.slug || idx}>
+                        <Link
+                          href={`/category/${category.slug}`}
+                          className={`text-xs block px-4 py-2 hover:bg-base-300 ${textColor}`}
+                          onClick={() => setCategoriesOpen(false)}
+                          role="menuitem"
+                        >
+                          {category.title}
+                        </Link>
+                      </li>
+                    );
                   })}
-                </ul>
+              </ul>
             )}
           </li>
 
@@ -234,7 +240,9 @@ const Banner = () => {
                 {skinTypes
                   .slice(0)
                   .filter((st) => Boolean(st?.id) && Boolean(st?.skin_type))
-                  .sort((a, b) => (a.skin_type || "").localeCompare(b.skin_type || ""))
+                  .sort((a, b) =>
+                    (a.skin_type || "").localeCompare(b.skin_type || "")
+                  )
                   .map((st) => (
                     <li key={st.id}>
                       <Link

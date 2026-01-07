@@ -11,6 +11,11 @@
   --foreground: #171717;
 }
 
+[data-theme="light"] {
+  --s: 349 100% 84%;
+  --sc: 0 0% 100%;
+}
+
 /* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -28,5 +33,26 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+
+.btn-secondary {
+  background-color: #ffadb7 !important;
+  border-color: #ffadb7 !important;
+  color: #352f31 !important;
+}
+
+.btn-secondary:hover {
+  background-color: #ff97a3 !important;
+  border-color: #ff97a3 !important;
+}
+
+.text-secondary {
+  color: #ffadb7 !important;
+}
+
+.badge-secondary {
+  background-color: #ffadb7 !important;
+  border-color: #ffadb7 !important;
+  color: #ffffff !important;
 }
