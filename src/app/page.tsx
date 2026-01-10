@@ -295,6 +295,24 @@ export default async function Home() {
                 );
               })}
           </ul>
+        </section>        
+
+        <section className="mt-8">
+          <div className="border-base-300 border rounded-box bg-base-200 p-4 text-center">
+            <div className="flex items-center justify-center gap-2">
+              <span className="badge badge-warning">In development</span>
+              <span className="text-sm font-bold text-neutral">Skincare Intelligence</span>
+            </div>
+            <p className="mt-2 text-xs opacity-70">
+              We are building a new tool to help you research ingredients, Reddit reviews, and suggested products. We welcome any feedback at{" "}
+              <a href="mailto:tom@thoroughbeauty.com" className="link link-primary">tom@thoroughbeauty.com</a>.
+            </p>
+            <div className="mt-3 flex items-center justify-center">
+              <Link href="/skincare-intelligence" className="btn btn-sm btn-primary">
+                Try Skincare Intelligence
+              </Link>
+            </div>
+          </div>
         </section>
 
         <div className="divider font-bold mt-10">Redditor Testimonials</div>

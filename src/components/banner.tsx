@@ -80,7 +80,7 @@ const Banner = () => {
   }, [categoriesOpen, discoverOpen, skinTypesOpen]);
 
   return (
-    <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto ">
+    <div className="navbar bg-base-100 shadow-sm justify-center max-w-[600px] mt-2 mx-auto ">
       {/* Left Side */}
       <Link href="/" className="flex items-center  ">
         <Image
