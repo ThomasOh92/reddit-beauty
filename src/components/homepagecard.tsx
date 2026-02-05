@@ -26,27 +26,27 @@ export default function HomePageCard({
 
   const content = (
     <>
-      <div className="relative size-10 overflow-hidden rounded-box bg-base-200">
+      <div className="relative w-3/4 mx-auto aspect-square overflow-hidden rounded-box bg-base-200 mb-2">
         <Image
           src={imageSrc}
           alt={`${title} thumbnail`}
           fill
-          sizes="40px"
+          sizes="(max-width: 640px) 120px, 150px"
           className="rounded-box object-contain"
         />
       </div>
-      <div className="flex flex-1 flex-col">
-        <span className="text-xs font-semibold">{title}</span>
-        <span className="text-xs opacity-60">
+      <div className="flex flex-col">
+        <span className="text-[0.65rem] sm:text-xs font-semibold line-clamp-2">{title}</span>
+        <span className="text-[0.55rem] sm:text-[0.65rem] opacity-60 line-clamp-2">
           {subtitle}
         </span>
         {formattedDate ? (
-          <span className="text-[0.65rem] opacity-50">
+          <span className="text-[0.5rem] sm:text-[0.6rem] opacity-50 mt-1">
             Updated {formattedDate}
           </span>
         ) : null}
         {!readyForDisplay ? (
-          <span className="text-[0.65rem] opacity-60">
+          <span className="text-[0.5rem] sm:text-[0.6rem] opacity-60 mt-1">
             Reddit reviews coming soon
           </span>
         ) : null}
@@ -55,20 +55,20 @@ export default function HomePageCard({
   );
 
   return (
-    <li className="hover:bg-base-300">
+    <div className="flex flex-col">
       {readyForDisplay ? (
         <Link
           href={`/category/${slug}`}
-          className="list-row flex flex-1 items-center gap-3"
+          className="flex flex-col 1 sm:p-3 rounded-box hover:bg-base-200 transition-colors"
           aria-label={`View ${title} category`}
         >
           {content}
         </Link>
       ) : (
-        <div className="flex flex-1 items-center gap-3 opacity-60">
+        <div className="flex flex-col p-1 sm:p-3 opacity-60">
           {content}
         </div>
       )}
-    </li>
+    </div>
   );
 }

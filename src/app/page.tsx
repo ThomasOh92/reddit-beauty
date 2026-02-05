@@ -166,11 +166,11 @@ export default async function Home() {
               defaultChecked
             />
             <div className="tab-content">
-              <ul className="list bg-base-100 rounded-box shadow-md">
+              <div className="grid grid-cols-3 gap-4 p-4 bg-base-100 rounded-box shadow-md">
                 {skincareCategories.length === 0 ? (
-                  <li className="p-4 text-sm opacity-60">
+                  <div className="col-span-3 p-4 text-sm opacity-60 text-center">
                     No skincare categories yet.
-                  </li>
+                  </div>
                 ) : (
                   skincareCategories.map((category) => (
                     <HomePageCard
@@ -185,7 +185,7 @@ export default async function Home() {
                     />
                   ))
                 )}
-              </ul>
+              </div>
             </div>
 
             <input
@@ -195,11 +195,11 @@ export default async function Home() {
               aria-label="Beauty"
             />
             <div className="tab-content">
-              <ul className="list bg-base-100 rounded-box shadow-md">
+              <div className="grid grid-cols-3 gap-4 p-4 bg-base-100 rounded-box shadow-md">
                 {beautyCategories.length === 0 ? (
-                  <li className="p-4 text-sm opacity-60">
+                  <div className="col-span-3 p-4 text-sm opacity-60 text-center">
                     No beauty categories yet.
-                  </li>
+                  </div>
                 ) : (
                   beautyCategories.map((category) => (
                     <HomePageCard
@@ -214,7 +214,7 @@ export default async function Home() {
                     />
                   ))
                 )}
-              </ul>
+              </div>
             </div>
           </div>
         </div>
