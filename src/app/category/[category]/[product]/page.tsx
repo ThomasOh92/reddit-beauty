@@ -369,7 +369,9 @@ export default async function ProductPage({
             <div className="stat">
               <div className="stat-title">Score</div>
               <div className="stat-value">
-                {productData.sentiment_score?.toFixed(2) ?? "N/A"}
+                {productData.sentiment_score
+                ? (productData.sentiment_score * 10).toFixed(1) + "/10"
+                : "N/A"}
               </div>
             </div>
             <div className="stat">
