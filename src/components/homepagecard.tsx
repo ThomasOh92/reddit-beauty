@@ -36,7 +36,9 @@ export default function HomePageCard({
         />
       </div>
       <div className="flex flex-col">
-        <span className="text-[0.65rem] sm:text-xs font-semibold line-clamp-2">{title}</span>
+        <span className="text-[0.65rem] sm:text-xs font-semibold line-clamp-2">
+          {title}
+        </span>
         <span className="text-[0.55rem] sm:text-[0.65rem] opacity-60 line-clamp-2">
           {subtitle}
         </span>
@@ -65,9 +67,7 @@ export default function HomePageCard({
           {content}
         </Link>
       ) : (
-        <div className="flex flex-col p-1 sm:p-3 opacity-60">
-          {content}
-        </div>
+        <div className="flex flex-col p-1 sm:p-3 opacity-60">{content}</div>
       )}
     </div>
   );

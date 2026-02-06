@@ -20,7 +20,7 @@ export default function CategoryPageWrapper({
   const safeProducts = Array.isArray(products) ? products : [];
 
   return (
-    <>
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
       {safeProducts
         .sort((a, b) => (a.rank ?? Infinity) - (b.rank ?? Infinity))
         .map((product) => (
@@ -34,6 +34,6 @@ export default function CategoryPageWrapper({
             skinTypeId={skinTypeId}
           />
         ))}
-    </>
+    </div>
   );
 }

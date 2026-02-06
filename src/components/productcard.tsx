@@ -42,97 +42,99 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const totalMentions = positiveMentions + neutralMentions + negativeMentions;
 
   const card = (
-      <div className="card card-side w-full bg-base-100 shadow-lg rounded mb-2 border-base-300 border relative transition-transform duration-300 hover:scale-[1.01] hover:bg-base-200 p-2">
+      <div className="card bg-base-100 shadow-md rounded border-base-300 border relative transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg p-3 flex flex-col h-full">
         {/* Rank badge */}
-        <div className="badge badge-sm badge-soft badge-secondary absolute top-2 left-2 z-10">
-          {product.rank}
+        <div className="badge badge-xs badge-soft badge-secondary absolute top-2 right-2 z-10">
+          #{product.rank}
         </div>
 
-        <div className="flex w-full">
-          {/* Image Section - 40% */}
-          <div className="flex items-center basis-[40%] justify-center p-2">
-            <figure className="w-full h-full overflow-hidden">
-              <Image
-                width={250}
-                height={250}
-                sizes="(max-width: 640px) 40vw, (max-width: 1024px) 33vw, 240px"
-                quality={60}
-                loading="lazy"
-                decoding="async"
-                src={product.image_url}
-                alt={product.product_name}
-                className="object-contain w-full h-28 sm:h-32"
-              />
-            </figure>
-          </div>
-
-          {/* Text Section - 60% */}
-          <div className={`basis-[60%] card-body p-2 ${showScore ? "" : "gap-1"}`}>
-            <p className="text-s font-bold line-clamp-2 leading-tight">
-              {product.product_name}
-            </p>
-            {showScore && (
-              <p className="text-s leading-tight">
-                Score: {product.sentiment_score
-                ? (product.sentiment_score * 10).toFixed(1) + "/10"
-                : "N/A"}
-              </p>
-            )}
-            {!showScore && (
-              <p className="text-xs leading-tight font-medium">
-                {mentionsMode === "total" ? (
-                  <>
-                    {totalMentions} mentions
-                    {mentionsContextLabel ? (
-                      <> from users with {mentionsContextLabel}</>
-                    ) : null}
-                  </>
-                ) : (
-                  <>{positiveMentions} positive mentions</>
-                )}
-              </p>
-            )}
-
-            <SentimentBar
-              positiveMentions={positiveMentions}
-              neutralMentions={neutralMentions}
-              negativeMentions={negativeMentions}
-              className={showScore ? undefined : "mt-0"}
-              variant="bar"
+        {/* Image Section */}
+        <div className="flex items-center justify-center mb-3 mt-2">
+          <div className="relative w-full aspect-square max-h-32">
+            <Image
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 200px"
+              quality={60}
+              loading="lazy"
+              decoding="async"
+              src={product.image_url}
+              alt={product.product_name}
+              className="object-contain"
             />
-
-            {isSkinTypeMode ? (
-              <>
-                <div className="flex items-center justify-center gap-2">
-                  <Link
-                    href={productUrl}
-                    className="btn btn-soft btn-neutral h-8 flex-1 text-xs"
-                  >
-                    More info
-                  </Link>
-                  <ProductCardButton
-                    externalUrl={affiliateUrl}
-                    disabled={!affiliateUrl}
-                    variant="warning"
-                  />
-                </div>
-
-                <ProductQuotesDropdown
-                  category={category}
-                  productSlug={product.slug}
-                  skinTypeId={skinTypeId}
-                  productId={product.id}
-                  pageSize={5}
-                />
-              </>
-            ) : (
-              <div className="flex items-center justify-center">
-                {externalUrl ? (
-                  <ProductCardButton externalUrl={externalUrl} />
-                ) : null}
-              </div>
-            )}
           </div>
+        </div>
+
+        {/* Text Section */}
+        <div className="flex flex-col gap-2 flex-1">
+          <p className="text-xs font-bold line-clamp-2 leading-tight min-h-[2rem]">
+            {product.product_name}
+          </p>
+          
+          {showScore && (
+            <div className="flex items-center gap-1">
+              <span className="text-[0.7rem] font-semibold">Score:</span>
+              <span className="text-sm font-bold text-secondary">
+                {product.sentiment_score
+                  ? (product.sentiment_score * 10).toFixed(1)
+                  : "N/A"}
+              </span>
+              <span className="text-[0.65rem] opacity-60">/10</span>
+            </div>
+          )}
+          
+          {!showScore && (
+            <p className="text-[0.65rem] leading-tight font-medium">
+              {mentionsMode === "total" ? (
+                <>
+                  {totalMentions} mentions
+                  {mentionsContextLabel ? (
+                    <> from users with {mentionsContextLabel}</>
+                  ) : null}
+                </>
+              ) : (
+                <>{positiveMentions} positive mentions</>
+              )}
+            </p>
+          )}
+
+          <SentimentBar
+            positiveMentions={positiveMentions}
+            neutralMentions={neutralMentions}
+            negativeMentions={negativeMentions}
+            variant="bar"
+          />
+
+          {isSkinTypeMode ? (
+            <div className="mt-auto flex flex-col gap-2">
+              <div className="flex items-center gap-1.5">
+                <Link
+                  href={productUrl}
+                  className="btn btn-soft btn-neutral btn-sm flex-1 text-[0.65rem]"
+                >
+                  More info
+                </Link>
+                <ProductCardButton
+                  externalUrl={affiliateUrl}
+                  disabled={!affiliateUrl}
+                  variant="warning"
+                />
+              </div>
+
+              <ProductQuotesDropdown
+                category={category}
+                productSlug={product.slug}
+                skinTypeId={skinTypeId}
+                productId={product.id}
+                pageSize={5}
+              />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center mt-auto">
+              {externalUrl ? (
+                <ProductCardButton externalUrl={externalUrl} />
+              ) : null}
+            </div>
+          )}
         </div>
       </div>
 	);
