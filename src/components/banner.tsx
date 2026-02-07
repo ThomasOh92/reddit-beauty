@@ -80,7 +80,7 @@ const Banner = () => {
   }, [categoriesOpen, discoverOpen, skinTypesOpen]);
 
   return (
-    <div className="navbar bg-base-100 shadow-sm justify-center max-w-[600px] mt-2 mx-auto ">
+    <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto ">
       {/* Left Side */}
       <Link href="/" className="flex items-center  ">
         <Image
@@ -212,49 +212,6 @@ const Banner = () => {
                       </li>
                     );
                   })}
-              </ul>
-            )}
-          </li>
-
-          {/* Skin Types Dropdown */}
-          <li ref={skinTypesRef} className="relative">
-            <button
-              type="button"
-              className="text-xs px-1 flex items-center gap-1 select-none"
-              onClick={() => setSkinTypesOpen((v) => !v)}
-              aria-expanded={skinTypesOpen}
-              aria-haspopup="menu"
-            >
-              Skin Types
-              <ChevronDown
-                size={16}
-                className={`transition-transform ${skinTypesOpen ? "rotate-180" : ""}`}
-              />
-            </button>
-
-            {skinTypesOpen && (
-              <ul
-                className="bg-base-200 z-50 mt-0 absolute right-0 top-10 min-w-[140px] border border-gray-200 rounded shadow-lg"
-                role="menu"
-              >
-                {skinTypes
-                  .slice(0)
-                  .filter((st) => Boolean(st?.id) && Boolean(st?.skin_type))
-                  .sort((a, b) =>
-                    (a.skin_type || "").localeCompare(b.skin_type || "")
-                  )
-                  .map((st) => (
-                    <li key={st.id}>
-                      <Link
-                        href={`/skin-type/${st.id}`}
-                        className="text-xs block px-4 py-2 hover:bg-base-300"
-                        onClick={() => setSkinTypesOpen(false)}
-                        role="menuitem"
-                      >
-                        {st.skin_type}
-                      </Link>
-                    </li>
-                  ))}
               </ul>
             )}
           </li>

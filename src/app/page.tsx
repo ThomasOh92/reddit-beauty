@@ -4,10 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllCategories } from "../../lib/getAllCategories";
 import { getSkinTypes } from "../../lib/getSkinTypes";
+import { getSkinTypesAllCategories } from "../../lib/getSkinTypesAllCategories";
 import type { Category } from "../../lib/getAllCategories";
 import type { Metadata } from "next";
 import { APP_URL } from "@/constants";
 import { PdfGuideOverlay } from "@/components/pdf-guide-overlay";
+import FeaturedProductsCarousel from "@/components/featured-products-carousel";
 
 export const dynamicParams = true;
 export const revalidate = 7200;
@@ -50,6 +52,50 @@ export default async function Home() {
     const skincareCategories = categorize("skincare");
     const beautyCategories = categorize("beauty");
     const skinTypes = await getSkinTypes();
+    const sortedSkinTypes = [...skinTypes].sort((a, b) => {
+      const normalize = (s: string) => s.trim().toLowerCase();
+
+      const order: Record<string, number> = {
+        oily: 0,
+        dry: 1,
+      };
+
+      const aKey = normalize(a.skin_type);
+      const bKey = normalize(b.skin_type);
+
+      const aIsNotSure = aKey === "not sure";
+      const bIsNotSure = bKey === "not sure";
+
+      // Always push "Not sure" to the end
+      if (aIsNotSure && !bIsNotSure) return 1;
+      if (!aIsNotSure && bIsNotSure) return -1;
+
+      const aOrder = order[aKey] ?? 999;
+      const bOrder = order[bKey] ?? 999;
+
+      // Priority: Oily, then Dry, then everything else (alphabetical)
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return aKey.localeCompare(bKey);
+    });
+
+    const skinTypeCategoryGroups = await Promise.all(
+      sortedSkinTypes
+        .filter((skinType) => skinType.skin_type.trim().toLowerCase() !== "not sure")
+        .map(async (skinType) => {
+          const data = await getSkinTypesAllCategories(skinType.id);
+          const categories =
+            data?.categories?.filter(
+              (category) =>
+                Array.isArray(category.positive_quote_rankings) &&
+                category.positive_quote_rankings.length > 0
+            ) ?? [];
+
+          return {
+            skinType,
+            categories,
+          };
+        })
+    );
 
     return (
       <div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md items-center p-2">
@@ -91,211 +137,129 @@ export default async function Home() {
         </div>
 
         <div className="grid grid-cols-1  mt-8">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Image
-              src="/skin-type.png"
-              alt="Skin Type Icon"
-              width={24}
-              height={24}
-            />
-            <h2 className="text-sm font-bold text-neutral text-center">
-              Browse by Skin Type
-            </h2>
-          </div>
-          {skinTypes.length === 0 ? (
-            <p className="text-sm opacity-60 text-center">
-              No skin types available.
-            </p>
-          ) : (
-            <div className="flex flex-wrap justify-center gap-2 m-2 mb-8">
-              {[...skinTypes]
-                .sort((a, b) => {
-                  const normalize = (s: string) => s.trim().toLowerCase();
+          <FeaturedProductsCarousel />
 
-                  const order: Record<string, number> = {
-                    oily: 0,
-                    dry: 1,
-                  };
-
-                  const aKey = normalize(a.skin_type);
-                  const bKey = normalize(b.skin_type);
-
-                  const aIsNotSure = aKey === "not sure";
-                  const bIsNotSure = bKey === "not sure";
-
-                  // Always push "Not sure" to the end
-                  if (aIsNotSure && !bIsNotSure) return 1;
-                  if (!aIsNotSure && bIsNotSure) return -1;
-
-                  const aOrder = order[aKey] ?? 999;
-                  const bOrder = order[bKey] ?? 999;
-
-                  // Priority: Oily, then Dry, then everything else (alphabetical)
-                  if (aOrder !== bOrder) return aOrder - bOrder;
-                  return aKey.localeCompare(bKey);
-                })
-                .map((skinType) => (
-                  <Link
-                    key={skinType.id}
-                    href={`/skin-type/${skinType.id}`}
-                    className="btn btn-soft btn-secondary"
-                  >
-                    {skinType.skin_type}
-                  </Link>
-                ))}
+          <section className="mt-2" id="data-haul">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <Image
+                src="/product-rankings.png"
+                alt="Data Haul Icon"
+                width={24}
+                height={24}
+              />
+              <h2 className="text-sm font-bold text-neutral text-center">
+                Data Haul
+              </h2>
             </div>
-          )}
 
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <Image
-              src="/product-rankings.png"
-              alt="Product Rankings Icon"
-              width={24}
-              height={24}
-            />
-            <h2 className="text-sm font-bold text-neutral text-center">
-              Real Picks of Redditors
-            </h2>
-          </div>
-          <div className="tabs tabs-border">
-            <input
-              type="radio"
-              name="skincare-or-beauty"
-              className="tab font-bold"
-              aria-label="Skincare"
-              defaultChecked
-            />
-            <div className="tab-content">
-              <div className="grid grid-cols-3 gap-4 p-4 bg-base-100 rounded-box shadow-md">
-                {skincareCategories.length === 0 ? (
-                  <div className="col-span-3 p-4 text-sm opacity-60 text-center">
-                    No skincare categories yet.
-                  </div>
-                ) : (
-                  skincareCategories.map((category) => (
-                    <HomePageCard
-                      key={category.id}
-                      title={category.title}
-                      slug={category.slug}
-                      type={category.type}
-                      readyForDisplay={category.readyForDisplay}
-                      subtitle={category.subtitle}
-                      lastUpdated={category.lastUpdated}
-                      thumbnailUrl={category.thumbnailUrl}
-                    />
-                  ))
-                )}
+            <div className="tabs tabs-border">
+              <input
+                type="radio"
+                name="data-haul"
+                className="tab font-bold"
+                aria-label="Skincare"
+                defaultChecked
+              />
+              <div className="tab-content">
+                <div className="grid grid-cols-3 gap-4 p-4 bg-base-100 rounded-box shadow-md">
+                  {skincareCategories.length === 0 ? (
+                    <div className="col-span-3 p-4 text-sm opacity-60 text-center">
+                      No skincare categories yet.
+                    </div>
+                  ) : (
+                    skincareCategories.map((category) => (
+                      <HomePageCard
+                        key={category.id}
+                        title={category.title}
+                        slug={category.slug}
+                        type={category.type}
+                        readyForDisplay={category.readyForDisplay}
+                        subtitle={category.subtitle}
+                        lastUpdated={category.lastUpdated}
+                        thumbnailUrl={category.thumbnailUrl}
+                      />
+                    ))
+                  )}
+                </div>
+              </div>
+
+              <input
+                type="radio"
+                name="data-haul"
+                className="tab font-bold"
+                aria-label="Beauty"
+              />
+              <div className="tab-content">
+                <div className="grid grid-cols-3 gap-4 p-4 bg-base-100 rounded-box shadow-md">
+                  {beautyCategories.length === 0 ? (
+                    <div className="col-span-3 p-4 text-sm opacity-60 text-center">
+                      No beauty categories yet.
+                    </div>
+                  ) : (
+                    beautyCategories.map((category) => (
+                      <HomePageCard
+                        key={category.id}
+                        title={category.title}
+                        slug={category.slug}
+                        type={category.type}
+                        readyForDisplay={category.readyForDisplay}
+                        subtitle={category.subtitle}
+                        lastUpdated={category.lastUpdated}
+                        thumbnailUrl={category.thumbnailUrl}
+                      />
+                    ))
+                  )}
+                </div>
+              </div>
+
+              <input
+                type="radio"
+                name="data-haul"
+                className="tab font-bold"
+                aria-label="Skin Types"
+              />
+              <div className="tab-content">
+                <div className="bg-base-100 rounded-box shadow-md p-4">
+                  {skinTypeCategoryGroups.length === 0 ? (
+                    <p className="text-sm opacity-60 text-center">
+                      No skin types available.
+                    </p>
+                  ) : (
+                    <div className="flex flex-col gap-3">
+                      {skinTypeCategoryGroups
+                        .filter((group) => group.categories.length > 0)
+                        .map((group) => (
+                          <div
+                            key={group.skinType.id}
+                            id={`data-haul-${group.skinType.id}`}
+                            className="collapse collapse-arrow bg-base-200"
+                          >
+                            <input type="checkbox" />
+                            <div className="collapse-title text-xs font-bold text-neutral">
+                              {group.skinType.skin_type}
+                            </div>
+                            <div className="collapse-content">
+                              <div className="flex flex-wrap gap-2">
+                                {group.categories.map((category) => (
+                                  <Link
+                                    key={`${group.skinType.id}-${category.category_id}`}
+                                    href={`/skin-type-category/${group.skinType.id}/${category.category_id}`}
+                                    className="btn btn-soft btn-secondary"
+                                  >
+                                    {category.category_id.replace(/-/g, " ")}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-
-            <input
-              type="radio"
-              name="skincare-or-beauty"
-              className="tab font-bold"
-              aria-label="Beauty"
-            />
-            <div className="tab-content">
-              <div className="grid grid-cols-3 gap-4 p-4 bg-base-100 rounded-box shadow-md">
-                {beautyCategories.length === 0 ? (
-                  <div className="col-span-3 p-4 text-sm opacity-60 text-center">
-                    No beauty categories yet.
-                  </div>
-                ) : (
-                  beautyCategories.map((category) => (
-                    <HomePageCard
-                      key={category.id}
-                      title={category.title}
-                      slug={category.slug}
-                      type={category.type}
-                      readyForDisplay={category.readyForDisplay}
-                      subtitle={category.subtitle}
-                      lastUpdated={category.lastUpdated}
-                      thumbnailUrl={category.thumbnailUrl}
-                    />
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
+          </section>
         </div>
-
-        <section className="mt-8">
-          <div className="text-sm font-bold text-neutral mb-3 text-center">
-            Explore Reddit&apos;s Top Choices
-          </div>
-          <ul className="list bg-base-100 rounded-box shadow-md">
-            {data
-              .filter((category) => Boolean(category.top_product))
-              .sort((a, b) => {
-                const typeOrder: Record<string, number> = {
-                  skincare: 0,
-                  beauty: 1,
-                };
-                const aOrder = typeOrder[a.type ?? ""] ?? 2;
-                const bOrder = typeOrder[b.type ?? ""] ?? 2;
-                return aOrder - bOrder;
-              })
-              .map((category) => {
-                const product = category.top_product;
-                if (!product) return null;
-                const fallbackLabel = (
-                  product.name ||
-                  category.title ||
-                  category.slug ||
-                  "TB"
-                )
-                  .replace(/\s+/g, "")
-                  .slice(0, 2)
-                  .toUpperCase();
-
-                return (
-                  <li
-                    key={`${category.slug}-${product.url}`}
-                    className="hover:bg-base-300"
-                  >
-                    <Link
-                      href={`${APP_URL}/category/${category.slug}/${product.url}`}
-                      className="list-row"
-                    >
-                      <div className="relative size-10 overflow-hidden rounded-box bg-base-200 items-center">
-                        {product.image_url ? (
-                          <Image
-                            src={product.image_url}
-                            alt={product.name}
-                            fill
-                            sizes="40px"
-                            className="object-contain"
-                          />
-                        ) : (
-                          <span className="flex h-full w-full items-center justify-center text-[0.65rem] font-semibold uppercase text-base-content/60">
-                            {fallbackLabel}
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex flex-col justify-center">
-                        <span className="text-xs text-base-content text-center">
-                          {product.name}
-                        </span>
-                      </div>
-
-                      <div
-                        className={`flex w-35 shrink-0 flex-col rounded-box p-2 justify-center ${
-                          category.type === "beauty"
-                            ? "bg-secondary-content"
-                            : "bg-primary-content"
-                        }`}
-                      >
-                        <span className="text-xs font-semibold opacity-60 break-words items-center text-center">
-                          {category.title}
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
-                );
-              })}
-          </ul>
-        </section>        
 
         <div className="divider font-bold mt-10">Redditor Testimonials</div>
         <Testimonials />
