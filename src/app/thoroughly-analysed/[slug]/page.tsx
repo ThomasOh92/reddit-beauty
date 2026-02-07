@@ -111,7 +111,7 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
                   {thread.headerParts.join(" | ")}
                 </p>
                 <p className="text-[11px] text-neutral-500">
-                  Poster's details as of {product.lastChecked}: {thread.posterDetails}
+                  Poster&apos;s details as of {product.lastChecked}: {thread.posterDetails}
                 </p>
                 <blockquote className="mt-3 space-y-3 border-l-3 border-neutral-300 pl-3 text-[11px] text-neutral-900">
                   {thread.excerpt

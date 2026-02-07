@@ -6,20 +6,12 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { CategoryDetails } from "../types";
 
-type SkinType = {
-  id: string;
-  skin_type: string;
-};
-
 const Banner = () => {
   const [data, setData] = useState<CategoryDetails[]>([]);
-  const [skinTypes, setSkinTypes] = useState<SkinType[]>([]);
   const [discoverOpen, setDiscoverOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
-  const [skinTypesOpen, setSkinTypesOpen] = useState(false);
   const discoverRef = useRef<HTMLLIElement>(null);
   const categoriesRef = useRef<HTMLLIElement>(null);
-  const skinTypesRef = useRef<HTMLLIElement>(null);
 
   // Fetch categories
   useEffect(() => {
@@ -33,22 +25,6 @@ const Banner = () => {
       }
     }
     fetchData();
-  }, []);
-
-  // Fetch skin types
-  useEffect(() => {
-    async function fetchSkinTypes() {
-      try {
-        const response = await fetch("/api/getSkinTypes");
-        const result = await response.json();
-        if (result.success && Array.isArray(result.data)) {
-          setSkinTypes(result.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    fetchSkinTypes();
   }, []);
 
   // Click-away to close dropdown
@@ -66,18 +42,12 @@ const Banner = () => {
       ) {
         setDiscoverOpen(false);
       }
-      if (
-        skinTypesRef.current &&
-        !skinTypesRef.current.contains(event.target as Node)
-      ) {
-        setSkinTypesOpen(false);
-      }
     }
-    if (categoriesOpen || discoverOpen || skinTypesOpen) {
+    if (categoriesOpen || discoverOpen) {
       document.addEventListener("mousedown", handleClick);
     }
     return () => document.removeEventListener("mousedown", handleClick);
-  }, [categoriesOpen, discoverOpen, skinTypesOpen]);
+  }, [categoriesOpen, discoverOpen]);
 
   return (
     <div className="navbar bg-base-100 shadow-sm justify-between max-w-[600px] mt-2 mx-auto ">

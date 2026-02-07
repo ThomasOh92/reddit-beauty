@@ -1,5 +1,4 @@
 import { cache } from "react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import CategoryPageWrapper from "@/components/categorypagewrapper";
