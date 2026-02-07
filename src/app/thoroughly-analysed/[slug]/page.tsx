@@ -6,7 +6,7 @@ import { APP_URL } from "@/constants";
 import { thoroughlyAnalysedProducts } from "../data";
 
 type PageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 const baseUrl = async () => {
@@ -36,8 +36,9 @@ const fetchLinkPreview = async (url: string) => {
 };
 
 export default async function ThoroughlyAnalysedProductPage({ params }: PageProps) {
+  const { slug } = await params;
   const product = thoroughlyAnalysedProducts.find(
-    (item) => item.slug === params.slug
+    (item) => item.slug === slug
   );
 
   if (!product) return notFound();
@@ -192,8 +193,9 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
   const product = thoroughlyAnalysedProducts.find(
-    (item) => item.slug === params.slug
+    (item) => item.slug === slug
   );
 
   if (!product) {
@@ -203,8 +205,7 @@ export async function generateMetadata({
   }
 
   const title = `${product.name} - Thoroughly Analysed`;
-  const description =
-    "A deep Reddit read on this product: what people praise, what they question, and how the value debate shakes out.";
+  const description = product.curatorNote;
   const canonical = `${APP_URL}/thoroughly-analysed/${product.slug}`;
 
   return {
@@ -230,7 +231,7 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams(): Promise<PageProps["params"][]> {
-  return thoroughlyAnalysedProducts.map((product) => ({
-    slug: product.slug,
-  }));
+  return thoroughlyAnalysedProducts.map((product) =>
+    Promise.resolve({ slug: product.slug })
+  );
 }
