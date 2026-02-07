@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { headers } from "next/headers";
 import { APP_URL } from "@/constants";
 import { thoroughlyAnalysedProducts } from "../data";
 
@@ -9,30 +8,32 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-const baseUrl = async () => {
-  const host = (await headers()).get("host");
-  if (!host) return APP_URL;
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  return `${protocol}://${host}`;
-};
+const baseUrl = async () => APP_URL;
 
 const fetchLinkPreview = async (url: string) => {
-  const response = await fetch(
-    `${await baseUrl()}/api/link-preview?url=${encodeURIComponent(url)}`,
-    { next: { revalidate: 86400 } }
-  );
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+    const response = await fetch(
+      `${await baseUrl()}/api/link-preview?url=${encodeURIComponent(url)}`,
+      { next: { revalidate: 86400 }, signal: controller.signal }
+    );
+    clearTimeout(timeoutId);
 
-  if (!response.ok) {
+    if (!response.ok) {
+      return null;
+    }
+
+    return (await response.json()) as {
+      title?: string;
+      description?: string;
+      image?: string;
+      siteName?: string;
+      url?: string;
+    };
+  } catch {
     return null;
   }
-
-  return (await response.json()) as {
-    title?: string;
-    description?: string;
-    image?: string;
-    siteName?: string;
-    url?: string;
-  };
 };
 
 export default async function ThoroughlyAnalysedProductPage({ params }: PageProps) {
