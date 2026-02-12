@@ -1,8 +1,13 @@
-export type RedditThread = {
+export type EvidenceAtomBase = {
   id: string;
+  commentary?: string;
+};
+
+export type RedditEvidenceAtom = EvidenceAtomBase & {
+  kind: "reddit";
   headerParts: string[];
   excerpt: string;
-  kind: "post" | "comment";
+  postKind: "post" | "comment";
   url: string;
   upvotes: string;
   followOnComments: number;
@@ -10,9 +15,18 @@ export type RedditThread = {
   additionalNote?: string;
 };
 
-export type InfoLink = {
+export type LinkEvidenceAtom = EvidenceAtomBase & {
+  kind: "link";
   label: string;
   url: string;
+};
+
+export type EvidenceAtom = RedditEvidenceAtom | LinkEvidenceAtom;
+
+export type EvidenceMolecule = {
+  id: string;
+  point: string;
+  atoms: EvidenceAtom[];
 };
 
 export type ThoroughlyAnalysedProduct = {
@@ -21,8 +35,7 @@ export type ThoroughlyAnalysedProduct = {
   category: string;
   imageUrl: string;
   lastChecked: string;
-  redditThreads: RedditThread[];
-  infoLinks: InfoLink[];
+  molecules: EvidenceMolecule[];
   curatorNote?: string;
 };
 
@@ -34,17 +47,23 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
     imageUrl:
       "https://www.skinceuticals.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-skc-master-catalog/default/dw0ed123c8/Products/635494363210/635494363210_C-E-Ferulic-30ml_SkinCeuticals.jpg?sw=930&sfrm=jpg&q=70",
     lastChecked: "Feb 5, 2026",
-    redditThreads: [
+    molecules: [
       {
-        id: "reddit-1",
-        headerParts: [
-          "Reddit Post",
-          "Early 2025",
-          "Subreddit: r/Beauty",
-          "Upvotes: 1.1k",
-          "Comments: 196",
-        ],
-        excerpt: `Ya'll, I’ve been on a long long journey to find the perfect Vitamin C serum for my skin ....Skinceuticals C E Ferulic
+        id: "molecule-1",
+        point:
+          "Reddit discussions I picked out",
+        atoms: [
+          {
+            id: "reddit-1",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2025",
+              "Subreddit: r/Beauty",
+              "Upvotes: 1.1k",
+              "Comments: 196",
+            ],
+            excerpt: `Ya'll, I’ve been on a long long journey to find the perfect Vitamin C serum for my skin ....Skinceuticals C E Ferulic
 
         Price: $$$ (Yeah, it’s expensive)
 
@@ -55,23 +74,24 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
         Verdict: Worth it if you can afford it. I repurchased twice but had to take breaks because of the cost
 
         Tldr..If money isn’t an issue, Skinceuticals is the clear winner...`,
-        kind: "post",
-        url: "https://www.reddit.com/r/beauty/comments/1j76ffp/been_using_all_popular_vit_c_serums_for_the_past/",
-        upvotes: "1.1k",
-        followOnComments: 196,
-        posterDetails: "Karma: 2,993; Contributions: 173; Reddit age: 5y.",
-      },
-      {
-        id: "reddit-2",
-        headerParts: [
-          "Reddit post",
-          "Posted: August 2025",
-          "Subreddit: r/SkincareAddiction",
-          "Upvotes: 143",
-          "Comments: 73",
-        ],
-        excerpt:
-          `[Review] Why are we still paying $$$ for SkinCeuticals CE Ferulic?
+            postKind: "post",
+            url: "https://www.reddit.com/r/beauty/comments/1j76ffp/been_using_all_popular_vit_c_serums_for_the_past/",
+            upvotes: "1.1k",
+            followOnComments: 196,
+            posterDetails: "Karma: 2,993; Contributions: 173; Reddit age: 5y.",
+          },
+          {
+            id: "reddit-2",
+            kind: "reddit",
+            headerParts: [
+              "Reddit post",
+              "Posted: August 2025",
+              "Subreddit: r/SkincareAddiction",
+              "Upvotes: 143",
+              "Comments: 73",
+            ],
+            excerpt:
+              `[Review] Why are we still paying $$$ for SkinCeuticals CE Ferulic?
           
             Honestly… can we talk about how overhyped and overpriced this serum is?
 
@@ -79,24 +99,26 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
 
             Feels like we’re all just paying for the “dermatologist approved” label at this point…
             `,
-        kind: "post",
-        url: "https://www.reddit.com/r/SkincareAddiction/comments/1mvlly1/review_why_are_we_still_paying_for_skinceuticals/",
-        upvotes: "143",
-        followOnComments: 73,
-        posterDetails: "Karma: 325; Contributions: 82; Reddit age: 5y.",
-        additionalNote: "This post has a lot of follow-on comments. Dupes were discussed, particularly in light of the patent expiration."
-      },
-      {
-        id: "reddit-3",
-        headerParts: [
-          "Reddit Post",
-          "Posted: Early 2025",
-          "Subreddit: r/30PlusSkinCare",
-          "Upvotes: 84",
-          "Comments: 21",
-        ],
-        excerpt:
-          `Skinceuticals CE Ferulic: Tips to Prevent Oxidation and Maximize Your Investment
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddiction/comments/1mvlly1/review_why_are_we_still_paying_for_skinceuticals/",
+            upvotes: "143",
+            followOnComments: 73,
+            posterDetails: "Karma: 325; Contributions: 82; Reddit age: 5y.",
+            additionalNote:
+              "This post has a lot of follow-on comments. Dupes were discussed, particularly in light of the patent expiration.",
+          },
+          {
+            id: "reddit-3",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Posted: Early 2025",
+              "Subreddit: r/30PlusSkinCare",
+              "Upvotes: 84",
+              "Comments: 21",
+            ],
+            excerpt:
+              `Skinceuticals CE Ferulic: Tips to Prevent Oxidation and Maximize Your Investment
    
           I've been using Skinceuticals CE Ferulic for over seven years, and it remains my holy grail vitamin C serum. It’s still the gold standard of antioxidant serums, and I have yet to find one that comes close.
 
@@ -108,31 +130,46 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
 
           Hope this helps someone optimize their anti-oxidant game!
           `,
-        kind: "post",
-        url: "https://www.reddit.com/r/30PlusSkinCare/comments/1jc50g3/skinceuticals_ce_ferulic_tips_to_prevent/",
-        upvotes: "84",
-        followOnComments: 21,
-        posterDetails: "Karma: 3,585; Contributions: 388; Reddit age: 4y.",
-        additionalNote: "Poster was responsive to follow on comments."
-      },
-    ],
-    infoLinks: [
-      {
-        label: "Patent expired (Allure)",
-        url: "https://www.allure.com/story/skinceuticals-ce-ferulic-patent-expired",
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/1jc50g3/skinceuticals_ce_ferulic_tips_to_prevent/",
+            upvotes: "84",
+            followOnComments: 21,
+            posterDetails: "Karma: 3,585; Contributions: 388; Reddit age: 4y.",
+            additionalNote: "Poster was responsive to follow on comments.",
+          },
+        ],
       },
       {
-        label: "Patent expired (BTLJ)",
-        url: "https://btlj.org/2025/06/the-patents-behind-your-skincare-routine/",
-      },
-      {
-        label: "Ingredient breakdown (INCI Decoder)",
-        url: "https://incidecoder.com/products/skinceuticals-c-e-ferulic-antioxidant-vitamin-c-serum",
-      },
-      {
-        label: "Lab Muffin guidance",
-        url: "https://labmuffin.com/ultimate-guide-to-vitamin-c-skincare-part-1-ascorbic-acid-with-video/",
-      },
+        id: "molecule-2",
+        point:
+          "Helpful Links: Ingredient Guidance, Labmuffin's thoughts, Sources that talk about Patent Expiry",
+        atoms: [
+          {
+            id: "link-1",
+            kind: "link",
+            label: "Ingredient breakdown (INCI Decoder)",
+            url: "https://incidecoder.com/products/skinceuticals-c-e-ferulic-antioxidant-vitamin-c-serum",
+          },
+          {
+            id: "link-4",
+            kind: "link",
+            label: "Lab Muffin guidance",
+            url: "https://labmuffin.com/ultimate-guide-to-vitamin-c-skincare-part-1-ascorbic-acid-with-video/",
+          },
+          {
+            id: "link-2",
+            kind: "link",
+            label: "Patent expired (Allure)",
+            url: "https://www.allure.com/story/skinceuticals-ce-ferulic-patent-expired",
+          },
+          {
+            id: "link-3",
+            kind: "link",
+            label: "Patent expired (BTLJ)",
+            url: "https://btlj.org/2025/06/the-patents-behind-your-skincare-routine/",
+          }
+        ]
+      }
     ],
     curatorNote: `I picked out these three Reddit comments as they had really good engagement and upvotes. There is some useful debate about the price, 'worth-it-ness', dupes coming out, and even some how-to guidance for using/storing the product.
 

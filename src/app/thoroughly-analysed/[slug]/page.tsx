@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { APP_URL } from "@/constants";
+import type { LinkEvidenceAtom } from "../data";
 import { thoroughlyAnalysedProducts } from "../data";
 
 type PageProps = {
@@ -44,8 +45,18 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
 
   if (!product) return notFound();
 
+  const linkAtoms = product.molecules.flatMap((molecule) =>
+    molecule.atoms.filter(
+      (atom): atom is LinkEvidenceAtom => atom.kind === "link"
+    )
+  );
+
+  const uniqueLinkAtoms = Array.from(
+    new Map(linkAtoms.map((atom) => [atom.url, atom])).values()
+  );
+
   const previews = await Promise.all(
-    product.infoLinks.map(async (link) => {
+    uniqueLinkAtoms.map(async (link) => {
       const preview = await fetchLinkPreview(link.url);
       return {
         ...link,
@@ -55,6 +66,10 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
         siteName: preview?.siteName,
       };
     })
+  );
+
+  const previewByUrl = new Map(
+    previews.map((preview) => [preview.url, preview])
   );
 
   return (
@@ -98,94 +113,114 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
       </section>
 
       <div className="mt-4 grid gap-4">
-
-        <div>
-          <div className="items-center">
-            <h2 className="text-sm font-semibold text-neutral-900 text-center">Hand Picked Posts and Comments from Reddit</h2>
-          </div>
-          <div className="mt-4 grid gap-4">
-            {product.redditThreads.map((thread) => (
-              <article
-                key={thread.id}
-                className="rounded-xl border border-base-200 bg-slate-100 p-4"
-              >
-                <p className="text-[11px] font-semibold text-neutral-500">
-                  {thread.headerParts.join(" | ")}
-                </p>
-                <p className="text-[11px] text-neutral-500">
-                  Poster&apos;s details as of {product.lastChecked}: {thread.posterDetails}
-                </p>
-                <blockquote className="mt-3 space-y-3 border-l-3 border-neutral-300 pl-3 text-[11px] text-neutral-900">
-                  {thread.excerpt
-                    .split(/\n\s*\n/)
-                    .filter(Boolean)
-                    .map((paragraph, index) => (
-                      <p key={`${thread.id}-excerpt-${index}`} className="whitespace-pre-line">
-                        {paragraph}
+        {product.molecules.map((molecule) => (
+          <section
+            key={molecule.id}
+            className="rounded-2xl border border-base-200 bg-white p-4 shadow-sm"
+          >
+            <h2 className="mt-1 text-sm font-semibold text-neutral-900">
+              {molecule.point}
+            </h2>
+            <div className="mt-3 grid gap-4">
+              {molecule.atoms.map((atom) => {
+                if (atom.kind === "reddit") {
+                  return (
+                    <article
+                      key={atom.id}
+                      className="rounded-xl border border-base-200 bg-slate-100 p-4"
+                    >
+                      <p className="text-[11px] font-semibold text-neutral-500">
+                        {atom.headerParts.join(" | ")}
                       </p>
-                    ))}
-                </blockquote>
-                <div className="mt-3 flex flex-wrap items-center justify-end gap-3">
+                      <p className="text-[11px] text-neutral-500">
+                        Poster&apos;s details as of {product.lastChecked}: {atom.posterDetails}
+                      </p>
+                      {atom.commentary && (
+                        <p className="mt-2 text-xs text-neutral-600">
+                          {atom.commentary}
+                        </p>
+                      )}
+                      <details className="mt-3 rounded-lg border border-base-200 bg-white p-3">
+                        <summary className="cursor-pointer text-[11px] font-semibold text-neutral-700">
+                          Read Quote
+                        </summary>
+                        <blockquote className="mt-3 space-y-3 border-l-3 border-neutral-300 pl-3 text-[11px] text-neutral-900">
+                          {atom.excerpt
+                            .split(/\n\s*\n/)
+                            .filter(Boolean)
+                            .map((paragraph, index) => (
+                              <p
+                                key={`${atom.id}-excerpt-${index}`}
+                                className="whitespace-pre-line"
+                              >
+                                {paragraph}
+                              </p>
+                            ))}
+                        </blockquote>
+                        <div className="mt-3 flex flex-wrap items-center justify-end gap-3">
+                          <a
+                            href={atom.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="btn btn-sm btn-neutral"
+                          >
+                            Read on Reddit
+                          </a>
+                          {atom.additionalNote && (
+                            <span className="w-full text-right text-xs text-neutral-500">
+                              {atom.additionalNote}
+                            </span>
+                          )}
+                        </div>
+                      </details>
+                    </article>
+                  );
+                }
+
+                const preview = previewByUrl.get(atom.url);
+
+                return (
                   <a
-                    href={thread.url}
+                    key={atom.id}
+                    href={atom.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn btn-sm btn-neutral"
+                    className="group flex gap-3 rounded-xl border border-base-200 bg-[#fff7ed] p-3 transition hover:border-neutral-300"
                   >
-                    Read on Reddit
+                    <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-base-200">
+                      {preview?.image && (
+                        <img
+                          src={preview.image}
+                          alt={preview.title}
+                          className="h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[11px] font-semibold text-neutral-500">
+                        {preview?.siteName ?? new URL(atom.url).hostname}
+                      </div>
+                      <div className="text-[11px] font-semibold text-neutral-900">
+                        {preview?.title ?? atom.label}
+                      </div>
+                      {preview?.description && (
+                        <p className="line-clamp-1 text-[11px] text-neutral-500">
+                          {preview.description}
+                        </p>
+                      )}
+                      {atom.commentary && (
+                        <p className="line-clamp-1 text-[11px] text-neutral-700">
+                          {atom.commentary}
+                        </p>
+                      )}
+                    </div>
                   </a>
-                  {thread.additionalNote && (
-                    <span className="w-full text-right text-xs text-neutral-500">
-                      {thread.additionalNote}
-                    </span>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h2 className="text-sm font-semibold text-neutral-900 text-center">
-            Carefully Curated Further Reading
-          </h2>
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            {previews.map((link) => (
-              <a
-                key={link.url}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer"
-                className="group grid gap-2 rounded-xl border border-base-200 bg-[#fff7ed] p-2 transition hover:border-neutral-300"
-              >
-                {link.image && (
-                  <div className="overflow-hidden rounded-lg bg-base-200">
-                    <img
-                      src={link.image}
-                      alt={link.title}
-                      className="h-24 w-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <div className="grid gap-1">
-                  <div className="text-xs font-semibold text-neutral-900">
-                    {link.title}
-                  </div>
-                  {link.description && (
-                    <p className="line-clamp-2 text-[11px] text-neutral-600">
-                      {link.description}
-                    </p>
-                  )}
-                  <div className="text-[11px] text-neutral-400">
-                    {link.siteName ?? new URL(link.url).hostname}
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-
+                );
+              })}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );
