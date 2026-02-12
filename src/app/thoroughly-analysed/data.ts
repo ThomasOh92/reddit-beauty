@@ -34,6 +34,7 @@ export type ThoroughlyAnalysedProduct = {
   slug: string;
   category: string;
   imageUrl: string;
+  productLink?: string;
   lastChecked: string;
   molecules: EvidenceMolecule[];
   curatorNote?: string;
@@ -46,6 +47,7 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
     category: "Vitamin C Serum",
     imageUrl:
       "https://www.skinceuticals.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-skc-master-catalog/default/dw0ed123c8/Products/635494363210/635494363210_C-E-Ferulic-30ml_SkinCeuticals.jpg?sw=930&sfrm=jpg&q=70",
+    productLink: "https://www.awin1.com/cread.php?awinmid=90791&awinaffid=2764518&ued=https%3A%2F%2Fwww.stylevana.com%2Fen_US%2Fskin-ceuticals-c-e-ferulic-30ml90514.html",
     lastChecked: "Feb 5, 2026",
     molecules: [
       {
@@ -171,7 +173,7 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
         ]
       }
     ],
-    curatorNote: `I picked out these three Reddit comments as they had really good engagement and upvotes. There is some useful debate about the price, 'worth-it-ness', dupes coming out, and even some how-to guidance for using/storing the product.
+    curatorNote: `I picked out these 3 Reddit comments as they had really good engagement and upvotes. There is some useful debate about the price, 'worth-it-ness', dupes coming out, and even some how-to guidance for using/storing the product.
 
         I've also included links below to INCIDecoder (for ingredient guidance), Lab Muffin (to understand Vit C serums generally), and a couple of good sources that talk about the patent expiring on this product (a hot topic in 2025)
 

@@ -96,6 +96,16 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
             <p className="mt-1 text-sm text-neutral-600">
               Category: {product.category}
             </p>
+            {product.productLink && (
+              <a
+                href={product.productLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-neutral mt-3 w-full text-white"
+              >
+                See Product
+              </a>
+            )}
           </div>
         </div>
         {product.curatorNote && (
