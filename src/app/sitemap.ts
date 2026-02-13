@@ -3,6 +3,7 @@ import { db } from "../../lib/firebaseAdmin";
 import { client } from "../sanity/lib/client";
 import { groq } from "next-sanity";
 import { APP_URL } from "@/constants";
+import { thoroughlyAnalysedProducts } from "./thoroughly-analysed/data";
 
 export const dynamic = "force-dynamic";
 
@@ -12,13 +13,6 @@ type SitemapEntry = { url: string; lastModified?: string };
 
 // Category from Firestore
 type CategoryDoc = {
-  slug: string;
-  lastUpdated?: string;
-};
-
-// Product docs from Firestore
-type ProductDoc = {
-  id: string;
   slug: string;
   lastUpdated?: string;
 };
@@ -39,29 +33,6 @@ async function fetchCategories(): Promise<CategoryDoc[]> {
   } catch (error) {
     console.error("Error fetching categories:", error);
     return [];
-  }
-}
-
-// --- Optimized: Batch fetch all data for a category ---
-async function fetchCategoryDataOptimized(category: string): Promise<{
-  products: ProductDoc[];
-}> {
-  try {
-    const docRef = db.collection(category).doc(`${category}-category`);
-
-    // Fetch products
-    const productsSnap = await docRef.collection("products").get();
-
-    const products: ProductDoc[] = productsSnap.docs.map(doc => ({
-      id: doc.id,
-      slug: doc.data().slug ?? doc.id,
-      lastUpdated: doc.data().lastUpdated,
-    }));
-
-    return { products };
-  } catch (error) {
-    console.error(`Error fetching data for category ${category}:`, error);
-    return { products: [] };
   }
 }
 
@@ -113,35 +84,26 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: post.lastmod,
   }));
 
-  // Parallel fetch of all category data
-  const categoryDataPromises = categories.map(category =>
-    fetchCategoryDataOptimized(category.slug)
-  );
-  const categoryDataResults = await Promise.all(categoryDataPromises);
+  const thoroughlyAnalysedEntries: SitemapEntry[] = [
+    { url: `${APP_URL}/thoroughly-analysed` },
+    ...thoroughlyAnalysedProducts.map((product) => ({
+      url: `${APP_URL}/thoroughly-analysed/${product.slug}`,
+    })),
+  ];
 
   const categoryEntries: SitemapEntry[] = [];
-  const productEntries: SitemapEntry[] = [];
 
-  categories.forEach((category, index) => {
+  categories.forEach((category) => {
     // Category page
     categoryEntries.push({
       url: `${APP_URL}/category/${category.slug}`,
-    });
-
-    const { products } = categoryDataResults[index];
-
-    // All products for this category
-    products.forEach(product => {
-      productEntries.push({
-        url: `${APP_URL}/category/${category.slug}/${product.slug}`,
-      });
     });
   });
 
   return [
     ...staticEntries,
     ...postEntries,
+    ...thoroughlyAnalysedEntries,
     ...categoryEntries,
-    ...productEntries,
   ];
 }
