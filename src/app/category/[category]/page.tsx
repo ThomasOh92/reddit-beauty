@@ -36,6 +36,11 @@ export async function generateMetadata({
   // Pull categoryData so we can enrich meta
   const data = await getCachedCategoryData(category);
   const categoryData = (data?.categoryData ?? {}) as { editorial_summary?: string };
+  const discussionCount = Array.isArray(data?.discussions) ? data.discussions.length : 0;
+  const rankedCount = Math.min(Array.isArray(data?.products) ? data.products.length : 0, 10);
+  const seoTitle = discussionCount > 0
+    ? `${rankedCount || 10} Best ${categoryCapitalized} (Ranked by ${discussionCount}+ Reddit Discussions)`
+    : `Best ${categoryCapitalized} ranked by Reddit`;
 
   // safe, short description preferring editorial_summary
   const baseDesc = `Discover the top ${categoryWithSpaces} ranked from Reddit discussions. Updated ${month} ${year}.`;
@@ -46,7 +51,7 @@ export async function generateMetadata({
 
 
   return {
-    title: `Best ${categoryCapitalized} ranked by Reddit`,
+    title: seoTitle,
     description: description,
     alternates: {
       canonical: `${APP_URL}/category/${category}`,
@@ -116,6 +121,14 @@ export default async function CategoryPage({
 
     const discussion_data = data.discussions;
     const products = data.products;
+    const discussionCount = Array.isArray(discussion_data) ? discussion_data.length : 0;
+    const rankedCount = Math.min(products.length, 10);
+    const headingPrimary = discussionCount > 0
+      ? `${rankedCount} Best ${categoryCapitalized}`
+      : `Best ${categoryCapitalized} ranked by Reddit`;
+    const headingSecondary = discussionCount > 0
+      ? `(Ranked by ${discussionCount}+ Reddit Discussions)`
+      : null;
     const categoryData = data.categoryData || {} as {
       editorial_summary?: string;
       editorial_summary_with_links?: SegmentBlock[];
@@ -323,23 +336,35 @@ export default async function CategoryPage({
           }}
         />
 
-        <h1 className="text-l font-bold mb-2 mt-4 w-full bg-clip-text text-center">
-          <span className="text-2xl bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text">
-            {categoryCapitalized}
-          </span>
-        </h1>
-        <h2 className="text-center mb-4 text-sm">
-          Reddit Rankings
-        </h2>
-
-        <div className='mb-4 mx-8 md:mx-0 flex justify-center items-center'>
+        <div className='mb-4 mt-2 mx-8 md:mx-0 flex justify-center items-center'>
           <PdfGuideOverlay backgroundSize='80%'/>
         </div>
 
+        <h1 className="text-l font-bold mb-2 mt-4 w-full bg-clip-text text-center">
+          <span className="text-2xl bg-gradient-to-r from-red-400 to-pink-500 text-transparent bg-clip-text">
+            {headingPrimary}
+            {headingSecondary ? (
+              <>
+                <br />
+                <span className="text-lg">{headingSecondary}</span>
+              </>
+            ) : null}
+          </span>
+        </h1>
 
-        {/* Discussions Box */}
-        <DiscussionsBox discussion_data={discussion_data} />
-
+        <div className="mb-4 border border-base-300 rounded-xl p-3 shadow-sm bg-base-100">
+          <h2 className="text-sm font-bold mb-2">Data Snapshot</h2>
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="rounded-lg border border-base-300 p-2 text-center">
+              <div className="text-[11px] text-gray-500">Discussions analyzed</div>
+              <div className="text-base font-bold">{discussionCount}</div>
+            </div>
+            <div className="rounded-lg border border-base-300 p-2 text-center">
+              <div className="text-[11px] text-gray-500">Products ranked</div>
+              <div className="text-base font-bold">{products.length}</div>
+            </div>
+          </div>
+        </div>
 
         {/* Analysis Section */}
         <div tabIndex={0} className="collapse collapse-arrow bg-base-100 border-base-300 border shadow-lg mb-4">
@@ -352,6 +377,9 @@ export default async function CategoryPage({
                 {editorialSummarySegments.length > 0
                   ? renderSegmentBlocks(editorialSummarySegments)
                   : (categoryData.editorial_summary || "No editorial summary available.")}
+                <span className="block mt-2 text-[11px] text-gray-500">
+                  Summarized by <Link href="/about" className="underline">Tom and Lee</Link>.
+                </span>
               </p>
             </div>
             <div className="text-xs">
@@ -380,6 +408,16 @@ export default async function CategoryPage({
 
         {/* Rankings */}
         <CategoryPageWrapper products={products} category={category} />
+
+        <div className="my-6 border border-base-300 rounded-xl p-3 shadow-sm bg-base-100">
+          <h2 className="text-sm font-bold mb-2">Why Trust Thorough Beauty</h2>
+          <p className="text-xs mb-2">
+            Rankings are based on real Reddit discussions using a Wilson Lower Bound (WLB) confidence score to reduce noise from products with very few mentions.
+          </p>
+          <p className="text-xs">
+            AI helps summarize patterns, but the underlying sentiment and quotes come from human Reddit posts. See our <Link href="/about" className="underline">editorial approach</Link>.
+          </p>
+        </div>
 
         {/* FAQs */}
         {categoryData.faq && categoryData.faq.length > 0 && (
@@ -478,6 +516,9 @@ export default async function CategoryPage({
             )}
           </div>
         </div>
+
+        {/* Discussions Box */}
+        <DiscussionsBox discussion_data={discussion_data} />
 
       </div>
     );

@@ -48,7 +48,7 @@ async function fetchCategoryDataOptimized(category: string): Promise<{
 }> {
   try {
     const docRef = db.collection(category).doc(`${category}-category`);
-    
+
     // Fetch products
     const productsSnap = await docRef.collection("products").get();
 
@@ -114,7 +114,7 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   // Parallel fetch of all category data
-  const categoryDataPromises = categories.map(category => 
+  const categoryDataPromises = categories.map(category =>
     fetchCategoryDataOptimized(category.slug)
   );
   const categoryDataResults = await Promise.all(categoryDataPromises);
@@ -129,7 +129,7 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
     const { products } = categoryDataResults[index];
-    
+
     // All products for this category
     products.forEach(product => {
       productEntries.push({

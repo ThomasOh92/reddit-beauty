@@ -100,6 +100,14 @@ export async function generateMetadata({
   return {
     title: `${shortenedProductName} – Reddit Analysis`,
     description: metaDescription,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+      },
+    },
     alternates: {
       canonical: `${APP_URL}/category/${category}/${product}`,
     },
@@ -346,7 +354,7 @@ export default async function ProductPage({
                   }
                   className="btn btn-warning text-white font-bold h-8 text-xs"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow sponsored noopener noreferrer"
                 >
                   See Product
                 </a>

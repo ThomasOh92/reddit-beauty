@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useMemo, useState } from "react";
 import { Discussion } from "../types";
 
 type DiscussionsBoxProps = {
@@ -7,6 +9,32 @@ type DiscussionsBoxProps = {
 
 const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => {
   const safeDiscussions = Array.isArray(discussion_data) ? discussion_data : [];
+  const [visibleCount, setVisibleCount] = useState(10);
+
+  const parseDate = (dateValue: string) => {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
+      return new Date(dateValue).getTime();
+    }
+    if (/^\d{2}-\d{2}-\d{2}$/.test(dateValue)) {
+      const [yy, mm, dd] = dateValue.split("-");
+      const fullYear = Number(yy) < 50 ? `20${yy}` : `19${yy}`;
+      return new Date(`${fullYear}-${mm}-${dd}`).getTime();
+    }
+    if (!isNaN(Number(dateValue))) {
+      return parseFloat(dateValue) * 1000;
+    }
+    return 0;
+  };
+
+  const sortedDiscussions = useMemo(
+    () =>
+      [...safeDiscussions].sort(
+        (a, b) => parseDate(b.date) - parseDate(a.date)
+      ),
+    [safeDiscussions]
+  );
+
+  const visibleDiscussions = sortedDiscussions.slice(0, visibleCount);
 
   return (
     <div
@@ -15,35 +43,11 @@ const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => {
     >
       <input type="checkbox" defaultChecked={false} />
       <div className="collapse-title text-sm">
-        <span className="font-bold">{safeDiscussions.length}</span> discussions analyzed
+        Source discussions ({Math.min(visibleCount, sortedDiscussions.length)} of {sortedDiscussions.length})
       </div>
       <div className="collapse-content">
         <ul className="text-xs mt-2">
-          {[...safeDiscussions]
-            .sort((a, b) => {
-              const subredditA = a.Subreddit || "";
-              const subredditB = b.Subreddit || "";
-              const subredditCompare = subredditA.localeCompare(subredditB);
-              if (subredditCompare !== 0) return subredditCompare;
-
-              const parseDate = (dateValue: string) => {
-                if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) {
-                  return new Date(dateValue).getTime();
-                }
-                if (/^\d{2}-\d{2}-\d{2}$/.test(dateValue)) {
-                  const [yy, mm, dd] = dateValue.split("-");
-                  const fullYear = Number(yy) < 50 ? `20${yy}` : `19${yy}`;
-                  return new Date(`${fullYear}-${mm}-${dd}`).getTime();
-                }
-                if (!isNaN(Number(dateValue))) {
-                  return parseFloat(dateValue) * 1000;
-                }
-                return 0;
-              };
-
-              return parseDate(b.date) - parseDate(a.date);
-            })
-            .map((discussion, index) => (
+          {visibleDiscussions.map((discussion, index) => (
               <li key={index} className="mb-1 line-clamp-1">
                 <a
                   href={`https://reddit.com${discussion.permalink}`}
@@ -79,6 +83,15 @@ const DiscussionsBox: React.FC<DiscussionsBoxProps> = ({ discussion_data }) => {
               </li>
             ))}
         </ul>
+        {visibleCount < sortedDiscussions.length && (
+          <button
+            type="button"
+            className="btn btn-ghost btn-xs mt-2"
+            onClick={() => setVisibleCount((current) => Math.min(current + 10, sortedDiscussions.length))}
+          >
+            Show 10 more
+          </button>
+        )}
       </div>
     </div>
   );
