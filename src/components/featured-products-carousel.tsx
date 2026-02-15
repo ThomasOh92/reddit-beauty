@@ -1,38 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { APP_URL } from "@/constants";
+import { thoroughlyAnalysedProducts } from "@/app/thoroughly-analysed/data";
 
-type FeaturedProduct = {
-  name: string;
-  slug: string;
-  imageUrl?: string | null;
-  categoryLabel?: string;
-  type?: "skincare" | "beauty";
-};
-
-const featuredProducts: FeaturedProduct[] = [
-  // Add your featured products here.
-  // Example:
-  // {
-  //   name: "Example Product",
-  //   slug: "cleanser",
-  //   url: "example-product",
-  //   imageUrl: "https://example.com/product.jpg",
-  //   categoryLabel: "Cleansers",
-  //   type: "skincare",
-  // },
-
-  {
-    name: "Skinceuticals C E Ferulic",
-    slug: "skinceuticals-ce-ferulic",
-    imageUrl: "https://www.skinceuticals.co.uk/dw/image/v2/AAQP_PRD/on/demandware.static/-/Sites-skc-master-catalog/default/dw0ed123c8/Products/635494363210/635494363210_C-E-Ferulic-30ml_SkinCeuticals.jpg?sw=930&sfrm=jpg&q=70",
-    categoryLabel: "Vitamin C Serum",
-    type: "skincare",
-  }
-  
-
-
-];
+const featuredProducts = thoroughlyAnalysedProducts.map((product) => ({
+  name: product.name,
+  slug: product.slug,
+  imageUrl: product.imageUrl,
+  categoryLabel: product.category,
+}));
 
 export default function FeaturedProductsCarousel() {
   return (
@@ -87,11 +63,7 @@ export default function FeaturedProductsCarousel() {
                   </div>
                   {product.categoryLabel ? (
                     <div
-                      className={`mt-2 rounded-box px-2 py-1 text-[0.65rem] font-semibold opacity-70 text-center ${
-                        product.type === "beauty"
-                          ? "bg-secondary-content"
-                          : "bg-primary-content"
-                      }`}
+                      className="mt-2 rounded-box px-2 py-1 text-[0.65rem] font-semibold opacity-70 text-center bg-primary-content"
                     >
                       {product.categoryLabel}
                     </div>
