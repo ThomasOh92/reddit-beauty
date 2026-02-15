@@ -193,6 +193,7 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
     name: "Biore UV Aqua Rich (Various Types - Watery Essence, Gel, etc.)",
     slug: "biore-uv-aqua-rich",
     category: "Sunscreen",
+    productLink: "https://amzn.to/4numwyL",
     imageUrl:
       "https://m.media-amazon.com/images/I/81GgAvXFcWL._AC_SX425_.jpg",
     lastChecked: "Feb 14, 2026",
