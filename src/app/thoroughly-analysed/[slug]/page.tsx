@@ -120,7 +120,7 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
               <a
                 href={product.productLink}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="nofollow sponsored noopener noreferrer"
                 className="btn btn-neutral mt-3 w-full text-white"
               >
                 See Product
