@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# admin tools (local only)
+src/app/admin/
+src/app/api/admin/

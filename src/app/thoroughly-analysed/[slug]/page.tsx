@@ -282,13 +282,13 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
                     key={atom.id}
                     className="rounded-xl bg-info/10 px-3 py-2"
                   >
-                    <a
-                      href={atom.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group flex gap-3 transition hover:opacity-90"
-                    >
-                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-base-200">
+                    <div className="flex gap-3">
+                      <a
+                        href={atom.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-base-200 transition hover:opacity-90"
+                      >
                         {thumbnailSrc && (
                           <img
                             src={thumbnailSrc}
@@ -297,36 +297,63 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
                             loading="lazy"
                           />
                         )}
-                      </div>
+                      </a>
                       <div className="min-w-0">
-                        <div className="text-[11px] font-semibold text-neutral-500">
-                          {isInstagram ? "Instagram" : preview?.siteName ?? new URL(atom.url).hostname}
-                        </div>
-                        <div className="text-[11px] font-semibold text-neutral-900">
-                          {preview?.title ?? atom.label}
-                        </div>
-                        {preview?.description && (
-                          <p className="line-clamp-1 text-[11px] text-neutral-500">
-                            {preview.description}
-                          </p>
+                        <a
+                          href={atom.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="group block transition hover:opacity-90"
+                        >
+                          <div className="text-[11px] font-semibold text-neutral-500">
+                            {isInstagram ? "Instagram" : preview?.siteName ?? new URL(atom.url).hostname}
+                          </div>
+                          <div className="text-[11px] font-semibold text-neutral-900">
+                            {preview?.title ?? atom.label}
+                          </div>
+                          {preview?.description && (
+                            <p className="line-clamp-1 text-[11px] text-neutral-500">
+                              {preview.description}
+                            </p>
+                          )}
+                          {atom.commentary && (
+                            <p className="line-clamp-1 text-[11px] text-neutral-700">
+                              {atom.commentary}
+                            </p>
+                          )}
+                        </a>
+                        {atom.excerpt && (
+                          <details>
+                            <summary className="cursor-pointer text-[11px] font-semibold text-neutral-700">
+                              Read Quote
+                            </summary>
+                            <blockquote className="mt-3 space-y-3 border-l-3 border-neutral-300 pl-3 text-[11px] text-neutral-900">
+                              {atom.excerpt
+                                .split(/\n\s*\n/)
+                                .filter(Boolean)
+                                .map((paragraph, index) => (
+                                  <p
+                                    key={`${atom.id}-link-excerpt-${index}`}
+                                    className="whitespace-pre-line"
+                                  >
+                                    {paragraph}
+                                  </p>
+                                ))}
+                            </blockquote>
+                          </details>
                         )}
-                        {atom.commentary && (
-                          <p className="line-clamp-1 text-[11px] text-neutral-700">
-                            {atom.commentary}
-                          </p>
+                        {atom.additionalNote && (
+                          <details className="mt-2 rounded-lg border border-base-200 bg-white p-2">
+                            <summary className="cursor-pointer text-[11px] font-semibold text-neutral-700">
+                              See Note from Thorough Beauty
+                            </summary>
+                            <p className="mt-2 whitespace-pre-line text-[11px] text-neutral-600">
+                              {atom.additionalNote}
+                            </p>
+                          </details>
                         )}
                       </div>
-                    </a>
-                    {atom.additionalNote && (
-                      <details className="mt-2 rounded-lg border border-base-200 bg-white p-2">
-                        <summary className="cursor-pointer text-[11px] font-semibold text-neutral-700">
-                          See Note from Thorough Beauty
-                        </summary>
-                        <p className="mt-2 whitespace-pre-line text-[11px] text-neutral-600">
-                          {atom.additionalNote}
-                        </p>
-                      </details>
-                    )}
+                    </div>
                   </article>
                 );
               })}

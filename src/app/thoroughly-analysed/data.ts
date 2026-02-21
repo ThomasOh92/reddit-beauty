@@ -19,6 +19,7 @@ export type LinkEvidenceAtom = EvidenceAtomBase & {
   kind: "link";
   label: string;
   url: string;
+  excerpt?: string;
   additionalNote?: string;
 };
 
@@ -528,5 +529,253 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
     There are a two points I want to highlight too: (1) Within the range there are essences, gels, etc., (2) There are regional differences in formulations, in particulra between Japan/Asia vs North America. Even Philippines appears to have it's own formulation, according to one Reddit post. 
     
     Happy Hunting! (I use the Jap version myself personally btw) -- Thomas`,
+  },
+  {
+    name: "Medik8 Crystal Retinal (Various Strengths)",
+    slug: "medik8-crystal-retinal",
+    category: "Retinal",
+    imageUrl: "https://m.media-amazon.com/images/I/61OgMDOk3QL._AC_SL1500_.jpg",
+    productLink: "https://amzn.to/3LgE4RM",
+    lastChecked: "Feb 18, 2026",
+    molecules: [
+      {
+        id: "molecule-1",
+        point: "Couple of Reddit discussions that are very positive about the product",
+        atoms: [
+          {
+            id: "reddit-1",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2024",
+              "r/SkincareAddiction",
+              "39 upvotes",
+              "101 comments",
+            ],
+            excerpt: `For those of you who have tried, did you notice any improvement? I'm really scared to spend $120 on a skincare product but I'm 28yo, starting to see some lines and wrinkles, and I want to invest in myself.
+
+            Or am I better off spending the money going to a dermatologist and have them recommend me something that will most likely bring me some real results.
+
+            [follow on comments below]
+            `,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddiction/comments/1b9y1gd/review_medik8_crystal_retinal_is_it_worth_the/",
+            upvotes: "39",
+            posterDetails: "Karma: 12,819, Contributions: 1,598, Reddit age: 4y.",
+            commentary: `There are also a few follow-on comments discussing alternatives`
+          },
+          {
+            id: "reddit-2",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2025",
+              "r/SkincareAddictionLux",
+              "53 upvotes",
+              "60 comments",
+            ],
+            excerpt: `Based on everyone's suggestions in this sub, I decided to switch to Medik8 Crystal Retinal from my regular retinal. It's been a little over a week and I have already seen such improvements. NO THIS IS NOT A PAID AD, I am just genuinely impressed. 
+            
+            I'm starting with the 6 and will move up to the 10 once this tube is gone. They sent me a sample of the new peptide serum so I've been using that alongside the retinal about 3x a week too, so I don't know if that's amping up the effects or what. Mostly my forehead fine lines are most noticeably less. My overall skin tone and texture look pretty great too, but they weren't bad to start with. One question though, did any of you notice a "cinnamon" smell to the CR6?? Do they all smell like that? That's my only complaint. I LOVE the texture of it, but the smell is kind of odd and off-putting. Anyways, thanks for the suggestions!! I'm loving their products so far!!
+          `,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/1iwaepo/wow_so_impressed_with_medik8_so_far/",
+            upvotes: "53",
+            posterDetails: "Karma: 18,034, Contributions: 3,773, Reddit age: 4y.",
+          },
+        ],
+      },
+      {
+        id: "molecule-2",
+        point: "Different Levels (1, 3, 6, 10, 20, 24) and guidance on how to start",
+        commentary: "If you are deciding on which level to use, a good place to start will probably be Medik8's own guide (first link below). I collected a few more reddit posts about it as well, to give a more well rounded view",
+        atoms: [
+          {
+            id: "link-1",
+            kind: "link",
+            label: "Medik8 Retinal Guide (Official)",
+            url: "https://www.medik8.com/pages/retinal-guide",
+            excerpt: `...Available in 5 strengths, we call it the ‘Everyone Vitamin A’ as it’s just that. If you’re in the market for a vitamin A, Crystal Retinal is for you. We recommend starting at strength 3 and working upwards if you want to boost results. (We only recommend strength 1 to those who are very sensitive)
+            ...
+            Crystal Retinal 20 (our highest strength) is available through consultation with clinics only`
+          },
+          {
+            id: "link-2",
+            kind: "link",
+            label: "Medik8 How to Phase In (Official)",
+            url: "https://www.medik8.com/pages/how-to-phase-in",
+          },
+          {
+            id: "reddit-3",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "September 2025",
+              "r/SkincareAddictionLux",
+              "4 upvotes",
+              "13 comments",
+            ],
+            excerpt: `I don’t know which level to buy. I took the quiz, and it told me level 6, but I don’t know if that’s the one for me.
+
+            I’m kind of new to retinol, but I’ve been using one for maybe 3-4 months. I’ve been using the skinmedica retinol 0.25. It’s very gentle and I think it’s beginner retinol. I want to switch to medik8, but I don’t know which one?
+
+            Would be level 3 or level 6? Am I considered experienced as far as retinol? Thank you!!
+
+            ... [follow on comments]
+            `,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/1n386b5/crystal_retinal_medik8_help/",
+            upvotes: "4",
+            posterDetails: "Karma: 5,606, Contributions: 718, Reddit age: 11m.",
+          },
+          {
+            id: "reddit-4",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "July 2025",
+              "r/SkincareAddictionLux",
+              "13 upvotes", 
+              "17 comments",
+            ],
+            excerpt: `...Retinal seems to be a great option and Medik8 seems to be the most effective and beloved online. Has any experienced retinoid user jumped straight to 10, or 20? I'm thinking any less than that will fail short, and those two seem to be a good balance for me.
+            ...
+            [discussion below]
+            `,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/1m9agwa/medik8_crystal_retinal_20_vs_10_for_advanced_user/",
+            upvotes: "13",
+            posterDetails: "Karma: 302, Contributions: 105, Reddit age: 1y.",
+          },
+          {
+            id: "reddit-5",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "October 2025", 
+              "r/SkincareAddictionLux",
+              "15 upvotes",
+              "26 comments",
+            ],
+            excerpt: `Just curious what others experiences were with leveling up with Crystal Retinal. I started with 6 and my skin looked AMAZING after about 3 weeks. After one tube, I moved up to 10. I'm now on my second tube of 10 and my skin looks...good...but I feel like it's just kind of maintaining and not doing anything more. So, now I'm wondering if I should move up to 20 or not. Will I see an increase in its effects? Is it possible my skin just does better with the 6? So, I'm looking to hear other people's experiences in moving up or down levels. Thank you!!
+            ...
+            [discussion below]`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/1nrwizi/medik8_crystal_retinal_levels/",
+            upvotes: "15", 
+            posterDetails: "Karma: 18,089, Contributions: 3799, Reddit age: 4y.",
+          },
+          {
+            id: "reddit-6",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2025",
+              "r/30PlusSkinCare",
+              "3 upvotes",
+              "5 comments",
+            ],
+            excerpt: `Anyone use medik8 crystal retinal?
+            Just started the level 1. I have some health issues so I’m trying the absolute lowest dose first. Any experiences?
+            ...
+            [discussion below]`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/1fs5p8c/anyone_use_medik8_crystal_retinal/",
+            upvotes: "3",
+            posterDetails: "Karma: 13,024, Contributions: 2,158, Reddit age: 2y",
+          },
+          {
+            id: "link-3",
+            kind: "link",
+            label: "INCI Decoder: Medik8 Crystal products",
+            url: "https://incidecoder.com/search?query=medik8+crystal",
+            additionalNote: `INCI Decoder has ingredient submissions for all the different levels of the Crystal Retinal.`
+          },
+        ],
+      },
+      {
+        id: "molecule-3",
+        point: "Anecdote of very strong reaction to the product",
+        atoms: [
+          {
+            id: "reddit-7",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2024",
+              "r/30PlusSkinCare",
+              "293 upvotes",
+              "149 comments", 
+            ],
+            excerpt: `Please help! I’ve been using the Medik8 Crystal Retinal 3 for about 6 weeks and it has completely ruined my skin and self confidence! I started on one to two times a week and worked up to every other day, but then brought it back down to one or two days a week when the acne was really bad. I have oily acne prone skin but no where near as bad as this. Do I continue with it, with the purge clear, or do I stop all together. I’ve included a photo of my skin before I started on it. Help me please, desperate here !
+            ...
+            [follow on comments provided recommendations on how to fix and manage this issue. The poster was active in the comments]`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/17fs5pb/retinol_purge_has_completely_ruined_my_skin/",
+            upvotes: "293",
+            posterDetails: "Karma: 4,743, Contributions: 530, Reddit age: 6y.",
+            additionalNote: "This post describes a very strong reaction/purge experience.",
+          },
+        ],
+      },
+      {
+        id: "molecule-4",
+        point: "Guidance on layering the product",
+        atoms: [
+          {
+            id: "reddit-8",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "15 February 2026", 
+              "r/SkincareAddictionLux",
+              "13 upvotes",
+              "16 comments",
+            ],
+            excerpt: `...I picked the Medik8 Crystal Retinal 1 instead of 3 since I don't have anything like this in my routine and I tend to be a bit sensitive.
+
+            For those who have used it before:
+            - What do you think of the product?
+            - How do you usually layer it?
+            ...
+            [follow on discussion provides layering guidance]
+            `,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/1r5wv99/first_time_medik8_crystal_retinal_user_layering/",
+            upvotes: "13", 
+            posterDetails: "555 Karma, Contributions: 43, Reddit age: 7y.", 
+          },
+        ],
+      },
+      {
+        id: "molecule-5",
+        point: "Medik8's Own Site: Claims and Evidence",
+        commentary: "In addition to the Reddit discussions, I also included a couple of links to the official Medik8 site. They have some claims and science content about the product, which might be worth a look. I would still take it with a grain of salt because it's all from Medik8's own site and I could not find any third party source to validate their stuff.",
+        atoms: [
+          {
+            id: "link-4",
+            kind: "link",
+            label: "Crystal Retinal Claims (Medik8)",
+            url: "https://www.medik8.com/pages/crystal-retinal-claims",
+          },
+          {
+            id: "link-5",
+            kind: "link",
+            label: "Circana Group Claim Letters (Medik8 US)",
+            url: "https://us.medik8.com/pages/circana-group-claim-letters",
+            excerpt: `... This Letter will confirm that Circana (UK) Ltd has verified the data used to support the advertising claim set out below for use in marketing efforts by Medik8 Limited.
+
+            Medik8 Crystal Retinal – UK's No 1 dermatological face serum in the UK*` 
+          },
+        ],
+      },
+    ],
+    curatorNote: `Reddit was a gold mine here for good info. 
+    
+    I avoided including the overly commercial sources, particularly the beauty magazines. They had a lot of content about the product but it felt very promo-ty rather than focused on helping users. A lot of them give out awards (which Medik8 Crystal Retinal has won a lot of), but these awards feel quite random lol.
+    
+    I did have to include a few of links to the official Medik8 site. Especially when considering the different Retinal strengths it's probably a good idea to see what the company itself says. 
+    
+    Have fun exploring! -- Thomas`,
   },
 ];
