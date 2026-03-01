@@ -80,7 +80,7 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
       const preview = await fetchLinkPreview(link.url);
       return {
         ...link,
-        title: preview?.title ?? link.label,
+        title: link.label ?? preview?.title,
         description: preview?.description,
         image: preview?.image,
         siteName: preview?.siteName,
@@ -292,7 +292,7 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
                         {thumbnailSrc && (
                           <img
                             src={thumbnailSrc}
-                            alt={preview?.title ?? atom.label}
+                            alt={atom.label ?? preview?.title}
                             className="h-full w-full object-cover"
                             loading="lazy"
                           />
@@ -309,7 +309,7 @@ export default async function ThoroughlyAnalysedProductPage({ params }: PageProp
                             {isInstagram ? "Instagram" : preview?.siteName ?? new URL(atom.url).hostname}
                           </div>
                           <div className="text-[11px] font-semibold text-neutral-900">
-                            {preview?.title ?? atom.label}
+                            {atom.label ?? preview?.title}
                           </div>
                           {preview?.description && (
                             <p className="line-clamp-1 text-[11px] text-neutral-500">

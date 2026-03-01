@@ -17,7 +17,7 @@ export type RedditEvidenceAtom = EvidenceAtomBase & {
 
 export type LinkEvidenceAtom = EvidenceAtomBase & {
   kind: "link";
-  label: string;
+  label?: string;
   url: string;
   excerpt?: string;
   additionalNote?: string;
@@ -778,4 +778,283 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
     
     Have fun exploring! -- Thomas`,
   },
+  {
+    name: "Omnilux Red Light Therapy (Various Types)",
+    slug: "omnilux-red-light-therapy-various-types",
+    category: "Red Light Therapy",
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51aNokTz8iL._SL1080_.jpg",
+    productLink: "https://amzn.to/4r36HRi",
+    lastChecked: "Feb 25, 2026",
+    molecules: [
+      {
+        id: "molecule-1",
+        point: "Detailed and high engagement Reddit reviews about Omnilux Contour",
+        commentary: "I haven't been able to find similarly high quality reviews (high upvotes, plenty of follow on comments) that were specifically about either Omnilux Clear and Omnilux Men. Will keep looking.",
+        atoms: [
+          {
+            id: "reddit-1",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2024",
+              "r/30PlusSkinCare",
+              "Upvotes: 940",
+              "Comments: 109",
+            ],
+            excerpt: `Lifestyle factors: 35F, dry and sensitive skin with rosacea, office job. I've been a skincare enthusiast since my mid-20s because I enjoy nerding out about it. I have never smoked, I stay hydrated every day, and I have an unrestricted but mostly healthy diet. I have been using tretinoin 0.025% since July, but I used retinol before that for a few years. I have never had any professional treatments, fillers, or botox, although I plan on checking out PDL/vbeam for rosacea this spring.
+...
+I used the mask daily for two weeks when I started, then 3-5 days a week since. I take off my makeup with micellar water before using the mask and I do my routine after. This mask turns off after 10 minutes, so I do one session on my face and one with the mask laid sideways to cover my neck and upper chest (this is why I chose the Omnilux mask--it's flexible!).
+
+What I like and dislike about results: About two weeks in, I noticed improved volume in mid and lower face that is most noticeable in motion or when talking. At a three-quarters angle of my face, the apple of the cheek is less sunken. I haven't seen that kind of volume improvement with years of vit C and retinoids, so I really like that. Looking at the photos, I can see improved volume in the upper eyelid at the outer corner of my eye, and the expression lines over the orbital bone have less depth.
+
+I'm a little neutral on the impact on redness. It's the same in the photos because those are broken capillaries, but I do think the look when I'm flushed is a bit improved. I also noticed a big improvement in upper chest redness (I don't always extend skincare down to my neck and chest, so there was some sun damage there).
+
+I would have liked to see a better reduction in the crepiness of the topmost layer of skin (probably most visible here on the top of my cheekbone). But I think tretinoin could be impacting this, since I've only been using it for about six months. I'm not peeling or having irritation anymore, but it still seems drying. I have seen a noticeable reduction in redness on my chest, which is nice.
+...`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/18wa48u/red_led_mask_results_when_your_skincare_routine/",
+            upvotes: "940",
+            followOnComments: 109,
+            posterDetails: "Karma: 174,480, Contributions:  16,457, Reddit age: 8y",
+            additionalNote: "The post was so appreciated that one person commented 'Now this is how you do a review! 👏👏\"",
+            commentary: "Type Used: Omnilux Contour. Post includes a before/after image. ",
+          },
+          {
+            id: "reddit-2",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "r/SkincareAddiction",
+              "Upvotes: 172",
+              "Comments: 59",
+            ],
+            excerpt: ` I felt like I was noticing some changes but decided after 2 months of use to take some updated selfies and I’m really pleased with my results! Here’s the relevant details: I use my OmniLux 4-5 nights each week for the full 10 minute cycle. In April I used it almost daily but pulled back a bit in May and June. 
+...
+I’m 36 years old and my main concerns were uneven tone and fine lines. I definitely see my tone and redness have improved and I’m waiting until the 6 month mark to really judge any fine line appearance.
+...
+I have dry skin with an oily T zone and I tend to be acne prone. My skincare routine is pretty basic and I don’t really follow a strict regimen
+...
+Overall, I’m really pleased with how my skin has responded to the mask and am looking forward to the 6 month mark.`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddiction/comments/1daaow0/beforeafter_2_months_with_my_red_light_therapy/",
+            upvotes: "172",
+            followOnComments: 59,
+            posterDetails: "Karma: 33,392, Contributions: 1,555, Reddit age: 17y",
+            commentary: "Type Used: Omnilux Contour. Post includes a before/after image",
+          }
+        ],
+      },
+      {
+        id: "molecule-2",
+        point: "Omnilux Contour vs Omnilux Men vs Omnilux Clear",
+        commentary: "From the research, Contour and Men are more similar with technical differences. Generally about treating wrinkles, etc. Omnilux Clear appears to be targeted at reducing acne",
+        atoms: [
+          {
+            id: "link-1",
+            kind: "link",
+            label: "Official Omnilux Blog Post → Scroll to 'Omnilux tip: Our collection of...'",
+            url: "https://omniluxled.com/blogs/light-reads/led-light-therapy-at-home-choosing-between-masks-and-panels",
+            excerpt: `...
+The Omnilux Contour collection uses red and near-infrared light to reduce fine lines and wrinkles and improve skin tone, texture, and firmness.
+
+Omnilux Clear uses blue and red light to treat mild to moderate acne and reduce blemishes.
+
+Omnilux Men utilizes three wavelengths of light, red (633nm), near-infrared (830nm), and the deepest-penetrating near-infrared wavelength (1072nm), to target men’s thicker skin and reduce fine lines and wrinkles, supporting a smoother, more refreshed appearance.
+...`,
+            commentary: "The post has a great excerpt about the differences between the options they provide",
+          },
+          {
+            id: "link-2",
+            kind: "link",
+            label: "Omnilux Men’s Mask vs. Omnilux Contour LED Mask: Which Should You Buy?",
+            url: "https://goalstogetglowing.com/2025/10/20/omnilux-mens-vs-contour-led-masks/",
+            excerpt: "Short answer on why I prefer the Men’s Mask: Both deliver excellent results, but think the added bonus of the 1072nm wavelength tips the scale in favor of the Men’s mask. Here’s why: Early trials and device studies show improvements in wrinkles/spots in both men and women. In theory, the 1072nm supports deeper penetration in darker or thicker skin because >1000 nm is minimally absorbed by melanin, while 830 nm is partially absorbed...",
+          },
+          {
+            id: "instagram-1",
+            kind: "instagramLink",
+            user: "@omniluxled (Official Omnilux Instagram)",
+            excerptFromDescription: "Let's dive into the differences between our Contour Face and Omnilux Men devices 📚",
+            url: "https://www.instagram.com/reels/DGd5VJ6i_v_/",
+          },
+          {
+            id: "instagram-2",
+            kind: "instagramLink",
+            user: "@goalstogetglowing",
+            excerptFromDescription: "...Bottom line is both masks are great but I think the unique addition of a handful of strategically placed diodes with 633nm and 1072nm make the men’s mask the winner for me.",
+            url: "https://www.instagram.com/reels/C6r7uEXMTiA/",
+            commentary: "Comparison is between Omnilux Men and Omnilux Contour",
+          },
+          {
+            id: "reddit-3",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2024",
+              "r/SkincareAddictionLux",
+              "Upvotes: 52",
+              "Comments: 95",
+            ],
+            excerpt: `I'm a female who's primary skin concerns are acne/rosacea, hyperpigmentation & anti aging in general. Is there a reason not to purchase the Omnilux Men's mask since it has more wavelengths and penetrates the skin deeper? Or should I just buy the regular contour mask? Has anyone here preferred one over the other? Thanks for the help.
+...
+[discussion below]
+
+`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/18zfq2s/omnilux_mens_vs_omnilux_contour_mask/",
+            upvotes: "52",
+            followOnComments: 95,
+            posterDetails: "Karma: 9,707, Contributions: 1,949, Reddit age: 11y",
+            commentary: "Extensive discussion on the different types",
+          },
+          {
+            id: "reddit-4",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2023",
+              "r/30PlusSkinCare",
+              "Upvotes: 109",
+              "Comments: 72",
+            ],
+            excerpt: `I am wondering if the newly released Omnilux Men is generally a superior product in comparison to the Omnilux Contour (previously Omnilux's only anti-aging home model). The new Men's version has more wavelengths and penetrates deeper into the skin (has 1072 nm, in addition to the wavelengths used by the Contour). Is there any reason why you'd still pick the Contour over the Men's version? (And if the new Men's model is just an all-around more effective product, why did they give it a name that makes me, a woman, feel hesitant when choosing it? Argh...)
+...
+[discussion below]
+
+
+`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/zwar3s/omnilux_contour_vs_omnilux_men/",
+            upvotes: "109",
+            followOnComments: 72,
+            posterDetails: "Karma: 49,822, Contributions: 5,885, Reddit age: 6y",
+            additionalNote: "Extensive discussion on the different types. Note that this was 3y ago",
+            commentary: `I am wondering if the newly released Omnilux Men is generally a superior product in comparison to the Omnilux Contour (previously Omnilux's only anti-aging home model). The new Men's version has more wavelengths and penetrates deeper into the skin (has 1072 nm, in addition to the wavelengths used by the Contour). Is there any reason why you'd still pick the Contour over the Men's version? (And if the new Men's model is just an all-around more effective product, why did they give it a name that makes me, a woman, feel hesitant when choosing it? Argh...)
+
+
+`,
+          }
+        ],
+      },
+      {
+        id: "molecule-3",
+        point: "Studies that specifically reference usage on Omnilux products",
+        atoms: [
+          {
+            id: "link-3",
+            kind: "link",
+            label: "Efficacy of combination LED light therapy in facial skin rejuvenation",
+            url: "https://pubmed.ncbi.nlm.nih.gov/16414908/",
+            excerpt: `...Methods: Thirty-one subjects with facial rhytids received nine light therapy treatments using the Omnilux LED system.
+...
+ Key profilometry results Sq, Sa, Sp and St showed significant differences at week 12 follow-up; 52% of subjects showed a 25%-50% improvement in photoaging scores by week 12; 81% of subjects reported a significant improvement in periorbital wrinkles on completion of follow-up.`,
+            commentary: "The study specifically involves using Omnilux products",
+          },
+          {
+            id: "link-4",
+            kind: "link",
+            label: "A 7-Week, Open-Label Study Evaluating the Efficacy and Safety of 415-nm/633-nm Phototherapy for Treating Mild-to-Moderate Acne in Adolescents and Adults",
+            url: "https://jcadonline.com/evaluating-the-efficacy-and-safety-of-phototherapy/",
+            excerpt: "Methods: The study enrolled male (n=15) and female (n=15) patients aged 14 to 45 years old...Results: After 7 weeks, there were significant reductions in inflammatory and noninflammatory lesion counts (for each, p<0.0001) and most patients (86%) achieved ≥1-grade reduction in IGA scores, meeting study success criteria. The few reported adverse events were mild and transient.",
+            commentary: "The study specifically involves using Omnilux Clear",
+          }
+        ],
+      },
+      {
+        id: "molecule-4",
+        point: "Options OTHER than Omnilux products",
+        atoms: [
+          {
+            id: "link-5",
+            kind: "link",
+            label: "Deep Dive into Low Level Light Therapy & Comparison of 55+ LED Devices",
+            url: "https://goalstogetglowing.com/2021/01/17/led-face-mask-research/",
+            excerpt: "...I hope that with the information in this post will empower everyone to use what you know to do your own research. I can’t tell you if a mask is “worth it”. But I can help you understand how to evaluate masks and to better understand what kind of results you might expect based on what has been found...",
+            commentary: "Updated 17 November 2025. This blog post is highly recommended across Reddit. ",
+          },
+          {
+            id: "reddit-5",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "May 2025",
+              "r/30PlusSkinCare",
+              "Upvotes: 221",
+              "Comments: 207",
+            ],
+            excerpt: `I was looking into LED masks and remembered seeing this one at my med spa for sale, I was kind of shocked by the price and went to Amazon to see if there were other options. There seems to be a lot of variability in prices. Is the Omnilux worth the price or are there better alternatives that give you the same results?
+...
+[discussion below]`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/1kgxqtp/omnilux_red_light_mask_is_it_worth_it/",
+            upvotes: "221",
+            followOnComments: 207,
+            posterDetails: "Karma: 4051, Contributions: 562, Reddit age: 4y",
+            commentary: "Discussion focuses on whether Omnilux is value for money, with suggestions for alternative included.",
+          }
+        ],
+      },
+      {
+        id: "molecule-5",
+        point: "Should you use a mask or a panel?",
+        commentary: "Omnilux's products are all masks. There is another category of products that also provide red light therapy called 'panels'. I found that Reddit discussions were more useful on this topic than blog posts / videos",
+        atoms: [
+          {
+            id: "reddit-6",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2024",
+              "r/30PlusSkinCare",
+              "Upvotes: 49",
+              "Comments: 21",
+            ],
+            excerpt: `I was thinking of getting a red light panel, but I read such great things about the Omnilux mask. Does anyone have experience with both, and if so, can you say which you've found to be better for facial anti-aging? The benefit of the panel is its versatility, but I'm wondering if there's something about the skin contact of the mask that makes it superior for anti-aging. I'd love to hear from anyone who's had experience with both long enough to form an opinion on this.
+...
+[discussion below]
+`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/16jo5rx/red_light_mask_vs_panel/",
+            upvotes: "49",
+            followOnComments: 21,
+            posterDetails: "Karma: 21, Contributions: 35, Reddit age: 5y",
+          },
+          {
+            id: "reddit-7",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "Early 2025",
+              "r/30PlusSkinCare",
+              "Upvotes: 15",
+              "Comments: 46",
+            ],
+            excerpt: `Hi everyone! Like many of you, I’ve been seeing the red-light therapy masks everywhere. I have a lot of girlfriends that swear by them!
+
+My question is, wouldn’t a panel be better than just a face mask? The panel would essentially cover my entire body vs face/neck?
+
+This seems like a no-brainer, but maybe it’s not since i don’t see too many discussions about the panels? Can someone please enlighten me!
+
+I want to purchase one, I am just trying to find the best option!
+...
+[discussion below]
+
+
+`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/1fdjmo5/redlight_mask_or_panel/",
+            upvotes: "15",
+            followOnComments: 46,
+            posterDetails: "Karma: 2435, Contributions: 256, Reddit age: 3y",
+          }
+        ],
+      }
+    ],
+    curatorNote: `I started research on Omnilux Red Light Therapy products because they are a fairly expensive product. A lot of people (as evidenced on Reddit) are actively searching for more information about it before they commit.
+
+Before buying, I do think it's important to learn the differences between their 3 product ranges (Contour, Men, Clear), and understanding the different between masks and panels.
+
+For the scientific evidence, there is actually plenty of studies around Red Light Therapy. However, I have only included the studies I found that EXPLICITLY mention using Omnilux products.`,
+  }
 ];

@@ -9,7 +9,7 @@ import type { Category } from "../../lib/getAllCategories";
 import type { Metadata } from "next";
 import { APP_URL } from "@/constants";
 import { PdfGuideOverlay } from "@/components/pdf-guide-overlay";
-import FeaturedProductsCarousel from "@/components/featured-products-carousel";
+import ThoroughlyAnalysedGrid from "@/components/thoroughly-analysed-grid";
 
 export const dynamicParams = true;
 export const revalidate = 7200;
@@ -137,7 +137,7 @@ export default async function Home() {
         </div>
 
         <div className="grid grid-cols-1  mt-8">
-          <FeaturedProductsCarousel />
+          <ThoroughlyAnalysedGrid />
 
           <section className="mt-2" id="data-haul">
             <div className="flex items-center justify-center gap-2 mb-3">

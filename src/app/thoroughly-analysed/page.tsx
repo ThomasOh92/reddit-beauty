@@ -13,10 +13,7 @@ export default function ThoroughlyAnalysedIndexPage() {
 					Deep Reads
 				</h1>
 				<p className="mt-2 text-sm text-neutral-600">
-					I surface valuable reviews from Reddit and include links to high-trust sources about the product.
-				</p>
-				<p className="mt-2 text-xs text-neutral-500">
-					(more coming...)
+					I surface valuable reviews from Reddit and include links to high-trust sources about the product. My goal is to help you buy skincare products with more confidence! 
 				</p>
 			</section>
 
@@ -54,6 +51,15 @@ export default function ThoroughlyAnalysedIndexPage() {
 						</div>
 					</Link>
 				))}
+
+				<div className="rounded-2xl border border-base-200 bg-base-100 p-4 shadow-sm transition hover:border-neutral-300 text-center">
+					<p className="text-sm font-semibold text-neutral-900">
+						More coming soon
+					</p>
+					<p className="mt-1 text-sm text-neutral-500">
+						...
+					</p>
+				</div>
 			</div>
 		</div>
 	);
