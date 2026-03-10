@@ -63,8 +63,8 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
     molecules: [
       {
         id: "molecule-1",
-        point:
-          "Reddit discussions I picked out",
+        point: "Reddit discussions on whether it's value for money",
+        commentary: "I picked these two discussions as they had really good engagement and upvotes. ",
         atoms: [
           {
             id: "reddit-1",
@@ -103,8 +103,7 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
               "Upvotes: 143",
               "Comments: 73",
             ],
-            excerpt:
-              `[Review] Why are we still paying $$$ for SkinCeuticals CE Ferulic?
+            excerpt: `[Review] Why are we still paying $$$ for SkinCeuticals CE Ferulic?
           
             Honestly… can we talk about how overhyped and overpriced this serum is?
 
@@ -117,21 +116,84 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
             upvotes: "143",
             followOnComments: 73,
             posterDetails: "Karma: 325, Contributions: 82, Reddit age: 5y.",
-            additionalNote:
-              "This post has a lot of follow-on comments. Dupes were discussed, particularly in light of the patent expiration.",
+            additionalNote: "This post has a lot of follow-on comments. Dupes were discussed, particularly in light of the patent expiration.",
+          }
+        ],
+      },
+      {
+        id: "molecule-2",
+        point: "Patent Expiry and what it could mean for you",
+        commentary: "As I researched I realise a lot of people feel since the patent has expired, you should just switch to the dupes (see above). I included resources below that talk about the patent expiry + a Reddit comment that provides an opposite view",
+        atoms: [
+          {
+            id: "link-1",
+            kind: "link",
+            label: "Patent expired (Allure)",
+            url: "https://www.allure.com/story/skinceuticals-ce-ferulic-patent-expired",
+          },
+          {
+            id: "link-2",
+            kind: "link",
+            label: "Patent expired (BTLJ)",
+            url: "https://btlj.org/2025/06/the-patents-behind-your-skincare-routine/",
           },
           {
             id: "reddit-3",
             kind: "reddit",
             headerParts: [
+              "Reddit Comment",
+              "October 2025",
+              "r/SkincareAddiction",
+              "Upvotes: 33",
+            ],
+            excerpt: `...
+If I ever hear about a cheaper alternative/“dupe” that people swear by I’ll try it out but if it’s “if it ain’t broke don’t fix it” for me right now.
+
+Patents expiring is given much more weight than it should be. The company has the supply chain and formulation process figured out. They are not required to disclose every single detail regarding those things in the patent and some of them might amount to trade secrets. It’s a similar reason that even when drug patents expire the company owning the patents often remains the market leader for years. Plus brand recognition etc. Simply copying the ingredients is not going to give you the same exact product.
+
+I’m not just blindly defending them. The pricing is greedy. But I’m still willing to pay for what it does for my skin, personally.`,
+            postKind: "comment",
+            url: "https://www.reddit.com/r/SkincareAddiction/comments/1mvlly1/comment/n9s1vlq/",
+            upvotes: "33",
+            followOnComments: 5,
+            posterDetails: "Karma: 129,902, Contributions: 4,236, Reddit age: 8y",
+          }
+        ],
+      },
+      {
+        id: "molecule-3",
+        point: "Helpful Links: Ingredient Guidance and LabMuffin's thoughts",
+        commentary: "Labmuffin reviews Skinceuticals specifically. ",
+        atoms: [
+          {
+            id: "link-3",
+            kind: "link",
+            label: "Ingredient breakdown (INCI Decoder)",
+            url: "https://incidecoder.com/products/skinceuticals-c-e-ferulic-antioxidant-vitamin-c-serum",
+          },
+          {
+            id: "link-4",
+            kind: "link",
+            label: "Lab Muffin guidance",
+            url: "https://labmuffin.com/ultimate-guide-to-vitamin-c-skincare-part-1-ascorbic-acid-with-video/",
+          }
+        ],
+      },
+      {
+        id: "molecule-4",
+        point: "Preventing Oxidation (Especially because it's so expensive)",
+        atoms: [
+          {
+            id: "reddit-4",
+            kind: "reddit",
+            headerParts: [
               "Reddit Post",
-              "Posted: Early 2025",
+              "Early 2025",
               "r/30PlusSkinCare",
               "Upvotes: 84",
               "Comments: 21",
             ],
-            excerpt:
-              `Skinceuticals CE Ferulic: Tips to Prevent Oxidation and Maximize Your Investment
+            excerpt: `Skinceuticals CE Ferulic: Tips to Prevent Oxidation and Maximize Your Investment
    
           I've been using Skinceuticals CE Ferulic for over seven years, and it remains my holy grail vitamin C serum. It’s still the gold standard of antioxidant serums, and I have yet to find one that comes close.
 
@@ -142,51 +204,21 @@ export const thoroughlyAnalysedProducts: ThoroughlyAnalysedProduct[] = [
           This approach helps slow oxidation and maintains the serum’s effectiveness over time. I bought the little vials from Amazon. My husband brought me the pipettes from his lab, but I’ve found that similar pipettes are available on Amazon. While I reuse the vials, I always discard the pipette after each transfer to keep things sanitary.
 
           Hope this helps someone optimize their anti-oxidant game!
-          `,
+       `,
             postKind: "post",
             url: "https://www.reddit.com/r/30PlusSkinCare/comments/1jc50g3/skinceuticals_ce_ferulic_tips_to_prevent/",
             upvotes: "84",
             followOnComments: 21,
-            posterDetails: "Karma: 3,585, Contributions: 388, Reddit age: 4y.",
-            additionalNote: "Poster was responsive to follow on comments.",
-          },
-        ],
-      },
-      {
-        id: "molecule-2",
-        point:
-          "Helpful Links: Ingredient Guidance, Labmuffin's thoughts, Sources that talk about Patent Expiry",
-        atoms: [
-          {
-            id: "link-1",
-            kind: "link",
-            label: "Ingredient breakdown (INCI Decoder)",
-            url: "https://incidecoder.com/products/skinceuticals-c-e-ferulic-antioxidant-vitamin-c-serum",
-          },
-          {
-            id: "link-4",
-            kind: "link",
-            label: "Lab Muffin guidance",
-            url: "https://labmuffin.com/ultimate-guide-to-vitamin-c-skincare-part-1-ascorbic-acid-with-video/",
-          },
-          {
-            id: "link-2",
-            kind: "link",
-            label: "Patent expired (Allure)",
-            url: "https://www.allure.com/story/skinceuticals-ce-ferulic-patent-expired",
-          },
-          {
-            id: "link-3",
-            kind: "link",
-            label: "Patent expired (BTLJ)",
-            url: "https://btlj.org/2025/06/the-patents-behind-your-skincare-routine/",
+            posterDetails: "Karma: 3585, Contributions: 388, Reddit age: 4y",
           }
-        ]
+        ],
       }
     ],
-    curatorNote: `I picked out these 3 Reddit comments as they had really good engagement and upvotes. There is some useful debate about the price, 'worth-it-ness', dupes coming out, and even some how-to guidance for using/storing the product.
+    curatorNote: `(Updated 3 Mar 2025) 
 
-        I've also included links below to INCIDecoder (for ingredient guidance), Lab Muffin (to understand Vit C serums generally), and a couple of good sources that talk about the patent expiring on this product (a hot topic in 2025)
+I updated this as I did more research. The key themes about Skinceuticals CE Ferulic remain the same. Is it worth it? Especially with the patent expiring? Should I go with dupes? I mainly reorganised this, but I did surface one extra comment on patent expiry.
+
+By the way if you do get this product, I highly suggest reading the final reddit post at the bottom about storage/usage tips so it lasts longer.
 
         Hope it's helpful! --- Thomas`,
   },
