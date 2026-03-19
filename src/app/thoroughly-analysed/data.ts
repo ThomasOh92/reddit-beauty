@@ -1088,5 +1088,268 @@ I want to purchase one, I am just trying to find the best option!
 Before buying, I do think it's important to learn the differences between their 3 product ranges (Contour, Men, Clear), and understanding the different between masks and panels.
 
 For the scientific evidence, there is actually plenty of studies around Red Light Therapy. However, I have only included the studies I found that EXPLICITLY mention using Omnilux products.`,
+  },
+  {
+    name: "Crème de la Mer",
+    slug: "creme-de-la-mer",
+    category: "Moisturizer",
+    imageUrl:
+      "https://m.media-amazon.com/images/I/41cSBG3Wz8L._SL1000_.jpg",
+    productLink: "https://amzn.to/478hLWl",
+    lastChecked: "Mar 15, 2026",
+    molecules: [
+      {
+        id: "molecule-1",
+        point: "Reddit enthusiasm for Creme de La Mer",
+        commentary: "I picked these three because the fans aren't vague about it. Good specificity.",
+        atoms: [
+          {
+            id: "reddit-1",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "September 2024",
+              "r/SkincareAddictionLux",
+              "Upvotes: 308",
+              "Comments: 207",
+            ],
+            excerpt: `I know La Mer is a very polarizing brand. Let me clarify, I have tried a TON of products over the years (both mid and high-end lux brands) for my acne-prone and sensitive/rosacea skin. For whatever reason, La Mer has been the only brand to consistently help my skin barrier as well as keep my skin hydrated (especially with tretinoin). Of all the products, my favorite is the OG cream, treatment lotion, concentrate, and foundation.
+`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/1fpi30f/",
+            upvotes: "308",
+            followOnComments: 207,
+            posterDetails: "Karma: 801, Contributions: 290, Reddit age: 5y",
+          },
+          {
+            id: "reddit-2",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Comment",
+              "November 2017",
+              "r/SkincareAddiction",
+              "Upvotes: 675",
+            ],
+            excerpt: `I bought La Mer creme over a year ago, during a 20% off sale. I felt bad for spending so much and felt even worse when I realized I had to rub the creme between my fingers before applying to soften it enough to spread on my face. (Who has time?) At first it felt thick and occlusive on my skin.
+
+But I’ll tell you what. That stuff has become my jam and I’ve been using the same jar for about 5 months and it’s only 1/2 empty. My skin never feels dry, has a great texture and is a really smooth surface for makeup application. I went from being a curious skeptic with buyers remorse to a total fan.
+
+
+`,
+            postKind: "comment",
+            url: "https://www.reddit.com/r/SkincareAddiction/comments/7hzfyq/comment/dqv41ly/",
+            upvotes: "675",
+            followOnComments: 12,
+            posterDetails: "Karma: 33,189, Contributions: 1,489, Reddit age: 12y. ",
+          },
+          {
+            id: "reddit-3",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Comment",
+              "November 2023",
+              "r/SkincareAddictionLux",
+              "Upvotes: 23",
+            ],
+            excerpt: `I love Crème de la Mer. I'm 37 and have been using it for at least a decade. For me, it rides that fine line of being not moisturizing enough, and too heavy. It doesn't dry down to a matte finish (an enormous pet peeve of mine in moisturizers), it soothes flakies, it helps with my redness, it doesn't break me out, it works for night and day use, and I like how it smells.
+
+It works for me, does what I need it to do, and I can afford it, so I don't care if folks on skincare forums turn up their nose at it.`,
+            postKind: "comment",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/183vb12/la_mer_enthusiasts/karehcv/",
+            upvotes: "23",
+            followOnComments: 4,
+            posterDetails: "Karma: 33,890, Contributions: 2,093, Reddit age: 2y",
+          },
+          {
+            id: "reddit-4",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "July 2025",
+              "r/SkincareAddictionLux",
+              "Upvotes: 50",
+              "Comments: 142",
+            ],
+            excerpt: `I've always been curious about La Mer but never pulled the trigger because of the price. I recently got a small sample of the Crème de la Mer and I honestly can't tell if it's just good marketing or if it's actually doing something special for my skin.
+
+For those who've used it long-term, is it really worth the investment? Or are there better luxury options out there?
+
+[...extensive discussion below]`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/SkincareAddictionLux/comments/1lv22ek/is_la_mer_really_worth_the_price_or_just_overhyped/",
+            upvotes: "50",
+            followOnComments: 142,
+            posterDetails: "u/Diligent_Oven3298.",
+            additionalNote: "I think this is more helpful for the range of opinions",
+          }
+        ],
+      },
+      {
+        id: "molecule-2",
+        point: "The Miracle Broth: fermented sea kelp, vitamins, and minerals — the brand's signature ingredient",
+        commentary: "I included the brand's own page here because I wanted to capture what La Mer actually claims, rather than relay it second-hand. I'd still take it with a grain of salt — it's their own site. One thing worth noting: the fermentation takes 3–4 months, not 16 months as is often repeated online. The PubMed study is peer-reviewed, but it was funded by Estée Lauder, so it's not exactly independent.",
+        atoms: [
+          {
+            id: "link-1",
+            kind: "link",
+            label: "Miracle Broth — Crème de la Mer (official site)",
+            url: "https://www.cremedelamer.com/miracle-broth",
+            additionalNote: "Brand source. Fermentation takes 3–4 months (often misquoted online as 16 months). I also have no idea what they mean by 'light and sound waves' being part of the process. I could not find independant verification for this point.",
+          },
+          {
+            id: "link-2",
+            kind: "link",
+            label: "PubMed: PMID 38041526 — Miracle Broth efficacy study",
+            url: "https://pubmed.ncbi.nlm.nih.gov/38041526/",
+            additionalNote: "Peer-reviewed, but funded by Estée Lauder (La Mer's parent company) and co-authored by Estée Lauder employees. Not independent research.",
+          },
+          {
+            id: "reddit-5",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Comment",
+              "April 2025",
+              "r/30PlusSkinCare",
+              "Upvotes: 130",
+            ],
+            excerpt: `You're not wrong about any of this.
+
+I used to work for EL as a process engineer in manufacturing where CDLM is made.  Therr's a lot of lore and history around it.
+
+Max Huber was a NASA scientist who suffered from chemical burns in am accident.  He dreamed up the La Mer essence and would put it I to Nivea body cream as a treatment for his burns and invented La Mer.
+
+EL bought it and makes the essence in-house in a process that they keep under fairly tight wraps but really, I think it is just quite specialized and they don't make a lot of it, so it happens in some dark corner so it doesn't interfere with the rest of production.  I know it involves putting the marine extract into a tank and passing sound waves through it at a specific resonant frequency and it takes about a month.
+
+La Mer essence was always provided as an ingredient, ready to add.  But they do, or at least they used to, sell pure essence and there's nothing stopping you from getting it and mixing it in to Nivea body cream or any cream of your choosing.  Or use it straight.
+
+The cream itself is really annoying to make and has really strangely specific directions that make it weird.  Most cream are oil droplets dispersed in water to make an oil in water emulsion.  CDLM starts like this but "inverts" during mixing to become a water in oil emulsion.
+
+The batch has to be taken out of yhe mixer during cooling at a very precise temperature window.  Miss is by a degree and the whole batch is rejected.  Sometimes it doesn't invert properly and gets rejected.
+
+This is such a dicey process because Nivea body cream, which is what this is based upon, is made using a continuous process (where every ingredient is fed into the pipe as it flows) but it is now being made as a batch process.
+
+The high rejection rate (and there are several other points where rejection is high) is part of the reason for the high cost.  All of the issues contribute to the cream sitting in a lump in the middle of the jar and pulling away from the sidewalls and eventually some of the water weeps out into the space next to the wall.  No one is sure why, thus the high rejection rate trying to stop the problem.
+
+The magic of La Mer, if there is any, comes from the marine essence.  Nivea body cream was nice and thick and greasy which made it great for wound healing and that's why it is a heavy cream.
+
+Now there are other versions of the cream and other products in the line, but the marine essence is the only important ingredient.
+
+
+`,
+            postKind: "comment",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/1k6s66w/comment/mosqj80/",
+            upvotes: "130",
+            followOnComments: 4,
+            posterDetails: "u/Genny415. Self-reported: former Estée Lauder process engineer in CDLM manufacturing.",
+            additionalNote: "This might be authentic. A former Estee Lauder (self claimed) engineer on Reddit going into detail about the process, explaining there is a lot of lore and history behind it.",
+          }
+        ],
+      },
+      {
+        id: "molecule-3",
+        point: "Ingredient Focus Generally (apart from just the Miracle Broth)",
+        atoms: [
+          {
+            id: "reddit-6",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Comment",
+              "November 2017",
+              "r/SkincareAddiction",
+              "Upvotes: 46",
+            ],
+            excerpt: "Can someone tell me the difference between la mer and just mixing a moisturizer that has algae, lime extract, eucalyptus oil, sweet almond oil and/or sesame seed oil with nivea or aquaphor?",
+            postKind: "comment",
+            url: "https://www.reddit.com/r/SkincareAddiction/comments/7hzfyq/comment/dqvmwu2/",
+            upvotes: "46",
+            posterDetails: "u/DarkerDay.",
+          },
+          {
+            id: "reddit-7",
+            kind: "reddit",
+            headerParts: [
+              "Reddit Post",
+              "April 2025",
+              "r/30PlusSkinCare",
+              "Upvotes: 98",
+              "Comments: 38",
+            ],
+            excerpt: `I'll get it out of the way immediately that CDLM is not worth its price, with some caveats. Value and worth are subjective, and therein lies those caveats. If it's out of your budget, you're not missing anything.
+
+I've had better barrier creams. And I've had better moisturizers. I don't believe the insane space back story, either.
+
+Ingredients: Everyone loves to pick apart and shit upon the ingredients in CDLM. And while there are no familiar and reliable actives, the formula isn't that much more bizarre than Tatcha's Dewy or Water creams, Lancôme's Absolue Rich, LaPrairie Caviar Cream, EL Advanced Night Repair, Kiehl's Ultra Facial Cream, and the list goes on.
+
+So in terms of ingredients, CDLM isn't that out there. It's an everything-but-the-kitchen-sink list, and I understand that for some people those types of lists can be a nightmare. But it's not the only overpriced cream out there...`,
+            postKind: "post",
+            url: "https://www.reddit.com/r/30PlusSkinCare/comments/1k6s66w/long_term_review_of_creme_de_la_mer/",
+            upvotes: "98",
+            followOnComments: 38,
+            posterDetails: "u/aenflex. 10+ years of La Mer use.",
+          },
+          {
+            id: "link-3",
+            kind: "link",
+            label: "Ingredient breakdown (INCI Decoder)",
+            url: "https://incidecoder.com/products/la-mer-creme-de-la-mer",
+            excerpt: "Top ingredients: Algae Extract, Mineral Oil, Petrolatum, Glycerin. 7 fragrance allergens listed.",
+          }
+        ],
+      },
+      {
+        id: "molecule-4",
+        point: "Comparisons with Nivea",
+        commentary: "It's compared often with Nivea cream because they share similar ingredients, and Nivea is ALOT cheaper",
+        atoms: [
+          {
+            id: "link-4",
+            kind: "link",
+            label: "Regimen Lab TikTok: La Mer vs Nivea lab test (176K likes)",
+            url: "https://www.tiktok.com/@regimenlab/video/7329998838624734470",
+            excerpt: "La Mer: +11% hydration. Nivea: +12% hydration. Both: -16% TEWL. 18 shared ingredients between the two formulas.",
+            additionalNote: "Regimen Lab is a commercial brand, not a neutral research body. But the methodology is laid out in the NewBeauty piece below, which doesn't find anything wrong with it.",
+          },
+          {
+            id: "link-5",
+            kind: "link",
+            label: "NewBeauty: Regimen Lab's La Mer vs Nivea study (methodology detail)",
+            url: "https://www.newbeauty.com/nivea-la-mer-dupe-study/",
+          }
+        ],
+      },
+      {
+        id: "molecule-5",
+        point: "Dermatologists are broadly skeptical wheter it is worth the price",
+        commentary: "I found a few dermatologists talking about it. Dr. Rieder's was explicitly unsponsored. ",
+        atoms: [
+          {
+            id: "link-6",
+            kind: "link",
+            label: "Money.com: Is La Mer worth it? — Dr. Aegean Chan, dermatologist",
+            url: "https://money.com/is-la-mer-cream-worth-it/",
+            excerpt: "\"There's really not any strong scientific evidence to show that seaweed has magical properties... I do not think it's worth the price tag.\" — Dr. Aegean Chan",
+          },
+          {
+            id: "link-7",
+            kind: "link",
+            label: "Dr. Evan Rieder TikTok: La Mer review (~83K views)",
+            url: "https://www.tiktok.com/@drevanrieder/video/7382559745472826654",
+            additionalNote: "Unsponsored. Dual board-certified dermatologist and psychiatrist.",
+          },
+          {
+            id: "link-8",
+            kind: "link",
+            label: "Dr. Shereene Idriss TikTok: '3 skincare products I would NOT purchase again'",
+            url: "https://www.tiktok.com/@shereeneidriss/video/7324834159292091679",
+            excerpt: "La Mer is among the three products she lists. No sponsor disclosure.",
+          }
+        ],
+      }
+    ],
+    curatorNote: `From the research, La Mer is super polarising. A lot of the fight is driven by the price because it is one of the most premium products out there on the market. 
+
+I tried to gather (1) why people love it, (2) what's the 'thing' that supposedly makes it special, (3) and generally as much science about it as possible.
+
+Happy Hunting! -- Thomas`,
   }
 ];
