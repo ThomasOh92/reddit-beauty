@@ -31,7 +31,15 @@ export type InstagramEvidenceAtom = EvidenceAtomBase & {
   additionalNote?: string;
 };
 
-export type EvidenceAtom = RedditEvidenceAtom | LinkEvidenceAtom | InstagramEvidenceAtom;
+export type TikTokEvidenceAtom = EvidenceAtomBase & {
+  kind: "tiktokLink";
+  user: string;
+  excerptFromDescription: string;
+  url: string;
+  additionalNote?: string;
+};
+
+export type EvidenceAtom = RedditEvidenceAtom | LinkEvidenceAtom | InstagramEvidenceAtom | TikTokEvidenceAtom;
 
 export type EvidenceMolecule = {
   id: string;
@@ -1302,11 +1310,11 @@ So in terms of ingredients, CDLM isn't that out there. It's an everything-but-th
         commentary: "It's compared often with Nivea cream because they share similar ingredients, and Nivea is ALOT cheaper",
         atoms: [
           {
-            id: "link-4",
-            kind: "link",
-            label: "Regimen Lab TikTok: La Mer vs Nivea lab test (176K likes)",
+            id: "tiktok-1",
+            kind: "tiktokLink",
+            user: "@regimenlab (Regimen Lab)",
+            excerptFromDescription: "La Mer: +11% hydration. Nivea: +12% hydration. Both: -16% TEWL. 18 shared ingredients between the two formulas.",
             url: "https://www.tiktok.com/@regimenlab/video/7329998838624734470",
-            excerpt: "La Mer: +11% hydration. Nivea: +12% hydration. Both: -16% TEWL. 18 shared ingredients between the two formulas.",
             additionalNote: "Regimen Lab is a commercial brand, not a neutral research body. But the methodology is laid out in the NewBeauty piece below, which doesn't find anything wrong with it.",
           },
           {
@@ -1330,18 +1338,19 @@ So in terms of ingredients, CDLM isn't that out there. It's an everything-but-th
             excerpt: "\"There's really not any strong scientific evidence to show that seaweed has magical properties... I do not think it's worth the price tag.\" — Dr. Aegean Chan",
           },
           {
-            id: "link-7",
-            kind: "link",
-            label: "Dr. Evan Rieder TikTok: La Mer review (~83K views)",
+            id: "tiktok-2",
+            kind: "tiktokLink",
+            user: "@drevanrieder (Dr. Evan Rieder)",
+            excerptFromDescription: "La Mer review (~83K views)",
             url: "https://www.tiktok.com/@drevanrieder/video/7382559745472826654",
             additionalNote: "Unsponsored. Dual board-certified dermatologist and psychiatrist.",
           },
           {
-            id: "link-8",
-            kind: "link",
-            label: "Dr. Shereene Idriss TikTok: '3 skincare products I would NOT purchase again'",
+            id: "tiktok-3",
+            kind: "tiktokLink",
+            user: "@shereeneidriss (Dr. Shereene Idriss)",
+            excerptFromDescription: "3 skincare products I would NOT purchase again — La Mer is among the three products she lists. No sponsor disclosure.",
             url: "https://www.tiktok.com/@shereeneidriss/video/7324834159292091679",
-            excerpt: "La Mer is among the three products she lists. No sponsor disclosure.",
           }
         ],
       }
