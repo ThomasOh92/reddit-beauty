@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { APP_URL } from "@/constants";
-import type { LinkEvidenceAtom, TikTokEvidenceAtom } from "../data";
+import type { LinkEvidenceAtom } from "../data";
 import { thoroughlyAnalysedProducts } from "../data";
 
 type PageProps = {
