@@ -43,3 +43,12 @@ next-env.d.ts
 # admin tools (local only)
 src/app/admin/
 src/app/api/admin/
+
+# local tooling & docs
+.claude/
+scripts/
+docs/
+
+# windows
+Thumbs.db
+Desktop.ini
