@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { thoroughlyAnalysedProducts } from "./data";
+import { getAllThoroughlyAnalysedProducts } from "../../../lib/thoroughlyAnalysed";
 
-export default function ThoroughlyAnalysedIndexPage() {
+export default async function ThoroughlyAnalysedIndexPage() {
+	const thoroughlyAnalysedProducts = await getAllThoroughlyAnalysedProducts();
+
 	return (
 		<div className="max-w-[600px] md:mx-auto my-[0] bg-white shadow-md p-4">
 			<section className="rounded-2xl border border-base-200 bg-[linear-gradient(125deg,#f8fafc,#fff7ed)] p-4">
@@ -13,7 +15,7 @@ export default function ThoroughlyAnalysedIndexPage() {
 					Deep Reads
 				</h1>
 				<p className="mt-2 text-sm text-neutral-600">
-					I surface valuable reviews from Reddit and include links to high-trust sources about the product. My goal is to help you buy skincare products with more confidence! 
+					I surface valuable reviews from Reddit and include links to high-trust sources about the product. My goal is to help you buy skincare products with more confidence!
 				</p>
 			</section>
 
