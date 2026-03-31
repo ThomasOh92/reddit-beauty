@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { APP_URL } from "@/constants";
-import type { LinkEvidenceAtom } from "../data";
-import { thoroughlyAnalysedProducts } from "../data";
+import type { LinkEvidenceAtom } from "../types";
+import { getAllThoroughlyAnalysedProducts, getThoroughlyAnalysedProductBySlug } from "../../../../lib/thoroughlyAnalysed";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -69,9 +69,7 @@ const fetchLinkPreview = async (url: string) => {
 
 export default async function ThoroughlyAnalysedProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const product = thoroughlyAnalysedProducts.find(
-    (item) => item.slug === slug
-  );
+  const product = await getThoroughlyAnalysedProductBySlug(slug);
 
   if (!product) return notFound();
 
@@ -468,9 +466,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = thoroughlyAnalysedProducts.find(
-    (item) => item.slug === slug
-  );
+  const product = await getThoroughlyAnalysedProductBySlug(slug);
 
   if (!product) {
     return {
@@ -505,7 +501,8 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams(): Promise<PageProps["params"][]> {
-  return thoroughlyAnalysedProducts.map((product) =>
+  const products = await getAllThoroughlyAnalysedProducts();
+  return products.map((product) =>
     Promise.resolve({ slug: product.slug })
   );
 }
