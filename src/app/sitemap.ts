@@ -3,7 +3,7 @@ import { db } from "../../lib/firebaseAdmin";
 import { client } from "../sanity/lib/client";
 import { groq } from "next-sanity";
 import { APP_URL } from "@/constants";
-import { thoroughlyAnalysedProducts } from "./thoroughly-analysed/data";
+import { getAllThoroughlyAnalysedProducts } from "../../lib/thoroughlyAnalysed";
 
 export const dynamic = "force-dynamic";
 
@@ -64,7 +64,7 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Parallel fetch of all data sources
-  const [posts, categories] = await Promise.all([
+  const [posts, categories, thoroughlyAnalysedProducts] = await Promise.all([
     // Blog posts (Sanity)
     client.fetch(groq`*[_type == "post"
       && defined(slug.current)
@@ -76,7 +76,9 @@ async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
       "lastmod": coalesce(dateModified, publishedAt)
     }`),
     // Categories (Firestore)
-    fetchCategories()
+    fetchCategories(),
+    // Thoroughly Analysed (Supabase)
+    getAllThoroughlyAnalysedProducts()
   ]);
 
   const postEntries: SitemapEntry[] = posts.map((post: { slug: string; lastmod?: string }) => ({
