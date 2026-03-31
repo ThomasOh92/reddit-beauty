@@ -82,29 +82,47 @@ import { supabase } from "./supabaseClient";
 import type { ThoroughlyAnalysedProduct } from "@/app/thoroughly-analysed/types";
 
 export async function getAllThoroughlyAnalysedProducts(): Promise<ThoroughlyAnalysedProduct[]> {
-  // SELECT all, map snake_case DB columns to camelCase types
+  // SELECT all, ordered by created_at ASC (preserves original array order)
+  // map snake_case DB columns to camelCase types
+  // Cast molecules JSONB to EvidenceMolecule[] (trusted curator-managed data)
+  // Throw on query error (fail build loudly)
 }
 
 export async function getThoroughlyAnalysedProductBySlug(slug: string): Promise<ThoroughlyAnalysedProduct | null> {
   // SELECT by slug, map to type
+  // Throw on query error
 }
 ```
 
-Column mapping (DB → TypeScript):
+### Column Mapping (DB → TypeScript)
 - `image_url` → `imageUrl`
 - `product_link` → `productLink`
 - `last_checked` → `lastChecked`
 - `curator_note` → `curatorNote`
+
+### Design Decisions
+- **Ordering:** `ORDER BY created_at ASC` to preserve insertion order
+- **JSONB typing:** Simple `as EvidenceMolecule[]` cast — data is written by our own curator tooling, not user input
+- **Error handling:** Throw on Supabase errors so builds fail loudly rather than producing empty pages
 
 ## Consumer Changes
 
 | File | Current Import | New Import | Other Changes |
 |------|---------------|------------|---------------|
 | `src/app/thoroughly-analysed/page.tsx` | `./data` | `@/lib/thoroughlyAnalysed` | Make component async, await data |
-| `src/app/thoroughly-analysed/[slug]/page.tsx` | `../data` | `@/lib/thoroughlyAnalysed` + `../types` | Await data in page and generateStaticParams |
+| `src/app/thoroughly-analysed/[slug]/page.tsx` | `../data` | `@/lib/thoroughlyAnalysed` + `../types` | Await data in page, generateStaticParams, and generateMetadata |
 | `src/components/thoroughly-analysed-grid.tsx` | `@/app/thoroughly-analysed/data` | `@/lib/thoroughlyAnalysed` | Make component async, await data |
 | `src/app/sitemap.ts` | `./thoroughly-analysed/data` | `@/lib/thoroughlyAnalysed` | Await data |
-| `src/app/admin/thoroughly-analysed/page.tsx` | `../../thoroughly-analysed/data` | `@/lib/thoroughlyAnalysed` + types | Await data |
+| `src/app/admin/thoroughly-analysed/page.tsx` | `../../thoroughly-analysed/data` | Direct Supabase client call + `../types` | Client-side fetch (see note below) |
+
+### Admin Page Note
+
+The admin page is a `"use client"` component, so it cannot use the async server-side data access module directly. Instead, it will:
+1. Import `supabase` from `@/lib/supabaseClient` directly
+2. Fetch products client-side in a `useEffect` with the same query/mapping logic
+3. Import types only from `../types`
+
+This is acceptable because (a) the admin page is being moved to a separate project soon, and (b) the data is publicly readable via RLS anyway.
 
 ## Seed Script: `scripts/seed-thoroughly-analysed.ts`
 
@@ -115,7 +133,7 @@ One-time script that:
 
 Run: `npx tsx scripts/seed-thoroughly-analysed.ts`
 
-Requires a Supabase client with insert permissions (service role key via env var for the seed script only, since RLS only allows SELECT for anon).
+The script creates its own Supabase client using `SUPABASE_SERVICE_ROLE_KEY` env var (not the publishable key from `supabaseClient.ts`), since RLS only allows SELECT for the anon role.
 
 ## Deletion
 
