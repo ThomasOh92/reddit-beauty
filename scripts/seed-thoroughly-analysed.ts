@@ -33,6 +33,10 @@ async function seed() {
     process.exit(1);
   }
 
+  if (!data) {
+    console.log("Upsert succeeded but returned no data.");
+    return;
+  }
   console.log(`Seeded ${data.length} products:`);
   data.forEach((row) => console.log(`  - ${row.slug}`));
 }
