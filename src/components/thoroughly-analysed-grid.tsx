@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { APP_URL } from "@/constants";
-import { thoroughlyAnalysedProducts } from "@/app/thoroughly-analysed/data";
+import { getAllThoroughlyAnalysedProducts } from "../../lib/thoroughlyAnalysed";
 
-const featuredProducts = thoroughlyAnalysedProducts.map((product) => ({
-  name: product.name,
-  slug: product.slug,
-  imageUrl: product.imageUrl,
-  categoryLabel: product.category,
-}));
+export default async function ThoroughlyAnalysedGrid() {
+  const products = await getAllThoroughlyAnalysedProducts();
+  const featuredProducts = products.map((product) => ({
+    name: product.name,
+    slug: product.slug,
+    imageUrl: product.imageUrl,
+    categoryLabel: product.category,
+  }));
 
-export default function ThoroughlyAnalysedGrid() {
   return (
     <section className="mb-6">
       <div className="flex items-center justify-center gap-2 mb-2">
