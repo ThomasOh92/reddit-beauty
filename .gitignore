@@ -49,6 +49,3 @@ src/app/api/admin/
 scripts/
 docs/
 
-# windows
-Thumbs.db
-Desktop.ini
