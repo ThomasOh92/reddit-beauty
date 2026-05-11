@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAllThoroughlyAnalysedProducts } from "../../../lib/thoroughlyAnalysed";
 
+export const revalidate = 86400;
+
 export default async function ThoroughlyAnalysedIndexPage() {
 	const thoroughlyAnalysedProducts = await getAllThoroughlyAnalysedProducts();
 

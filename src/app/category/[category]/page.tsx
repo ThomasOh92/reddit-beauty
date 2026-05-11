@@ -10,7 +10,7 @@ import { cache, Fragment } from "react";
 import { PdfGuideOverlay } from '@/components/pdf-guide-overlay';
 
 export const dynamicParams = true;
-export const revalidate = 7200; // optional, for ISR support
+export const revalidate = 86400; // optional, for ISR support
 
 type CategoryPageProps = Promise<{
   category: string;

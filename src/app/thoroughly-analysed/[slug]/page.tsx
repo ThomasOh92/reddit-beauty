@@ -9,6 +9,8 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export const revalidate = 86400;
+
 const baseUrl = async () => APP_URL;
 
 const isInstagramUrl = (url: string) => {

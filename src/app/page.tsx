@@ -12,7 +12,7 @@ import { PdfGuideOverlay } from "@/components/pdf-guide-overlay";
 import ThoroughlyAnalysedGrid from "@/components/thoroughly-analysed-grid";
 
 export const dynamicParams = true;
-export const revalidate = 7200;
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   alternates: {

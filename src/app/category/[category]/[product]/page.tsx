@@ -9,7 +9,7 @@ import { shortenProductName } from "../../../../../lib/shortenProductName";
 import Link from "next/link";
 import { SentimentBar } from "@/components/sentimentBar";
 export const dynamicParams = true;
-export const revalidate = 7200;
+export const revalidate = 86400;
 
 type ProductPageProps = Promise<{
   category: string;

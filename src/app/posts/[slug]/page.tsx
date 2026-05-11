@@ -11,7 +11,7 @@ import { APP_URL } from "@/constants";
 
 // 👇 Static mode for SEO
 export const dynamicParams = true;
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 const builder = imageUrlBuilder(client);
 function urlFor(source: string) {

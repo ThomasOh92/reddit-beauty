@@ -9,7 +9,7 @@ import { Post } from "../../types";
 import type { Metadata } from "next";
 
 export const dynamicParams = true;
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 // Basic SEO metadata for the posts index page
 export const metadata: Metadata = {

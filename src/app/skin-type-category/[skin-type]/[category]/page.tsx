@@ -13,7 +13,7 @@ import { getProductIdToSlugMapForCategory } from "../../../../../lib/getProductS
 import { getCategoryProductsByIds } from "../../../../../lib/getCategoryProductsByIds";
 
 export const dynamicParams = true;
-export const revalidate = 7200;
+export const revalidate = 86400;
 
 type SkinTypeCategoryPageProps = Promise<{
   // Next param key is derived from folder name: `[skin-type]`
